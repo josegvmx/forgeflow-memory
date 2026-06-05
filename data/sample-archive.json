@@ -1,0 +1,128 @@
+[
+  {
+    "scenarioId": "scenario-alpha-001",
+    "nodeId": "machine-A1",
+    "cycle": 12,
+    "eventType": "machine_failure",
+    "mode": "heuristic",
+    "content": "Machine A1 failed due to overheating. Production halted on line 1. Estimated downtime 3 cycles.",
+    "metadata": { "severity": "high", "downtime_cycles": 3, "cause": "overheating" }
+  },
+  {
+    "scenarioId": "scenario-alpha-001",
+    "nodeId": "machine-B2",
+    "cycle": 13,
+    "eventType": "routing_adjustment",
+    "mode": "heuristic",
+    "content": "Rerouted jobs from A1 to B2 to compensate for A1 failure. B2 load increased by 40%.",
+    "metadata": { "source_node": "machine-A1", "target_node": "machine-B2", "load_increase_pct": 40 }
+  },
+  {
+    "scenarioId": "scenario-alpha-001",
+    "nodeId": "machine-B2",
+    "cycle": 15,
+    "eventType": "machine_failure",
+    "mode": "heuristic",
+    "content": "Machine B2 failed due to overload following rerouting from A1. Cascade failure on line 2.",
+    "metadata": { "severity": "critical", "downtime_cycles": 5, "cause": "overload", "triggered_by": "machine-A1" }
+  },
+  {
+    "scenarioId": "scenario-alpha-001",
+    "nodeId": "coordinator-C1",
+    "cycle": 16,
+    "eventType": "decision",
+    "mode": "ai",
+    "content": "AI coordinator decided to split workload across C1 and D3 instead of single reroute, preventing further cascade.",
+    "metadata": { "nodes_involved": ["machine-C1", "machine-D3"], "outcome": "success" }
+  },
+  {
+    "scenarioId": "scenario-alpha-001",
+    "nodeId": "coordinator-C1",
+    "cycle": 20,
+    "eventType": "coalition",
+    "mode": "ai",
+    "content": "Coalition formed between C1, D3, and E2 to balance load after A1 and B2 downtime. Throughput recovered to 85%.",
+    "metadata": { "members": ["machine-C1", "machine-D3", "machine-E2"], "throughput_pct": 85 }
+  },
+  {
+    "scenarioId": "scenario-beta-002",
+    "nodeId": "machine-A1",
+    "cycle": 5,
+    "eventType": "machine_failure",
+    "mode": "ai",
+    "content": "Machine A1 experienced a sensor fault. AI mode predicted failure 2 cycles early and pre-emptively shifted load.",
+    "metadata": { "severity": "low", "downtime_cycles": 1, "cause": "sensor_fault", "predicted": true }
+  },
+  {
+    "scenarioId": "scenario-beta-002",
+    "nodeId": "machine-D3",
+    "cycle": 6,
+    "eventType": "routing_adjustment",
+    "mode": "ai",
+    "content": "Proactive reroute from A1 to D3 and E2 before failure confirmed. No production stoppage.",
+    "metadata": { "source_node": "machine-A1", "target_nodes": ["machine-D3", "machine-E2"], "stoppage": false }
+  },
+  {
+    "scenarioId": "scenario-beta-002",
+    "nodeId": "coordinator-C1",
+    "cycle": 8,
+    "eventType": "decision",
+    "mode": "ai",
+    "content": "AI coordinator decided to keep A1 offline for full maintenance rather than partial repair, avoiding a repeat failure.",
+    "metadata": { "outcome": "preventive_maintenance", "risk_reduction": "high" }
+  },
+  {
+    "scenarioId": "scenario-beta-002",
+    "nodeId": "machine-E2",
+    "cycle": 10,
+    "eventType": "machine_failure",
+    "mode": "ai",
+    "content": "Machine E2 failed unexpectedly despite low load. Root cause: worn spindle undetected by sensors.",
+    "metadata": { "severity": "medium", "downtime_cycles": 2, "cause": "mechanical_wear", "predicted": false }
+  },
+  {
+    "scenarioId": "scenario-beta-002",
+    "nodeId": "coordinator-C1",
+    "cycle": 11,
+    "eventType": "coalition",
+    "mode": "ai",
+    "content": "Emergency coalition between C1 and F1 to absorb E2 workload. Throughput maintained at 78%.",
+    "metadata": { "members": ["machine-C1", "machine-F1"], "throughput_pct": 78, "trigger": "machine-E2 failure" }
+  },
+  {
+    "scenarioId": "scenario-gamma-003",
+    "nodeId": "machine-F1",
+    "cycle": 3,
+    "eventType": "routing_adjustment",
+    "mode": "heuristic",
+    "content": "Heuristic rerouted all jobs from F1 to G2 due to scheduled maintenance window.",
+    "metadata": { "reason": "scheduled_maintenance", "target_node": "machine-G2" }
+  },
+  {
+    "scenarioId": "scenario-gamma-003",
+    "nodeId": "machine-G2",
+    "cycle": 4,
+    "eventType": "machine_failure",
+    "mode": "heuristic",
+    "content": "G2 failed under unexpected load spike from F1 reroute. Heuristic did not account for G2 current load.",
+    "metadata": { "severity": "high", "downtime_cycles": 4, "cause": "load_spike", "triggered_by": "machine-F1" }
+  },
+  {
+    "scenarioId": "scenario-gamma-003",
+    "nodeId": "coordinator-C1",
+    "cycle": 5,
+    "eventType": "decision",
+    "mode": "heuristic",
+    "content": "Heuristic coordinator defaulted to idle machine H3. Suboptimal: H3 is geographically distant, adding transit latency.",
+    "metadata": { "chosen_node": "machine-H3", "outcome": "suboptimal", "latency_added_cycles": 2 }
+  },
+  {
+    "scenarioId": "scenario-gamma-003",
+    "nodeId": "coordinator-C1",
+    "cycle": 9,
+    "eventType": "coalition",
+    "mode": "heuristic",
+    "content": "Heuristic coalition attempted between H3 and I4 but dissolved after 2 cycles due to coordination overhead.",
+    "metadata": { "members": ["machine-H3", "machine-I4"], "duration_cycles": 2, "outcome": "dissolved" }
+  }
+]
