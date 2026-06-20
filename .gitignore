@@ -21,3 +21,8 @@ Thumbs.db
 
 # Test output
 coverage/
+
+# Local Postman / test collections
+ForgeFlowMemoryUtils
+MemoryLayers API
+Queryng-data-memory

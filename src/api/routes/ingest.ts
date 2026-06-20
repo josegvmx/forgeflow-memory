@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { ingestArchive } from '../../ingest/pipeline.js';
+import { clearRecommendationCache } from '../../store/recommendationCache.js';
 import type { ReasoningEvent } from '../../types.js';
 
 const ingestRoute = new Hono();
@@ -40,6 +41,12 @@ ingestRoute.post('/', async (c) => {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     return c.json({ error: `Ingest failed: ${message}` }, 500);
+  }
+
+  // Invalidate recommendation cache — new data may change past recommendations
+  const invalidated = await clearRecommendationCache();
+  if (invalidated > 0) {
+    process.stderr.write(`Cleared ${invalidated} cached recommendation(s) after ingest.\n`);
   }
 
   return c.json({ ingested: archive.length });

@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS reasoning_events (
                   'machine_failure',
                   'routing_adjustment',
                   'decision',
-                  'coalition'
+                  'coalition',
+                  'recovery'
                 )),
 
   -- 'heuristic' | 'ai'
@@ -63,3 +64,27 @@ CREATE INDEX IF NOT EXISTS reasoning_events_scenario_type_idx
 -- Fast filtering by node (useful for genetic-inheritance queries)
 CREATE INDEX IF NOT EXISTS reasoning_events_node_idx
   ON reasoning_events (node_id);
+
+-- ============================================================
+-- Recommendation cache
+-- Stores synthesised recommendations keyed by failure pattern.
+-- Same (scenario, machine, failure type, mode) = same answer,
+-- so we skip the RAG + LLM call on repeated lookups.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS recommendations (
+  id             UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  scenario_id    TEXT        NOT NULL,
+  machine_id     TEXT        NOT NULL,
+  failure_type   TEXT        NOT NULL,
+  mode           TEXT        NOT NULL CHECK (mode IN ('heuristic', 'ai')),
+  recommendation TEXT        NOT NULL,
+  hit_count      INTEGER     NOT NULL DEFAULT 1,   -- how many times this was served from cache
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+  -- One cached recommendation per failure pattern + mode
+  UNIQUE (scenario_id, machine_id, failure_type, mode)
+);
+
+CREATE INDEX IF NOT EXISTS recommendations_lookup_idx
+  ON recommendations (scenario_id, machine_id, failure_type, mode);
