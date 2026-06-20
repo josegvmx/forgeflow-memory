@@ -6,7 +6,7 @@ export interface ReasoningEvent {
   scenarioId: string;
   nodeId: string;
   cycle: number;
-  eventType: 'machine_failure' | 'routing_adjustment' | 'decision' | 'coalition';
+  eventType: 'machine_failure' | 'routing_adjustment' | 'decision' | 'coalition' | 'recovery';
   mode: 'heuristic' | 'ai';
   /** Human-readable description — this is what gets embedded */
   content: string;

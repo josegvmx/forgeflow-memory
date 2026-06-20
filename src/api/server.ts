@@ -4,6 +4,7 @@ import { Hono } from 'hono';
 import { logger } from 'hono/logger';
 import ingestRoute from './routes/ingest.js';
 import queryRoute from './routes/query.js';
+import auditRoute from './routes/audit.js';
 
 const app = new Hono();
 
@@ -16,6 +17,9 @@ app.get('/health', (c) => c.json({ status: 'ok' }));
 // Routes
 app.route('/ingest', ingestRoute);
 app.route('/query', queryRoute);
+
+// Audit routes
+app.route('/', auditRoute);
 
 // 404 fallback
 app.notFound((c) => c.json({ error: 'Not found' }, 404));
