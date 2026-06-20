@@ -9,19 +9,22 @@
     "start": "node dist/api/server.js",
     "db:migrate": "psql $DATABASE_URL -f src/store/schema.sql",
     "seed": "tsx tests/seed.ts",
-    "export": "tsx scripts/export.ts"
+    "export": "tsx scripts/export.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.3",
     "@hono/node-server": "^1.12.0",
     "dotenv": "^16.4.5",
     "hono": "^4.4.0",
     "pgvector": "^0.2.0",
-    "postgres": "^3.4.4",
-    "@anthropic-ai/sdk": "^0.24.3"
+    "postgres": "^3.4.4"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
     "tsx": "^4.16.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.9"
   }
 }

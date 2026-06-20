@@ -48,12 +48,29 @@ export interface ScenarioConfig {
 }
 
 /**
+ * Recursively sort all object keys so key insertion order
+ * never affects the hash. Arrays are preserved as-is.
+ */
+function sortKeysDeep(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(sortKeysDeep);
+  if (value !== null && typeof value === 'object') {
+    return Object.keys(value as object)
+      .sort()
+      .reduce<Record<string, unknown>>((acc, k) => {
+        acc[k] = sortKeysDeep((value as Record<string, unknown>)[k]);
+        return acc;
+      }, {});
+  }
+  return value;
+}
+
+/**
  * Generate a stable 12-char hex ID for a scenario config.
- * The config is sorted before hashing so key ordering doesn't
- * produce different IDs for equivalent configs.
+ * All object keys are sorted recursively before hashing so
+ * key ordering never produces a different ID for equivalent configs.
  */
 export function generateScenarioId(config: ScenarioConfig): string {
-  const stable = JSON.stringify(config, Object.keys(config).sort());
+  const stable = JSON.stringify(sortKeysDeep(config));
   const hash = createHash('sha256')
     .update(stable)
     .digest('hex')
