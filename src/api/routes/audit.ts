@@ -59,7 +59,7 @@ auditRoute.post('/events', async (c) => {
   }
 
   try {
-    await ingestAuditEvent(body as MachineFailureEvent | RoutingAdjustmentEvent | RecoveryOutcomeEvent);
+    await ingestAuditEvent(body as unknown as MachineFailureEvent | RoutingAdjustmentEvent | RecoveryOutcomeEvent);
     return c.json({ ok: true });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
