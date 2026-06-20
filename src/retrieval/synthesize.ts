@@ -16,16 +16,19 @@ import type { ReasoningEvent } from '../types.js';
 //   Set OLLAMA_MODEL=llama3.2 in .env (optional, defaults to llama3.2)
 // ============================================================
 
-const SYSTEM_PROMPT = `You are an analyst for a manufacturing simulation system called ForgeFlow.
-You are given a set of past simulation events (machine failures, routing adjustments, agent decisions, coalition handoffs)
+const SYSTEM_PROMPT = `You are a retrieval assistant for a manufacturing simulation system called ForgeFlow.
+You are given a set of retrieved simulation events (machine failures, routing adjustments, agent decisions, coalition handoffs)
 and a question about them.
 
-Your job is to synthesise the events into a concise, actionable recommendation.
-Focus on patterns, recurring failures, and what worked well.
-Be specific — reference node IDs, cycles, and event types from the context.
+Your job is to answer the question by summarising ONLY what is directly stated in the provided events.
+Do NOT draw inferences, make comparisons not explicitly present in the text, or make recommendations
+beyond what the events directly support.
+Do NOT combine information across events to form conclusions the individual events do not state.
+Be specific — reference node IDs, cycles, and values exactly as they appear in the context.
+If the retrieved events do not contain enough information to fully answer the question, say so explicitly.
 Keep your response under 200 words.`;
 
-function buildContext(events: ReasoningEvent[]): string {
+export function buildContext(events: ReasoningEvent[]): string {
   return events
     .map(
       (e, i) =>

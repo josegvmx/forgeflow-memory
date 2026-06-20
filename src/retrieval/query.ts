@@ -1,6 +1,6 @@
 import db from '../store/client.js';
 import { embed } from '../ingest/embedder.js';
-import { synthesize } from './synthesize.js';
+import { synthesize, buildContext } from './synthesize.js';
 import type { MemoryQuery, MemoryResult, ReasoningEvent } from '../types.js';
 
 // ============================================================
@@ -85,5 +85,10 @@ export async function queryMemory(query: MemoryQuery): Promise<MemoryResult> {
   const events = rows.map(rowToEvent);
   const summary = await synthesize(query.context, events);
 
-  return { events, summary };
+  const result: import('../types.js').MemoryResult = { events, summary };
+  if (query.debug) {
+    result._debugContext = buildContext(events);
+  }
+
+  return result;
 }

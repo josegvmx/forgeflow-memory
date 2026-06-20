@@ -1,0 +1,277 @@
+{
+  "_comment": "Golden fixture set for forgeflow-memory eval pipeline. Scenario: a 50-cycle assembly run where M2 suffers a bearing breakdown, triggering a cascade of rerouting decisions across AI and heuristic modes, followed by M1 scheduled maintenance. Events are hand-crafted so each query has a small, known set of chunks that must be retrieved.",
+
+  "scenarioId": "scenario_eval_001",
+
+  "events": [
+    {
+      "_key": "evt-01",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M2",
+      "cycle": 12,
+      "eventType": "machine_failure",
+      "mode": "ai",
+      "content": "Machine M2 (assembly station) suffered a bearing breakdown at cycle 12. Capacity loss: 80%. Products P1 and P3 can no longer be processed at M2. Estimated repair window: 14-18 cycles depending on spare part availability.",
+      "metadata": {
+        "machineId": "M2",
+        "failureType": "breakdown",
+        "affectedCapacity": 80,
+        "affectedProducts": ["P1", "P3"],
+        "estimatedRepairCycles": 16
+      }
+    },
+    {
+      "_key": "evt-02",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M3",
+      "cycle": 13,
+      "eventType": "routing_adjustment",
+      "mode": "ai",
+      "content": "AI agent rerouted product P1 from M2 to M3 at cycle 13 following M2 bearing breakdown. Decision latency: 1 cycle. Throughput dropped from 200 units/cycle to 160 units/cycle due to M3 lower processing speed. No backlog observed.",
+      "metadata": {
+        "triggeredByFailure": "M2",
+        "fromMachine": "M2",
+        "toMachine": "M3",
+        "productsRerouted": ["P1"],
+        "throughputBefore": 200,
+        "throughputAfter": 160,
+        "decisionLatencyCycles": 1
+      }
+    },
+    {
+      "_key": "evt-03",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M4",
+      "cycle": 15,
+      "eventType": "routing_adjustment",
+      "mode": "heuristic",
+      "content": "Heuristic controller rerouted product P3 from M2 to M4 at cycle 15. Decision latency: 3 cycles — heuristic required full utilisation scan before committing. Throughput dropped from 150 units/cycle to 105 units/cycle. A 2-cycle backlog of P3 accumulated during the delay.",
+      "metadata": {
+        "triggeredByFailure": "M2",
+        "fromMachine": "M2",
+        "toMachine": "M4",
+        "productsRerouted": ["P3"],
+        "throughputBefore": 150,
+        "throughputAfter": 105,
+        "decisionLatencyCycles": 3,
+        "backlogCycles": 2
+      }
+    },
+    {
+      "_key": "evt-04",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M1",
+      "cycle": 20,
+      "eventType": "machine_failure",
+      "mode": "heuristic",
+      "content": "Machine M1 entered a scheduled maintenance window at cycle 20. Capacity reduced by 30% for an estimated 20 cycles. Product P2 is the primary affected product. This maintenance was pre-planned; no emergency response required.",
+      "metadata": {
+        "machineId": "M1",
+        "failureType": "maintenance",
+        "affectedCapacity": 30,
+        "affectedProducts": ["P2"],
+        "plannedDurationCycles": 20
+      }
+    },
+    {
+      "_key": "evt-05",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "coordinator-C1",
+      "cycle": 21,
+      "eventType": "decision",
+      "mode": "heuristic",
+      "content": "Coalition coordinator C1 decided to delay the next P2 batch by 4 cycles at cycle 21 and buffer stock at warehouse W1. Reasoning: M3 is already absorbing P1 overflow from M2; routing P2 immediately would exceed M3 capacity threshold of 180 units/cycle.",
+      "metadata": {
+        "decisionType": "batch_delay",
+        "affectedProduct": "P2",
+        "bufferLocation": "W1",
+        "delayDurationCycles": 4,
+        "reasoningConstraint": "M3 capacity threshold 180 units/cycle"
+      }
+    },
+    {
+      "_key": "evt-06",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M3",
+      "cycle": 25,
+      "eventType": "routing_adjustment",
+      "mode": "heuristic",
+      "content": "Heuristic controller rerouted product P2 from M1 to M3 at cycle 25 after the 4-cycle buffer delay. Decision latency: 4 cycles from M1 degradation event. Throughput for P2 dropped from 180 units/cycle to 144 units/cycle. M3 is now handling P1 and P2 simultaneously at 88% utilisation.",
+      "metadata": {
+        "triggeredByFailure": "M1",
+        "fromMachine": "M1",
+        "toMachine": "M3",
+        "productsRerouted": ["P2"],
+        "throughputBefore": 180,
+        "throughputAfter": 144,
+        "decisionLatencyCycles": 4,
+        "m3UtilisationPct": 88
+      }
+    },
+    {
+      "_key": "evt-07",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M2",
+      "cycle": 28,
+      "eventType": "recovery",
+      "mode": "ai",
+      "content": "Machine M2 recovered at cycle 28 after 16 cycles of downtime following the bearing breakdown. Recovery strategy: spare_part_replacement. Total production lost during downtime: 480 units (P1 + P3 combined). M2 returned to full capacity immediately after repair.",
+      "metadata": {
+        "machineId": "M2",
+        "cyclesDowntime": 16,
+        "productionLost": 480,
+        "recoveryStrategy": "spare_part_replacement",
+        "successful": true,
+        "affectedProducts": ["P1", "P3"]
+      }
+    },
+    {
+      "_key": "evt-08",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M4",
+      "cycle": 35,
+      "eventType": "machine_failure",
+      "mode": "ai",
+      "content": "Machine M4 experienced a capacity reduction of 40% at cycle 35 due to thermal overload from sustained elevated throughput since cycle 15. Products P3 currently processed at M4 are at risk. Root cause: M4 was not designed to sustain 105 units/cycle for more than 18 consecutive cycles.",
+      "metadata": {
+        "machineId": "M4",
+        "failureType": "capacity_reduction",
+        "affectedCapacity": 40,
+        "affectedProducts": ["P3"],
+        "rootCause": "thermal_overload",
+        "sustainedCycles": 20
+      }
+    },
+    {
+      "_key": "evt-09",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "coordinator-C1",
+      "cycle": 38,
+      "eventType": "decision",
+      "mode": "ai",
+      "content": "AI coordinator decided to redistribute P3 load from M4 back to M2 at cycle 38, now that M2 has been fully recovered since cycle 28. Decision latency: 3 cycles from M4 degradation. Expected throughput recovery for P3: from 63 units/cycle back to full 150 units/cycle. M4 placed in cooldown for 5 cycles.",
+      "metadata": {
+        "decisionType": "load_redistribution",
+        "affectedProduct": "P3",
+        "fromMachine": "M4",
+        "toMachine": "M2",
+        "decisionLatencyCycles": 3,
+        "expectedThroughputRecovery": 150,
+        "m4CooldownCycles": 5
+      }
+    },
+    {
+      "_key": "evt-10",
+      "scenarioId": "scenario_eval_001",
+      "nodeId": "machine-M1",
+      "cycle": 40,
+      "eventType": "recovery",
+      "mode": "heuristic",
+      "content": "Machine M1 completed its scheduled maintenance window at cycle 40 after 20 cycles of reduced capacity. Recovery strategy: scheduled_maintenance_complete. Total production lost during maintenance: 360 units of P2 (30% capacity reduction × 20 cycles × 60 baseline units/cycle). M1 returned to full capacity at cycle 40.",
+      "metadata": {
+        "machineId": "M1",
+        "cyclesDowntime": 20,
+        "productionLost": 360,
+        "recoveryStrategy": "scheduled_maintenance_complete",
+        "successful": true,
+        "affectedProducts": ["P2"]
+      }
+    }
+  ],
+
+  "queries": [
+    {
+      "id": "q1",
+      "question": "What caused M2 to go offline and how long was it down before recovering?",
+      "expectedChunkKeys": ["evt-01", "evt-07"],
+      "expectedFactsPresent": [
+        "bearing breakdown",
+        "cycle 12",
+        "16 cycles",
+        "spare_part_replacement",
+        "480 units"
+      ],
+      "notExpectedFacts": [
+        "thermal overload",
+        "360 units",
+        "W1"
+      ],
+      "_rationale": "Tests whether the failure event and its matching recovery event are retrieved together. evt-01 and evt-07 share machineId=M2 and the content explicitly names the cause and recovery strategy. notExpectedFacts are unique to unrelated events: thermal overload (evt-08/M4), 360 units (evt-10/M1 loss), W1 (evt-05/buffer)."
+    },
+    {
+      "id": "q2",
+      "question": "Compare the routing decision latency between AI and heuristic mode after the M2 failure.",
+      "expectedChunkKeys": ["evt-02", "evt-03"],
+      "expectedFactsPresent": [
+        "1 cycle",
+        "3 cycles",
+        "AI",
+        "heuristic",
+        "P1",
+        "P3"
+      ],
+      "notExpectedFacts": [
+        "thermal overload",
+        "360 units",
+        "W1"
+      ],
+      "_rationale": "Tests semantic separation between two routing events that share triggeredByFailure=M2 but differ in mode and latency. Good for evaluating whether the model correctly contrasts AI (1 cycle) vs heuristic (3 cycles). notExpectedFacts are unique to unrelated events: thermal overload (evt-08/M4), 360 units (evt-10/M1 loss), W1 (evt-05/buffer)."
+    },
+    {
+      "id": "q3",
+      "question": "Why was the P2 batch delayed and where was it buffered?",
+      "expectedChunkKeys": ["evt-04", "evt-05"],
+      "expectedFactsPresent": [
+        "W1",
+        "4 cycles",
+        "M3 capacity threshold",
+        "180 units/cycle",
+        "P2"
+      ],
+      "notExpectedFacts": [
+        "thermal overload",
+        "spare_part_replacement",
+        "cooldown"
+      ],
+      "_rationale": "Tests whether the maintenance event (the cause) and the coordinator decision (the response) are retrieved together. Faithfulness check: the answer must mention W1 and the M3 capacity constraint — both are only in these two events. Note: 'M2' was intentionally removed from notExpectedFacts because evt-05 itself mentions M2 ('M3 is already absorbing P1 overflow from M2'), so it legitimately appears in a faithful summary."
+    },
+    {
+      "id": "q4",
+      "question": "What triggered the M4 capacity reduction and how did the AI agent respond?",
+      "expectedChunkKeys": ["evt-08", "evt-09"],
+      "expectedFactsPresent": [
+        "thermal overload",
+        "20 consecutive cycles",
+        "M2",
+        "cycle 38",
+        "3 cycles",
+        "cooldown"
+      ],
+      "notExpectedFacts": [
+        "360 units",
+        "W1",
+        "scheduled maintenance"
+      ],
+      "_rationale": "Tests whether retrieval connects the M4 failure (evt-08, cycle 35) to the AI redistribution decision (evt-09, cycle 38). Both reference M4 and P3 but use different vocabulary (thermal_overload vs load_redistribution). 'bearing breakdown' was removed from notExpectedFacts — it's causally relevant (P3 was at M4 because of M2's bearing breakdown) and evt-07 may legitimately be retrieved as context for why P3 could return to M2."
+    },
+    {
+      "id": "q5",
+      "question": "How much total production was lost across all machine recovery events?",
+      "expectedChunkKeys": ["evt-07", "evt-10"],
+      "expectedFactsPresent": [
+        "480 units",
+        "360 units",
+        "M2",
+        "M1",
+        "spare_part_replacement",
+        "scheduled_maintenance_complete"
+      ],
+      "notExpectedFacts": [
+        "W1",
+        "88% utilisation",
+        "cooldown"
+      ],
+      "_rationale": "Tests multi-hop aggregation: the answer (840 total units lost) requires combining two recovery events. Faithfulness check: the model must not invent a total not derivable from the retrieved chunks. notExpectedFacts are terms unique to coordinator/routing events (W1=evt-05 buffer, 88% utilisation=evt-06 M3 load, cooldown=evt-09 M4 cooldown) — none of these belong in a production-loss summary. 'thermal overload' was removed: evt-08 (M4 capacity_reduction) is semantically close enough to 'production lost' queries that it may legitimately appear in topK=4 results."
+    }
+  ]
+}
