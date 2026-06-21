@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { withRetry } from '../lib/retry.js';
 
 // ============================================================
 // Embedder
@@ -12,17 +13,19 @@ const VOYAGE_API_URL = 'https://api.voyageai.com/v1/embeddings';
 const OPENAI_API_URL = 'https://api.openai.com/v1/embeddings';
 
 async function embedVoyage(text: string): Promise<number[]> {
-  const res = await fetch(VOYAGE_API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.VOYAGE_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'voyage-code-2',
-      input: text,
-    }),
-  });
+  const res = await withRetry(() =>
+    fetch(VOYAGE_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.VOYAGE_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'voyage-code-2',
+        input: text,
+      }),
+    })
+  );
 
   if (!res.ok) {
     const err = await res.text();
@@ -34,17 +37,19 @@ async function embedVoyage(text: string): Promise<number[]> {
 }
 
 async function embedOpenAI(text: string): Promise<number[]> {
-  const res = await fetch(OPENAI_API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'text-embedding-3-small',
-      input: text,
-    }),
-  });
+  const res = await withRetry(() =>
+    fetch(OPENAI_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'text-embedding-3-small',
+        input: text,
+      }),
+    })
+  );
 
   if (!res.ok) {
     const err = await res.text();

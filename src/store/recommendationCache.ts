@@ -1,4 +1,4 @@
-import db from './client.js';
+import db, { wrapDbError } from './client.js';
 
 // ============================================================
 // Recommendation Cache
@@ -27,18 +27,21 @@ interface CacheRow {
  * Increments hit_count on each cache hit.
  */
 export async function getCachedRecommendation(key: CacheKey): Promise<string | null> {
-  const rows = await db<CacheRow[]>`
-    UPDATE recommendations
-    SET hit_count = hit_count + 1,
-        updated_at = now()
-    WHERE scenario_id  = ${key.scenarioId}
-      AND machine_id   = ${key.machineId}
-      AND failure_type = ${key.failureType}
-      AND mode         = ${key.mode}
-    RETURNING id, recommendation, hit_count, created_at, updated_at
-  `;
-
-  return rows[0]?.recommendation ?? null;
+  try {
+    const rows = await db<CacheRow[]>`
+      UPDATE recommendations
+      SET hit_count = hit_count + 1,
+          updated_at = now()
+      WHERE scenario_id  = ${key.scenarioId}
+        AND machine_id   = ${key.machineId}
+        AND failure_type = ${key.failureType}
+        AND mode         = ${key.mode}
+      RETURNING id, recommendation, hit_count, created_at, updated_at
+    `;
+    return rows[0]?.recommendation ?? null;
+  } catch (err) {
+    wrapDbError(err);
+  }
 }
 
 /**
@@ -49,14 +52,18 @@ export async function setCachedRecommendation(
   key: CacheKey,
   recommendation: string
 ): Promise<void> {
-  await db`
-    INSERT INTO recommendations (scenario_id, machine_id, failure_type, mode, recommendation)
-    VALUES (${key.scenarioId}, ${key.machineId}, ${key.failureType}, ${key.mode}, ${recommendation})
-    ON CONFLICT (scenario_id, machine_id, failure_type, mode)
-    DO UPDATE SET
-      recommendation = EXCLUDED.recommendation,
-      updated_at     = now()
-  `;
+  try {
+    await db`
+      INSERT INTO recommendations (scenario_id, machine_id, failure_type, mode, recommendation)
+      VALUES (${key.scenarioId}, ${key.machineId}, ${key.failureType}, ${key.mode}, ${recommendation})
+      ON CONFLICT (scenario_id, machine_id, failure_type, mode)
+      DO UPDATE SET
+        recommendation = EXCLUDED.recommendation,
+        updated_at     = now()
+    `;
+  } catch (err) {
+    wrapDbError(err);
+  }
 }
 
 /**
@@ -65,12 +72,16 @@ export async function setCachedRecommendation(
  * so stale recommendations don't persist.
  */
 export async function invalidateScenarioCache(scenarioId: string): Promise<number> {
-  const rows = await db`
-    DELETE FROM recommendations
-    WHERE scenario_id = ${scenarioId}
-    RETURNING id
-  `;
-  return rows.length;
+  try {
+    const rows = await db`
+      DELETE FROM recommendations
+      WHERE scenario_id = ${scenarioId}
+      RETURNING id
+    `;
+    return rows.length;
+  } catch (err) {
+    wrapDbError(err);
+  }
 }
 
 /**
@@ -78,6 +89,10 @@ export async function invalidateScenarioCache(scenarioId: string): Promise<numbe
  * Useful after a bulk ingest of new data.
  */
 export async function clearRecommendationCache(): Promise<number> {
-  const rows = await db`DELETE FROM recommendations RETURNING id`;
-  return rows.length;
+  try {
+    const rows = await db`DELETE FROM recommendations RETURNING id`;
+    return rows.length;
+  } catch (err) {
+    wrapDbError(err);
+  }
 }

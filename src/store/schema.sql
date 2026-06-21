@@ -57,7 +57,11 @@ CREATE INDEX IF NOT EXISTS reasoning_events_embedding_idx
   USING hnsw (embedding vector_cosine_ops)
   WITH (m = 16, ef_construction = 64);
 
--- Fast filtering by scenario + event type (used in POST /query)
+-- Fast filtering by scenario_id alone (used in audit summary + cache lookups)
+CREATE INDEX IF NOT EXISTS reasoning_events_scenario_id_idx
+  ON reasoning_events (scenario_id);
+
+-- Fast filtering by scenario + event type (used in POST /query with eventTypeFilter)
 CREATE INDEX IF NOT EXISTS reasoning_events_scenario_type_idx
   ON reasoning_events (scenario_id, event_type);
 

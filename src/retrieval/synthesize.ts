@@ -1,5 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { ReasoningEvent } from '../types.js';
+import { withRetry } from '../lib/retry.js';
+import { SYSTEM_PROMPT, buildUserMessage } from '../prompts/synthesize.js';
 
 // ============================================================
 // Synthesis — LLM summarises retrieved events into an
@@ -16,18 +18,6 @@ import type { ReasoningEvent } from '../types.js';
 //   Set OLLAMA_MODEL=llama3.2 in .env (optional, defaults to llama3.2)
 // ============================================================
 
-const SYSTEM_PROMPT = `You are a retrieval assistant for a manufacturing simulation system called ForgeFlow.
-You are given a set of retrieved simulation events (machine failures, routing adjustments, agent decisions, coalition handoffs)
-and a question about them.
-
-Your job is to answer the question by summarising ONLY what is directly stated in the provided events.
-Do NOT draw inferences, make comparisons not explicitly present in the text, or make recommendations
-beyond what the events directly support.
-Do NOT combine information across events to form conclusions the individual events do not state.
-Be specific — reference node IDs, cycles, and values exactly as they appear in the context.
-If the retrieved events do not contain enough information to fully answer the question, say so explicitly.
-Keep your response under 200 words.`;
-
 export function buildContext(events: ReasoningEvent[]): string {
   return events
     .map(
@@ -38,14 +28,15 @@ export function buildContext(events: ReasoningEvent[]): string {
     .join('\n---\n');
 }
 
-async function synthesizeWithAnthropic(question: string, context: string): Promise<string> {
-  const client = new Anthropic();
-  const message = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 512,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: `Retrieved events:\n\n${context}\n\nQuestion: ${question}` }],
-  });
+async function synthesizeWithAnthropic(question: string, context: string, client = new Anthropic()): Promise<string> {
+  const message = await withRetry(() =>
+    client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 512,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: buildUserMessage(question, context) }],
+    })
+  );
   const block = message.content[0];
   if (block.type !== 'text') throw new Error('Unexpected response type from Anthropic');
   return block.text;
@@ -55,18 +46,20 @@ async function synthesizeWithOllama(question: string, context: string): Promise<
   const baseUrl = process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434';
   const model   = process.env.OLLAMA_MODEL ?? 'llama3.2';
 
-  const res = await fetch(`${baseUrl}/api/chat`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model,
-      stream: false,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user',   content: `Retrieved events:\n\n${context}\n\nQuestion: ${question}` },
-      ],
-    }),
-  });
+  const res = await withRetry(() =>
+    fetch(`${baseUrl}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        stream: false,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user',   content: buildUserMessage(question, context) },
+        ],
+      }),
+    })
+  );
 
   if (!res.ok) {
     const err = await res.text();
@@ -83,7 +76,8 @@ async function synthesizeWithOllama(question: string, context: string): Promise<
  */
 export async function synthesize(
   question: string,
-  events: ReasoningEvent[]
+  events: ReasoningEvent[],
+  client = new Anthropic()
 ): Promise<string> {
   if (events.length === 0) {
     return 'No relevant events found in memory for this query.';
@@ -96,5 +90,5 @@ export async function synthesize(
     return synthesizeWithOllama(question, context);
   }
 
-  return synthesizeWithAnthropic(question, context);
+  return synthesizeWithAnthropic(question, context, client);
 }
