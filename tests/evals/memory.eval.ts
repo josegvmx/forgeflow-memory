@@ -213,11 +213,8 @@ describe('forgeflow-memory RAG eval — golden set', () => {
       });
 
       // ── Test 1: Recall ───────────────────────────────────────────────────────
-      it('recall ≥ 0.5 — at least half the expected chunks retrieved', () => {
-        if (!ready()) {
-          console.log(`  [${goldenQuery.id}] skipped — prerequisites not met`);
-          return;
-        }
+      it('recall ≥ 0.5 — at least half the expected chunks retrieved', (ctx) => {
+        if (!ready()) return ctx.skip();
         expect(
           recallScore,
           `Expected chunks not retrieved.\nFound: ${foundKeys.join(', ')}\nMissed: ${missedKeys.join(', ')}`
@@ -225,15 +222,9 @@ describe('forgeflow-memory RAG eval — golden set', () => {
       });
 
       // ── Test 2: Faithfulness ─────────────────────────────────────────────────
-      it('faithfulness score ≥ 0.7 — summary grounded in retrieved context', async () => {
-        if (!ready()) {
-          console.log(`  [${goldenQuery.id}] skipped — prerequisites not met`);
-          return;
-        }
-        if (!debugContext) {
-          console.log(`  [${goldenQuery.id}] skipped — no debug context returned`);
-          return;
-        }
+      it('faithfulness score ≥ 0.7 — summary grounded in retrieved context', async (ctx) => {
+        if (!ready()) return ctx.skip();
+        if (!debugContext) return ctx.skip();
 
         const judgment = await judgeRelevance(debugContext, summary);
 
@@ -250,8 +241,8 @@ describe('forgeflow-memory RAG eval — golden set', () => {
       });
 
       // ── Test 3: Negative fact leakage ────────────────────────────────────────
-      it('summary does not contain facts from other events (no cross-contamination)', () => {
-        if (!ready()) return;
+      it('summary does not contain facts from other events (no cross-contamination)', (ctx) => {
+        if (!ready()) return ctx.skip();
         expect(
           leakingFacts,
           `Summary mentions facts that belong to OTHER events:\n${leakingFacts.map((f) => `  - "${f}"`).join('\n')}`

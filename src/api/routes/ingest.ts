@@ -1,9 +1,23 @@
 import { Hono } from 'hono';
+import { z } from 'zod';
 import { ingestArchive } from '../../ingest/pipeline.js';
 import { clearRecommendationCache } from '../../store/recommendationCache.js';
-import type { ReasoningEvent } from '../../types.js';
 
 const ingestRoute = new Hono();
+
+const ReasoningEventSchema = z.object({
+  scenarioId: z.string(),
+  nodeId:     z.string(),
+  cycle:      z.number().int().nonnegative(),
+  eventType:  z.enum(['machine_failure', 'routing_adjustment', 'decision', 'coalition', 'recovery']),
+  mode:       z.enum(['heuristic', 'ai']),
+  content:    z.string().min(1),
+  metadata:   z.record(z.unknown()).optional(),
+});
+
+const IngestBody = z.object({
+  archive: z.array(ReasoningEventSchema).min(1),
+});
 
 /**
  * POST /ingest
@@ -11,27 +25,12 @@ const ingestRoute = new Hono();
  * Response: { ingested: number }
  */
 ingestRoute.post('/', async (c) => {
-  let body: { archive: ReasoningEvent[] };
-
-  try {
-    body = await c.req.json();
-  } catch {
-    return c.json({ error: 'Invalid JSON body' }, 400);
+  const raw = await c.req.json().catch(() => null);
+  const result = IngestBody.safeParse(raw);
+  if (!result.success) {
+    return c.json({ error: result.error.flatten() }, 400);
   }
-
-  const { archive } = body;
-
-  if (!Array.isArray(archive) || archive.length === 0) {
-    return c.json({ error: '`archive` must be a non-empty array of ReasoningEvents' }, 400);
-  }
-
-  // Basic shape validation on the first item — catches obviously wrong payloads
-  const sample = archive[0];
-  const required = ['scenarioId', 'nodeId', 'cycle', 'eventType', 'mode', 'content'];
-  const missing = required.filter((k) => !(k in sample));
-  if (missing.length > 0) {
-    return c.json({ error: `Missing required fields: ${missing.join(', ')}` }, 400);
-  }
+  const { archive } = result.data;
 
   try {
     await ingestArchive(archive, (done, total) => {

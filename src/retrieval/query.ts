@@ -1,4 +1,4 @@
-import db from '../store/client.js';
+import db, { wrapDbError } from '../store/client.js';
 import { embed } from '../ingest/embedder.js';
 import { synthesize, buildContext } from './synthesize.js';
 import type { MemoryQuery, MemoryResult, ReasoningEvent } from '../types.js';
@@ -61,26 +61,31 @@ export async function queryMemory(query: MemoryQuery): Promise<MemoryResult> {
       ? db`AND event_type = ANY(${query.eventTypeFilter})`
       : db``;
 
-  const rows = await db<EventRow[]>`
-    SELECT
-      id,
-      scenario_id,
-      node_id,
-      cycle,
-      event_type,
-      mode,
-      content,
-      metadata,
-      created_at,
-      embedding <=> ${JSON.stringify(queryEmbedding)}::vector AS distance
-    FROM reasoning_events
-    WHERE embedding IS NOT NULL
-    ${scenarioFilter}
-    ${nodeFilter}
-    ${typeFilter}
-    ORDER BY distance ASC
-    LIMIT ${query.topK}
-  `;
+  let rows: EventRow[];
+  try {
+    rows = await db<EventRow[]>`
+      SELECT
+        id,
+        scenario_id,
+        node_id,
+        cycle,
+        event_type,
+        mode,
+        content,
+        metadata,
+        created_at,
+        embedding <=> ${JSON.stringify(queryEmbedding)}::vector AS distance
+      FROM reasoning_events
+      WHERE embedding IS NOT NULL
+      ${scenarioFilter}
+      ${nodeFilter}
+      ${typeFilter}
+      ORDER BY distance ASC
+      LIMIT ${query.topK}
+    `;
+  } catch (err) {
+    wrapDbError(err);
+  }
 
   const events = rows.map(rowToEvent);
   const summary = await synthesize(query.context, events);

@@ -45,13 +45,10 @@ beforeEach(async () => {
 });
 
 // Helper: skip test when DB is unavailable
-const itDb = (name: string, fn: () => Promise<void>) =>
-  it(name, async () => {
-    if (!dbAvailable) {
-      console.log(`  [skipped — no DB] ${name}`);
-      return;
-    }
-    await fn();
+const itDb = (name: string, fn: (ctx: { skip: () => void }) => Promise<void>) =>
+  it(name, async (ctx) => {
+    if (!dbAvailable) return ctx.skip();
+    await fn(ctx);
   });
 
 describe('getCachedRecommendation', () => {
