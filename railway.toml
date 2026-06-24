@@ -3,7 +3,7 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "tsx scripts/migrate.ts && (tsx scripts/deploy-seed.ts &) && node dist/api/server.js"
+startCommand = "node dist/api/server.js"
 healthcheckPath = "/health"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"
