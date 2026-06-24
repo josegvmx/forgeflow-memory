@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { spawn } from 'child_process';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
@@ -49,6 +50,19 @@ const PORT = Number(process.env.PORT ?? 3001);
 
 serve({ fetch: app.fetch, port: PORT }, () => {
   console.log(`forgeflow-memory listening on http://localhost:${PORT}`);
+
+  // Run migration + seed in the background after the server is up.
+  // Spawned as a child process so the healthcheck is never blocked.
+  if (process.env.NODE_ENV !== 'test') {
+    const child = spawn(
+      'tsx',
+      ['scripts/migrate.ts', '&&', 'tsx', 'scripts/deploy-seed.ts'],
+      { shell: true, stdio: 'inherit' }
+    );
+    child.on('error', (err) =>
+      console.error('[startup] Background seed error (non-fatal):', err.message)
+    );
+  }
 });
 
 export default app;
