@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForgeFlow Memory — Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: #0f172a;
+      color: white;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-logo {
+      width: 32px; height: 32px;
+      background: #3b82f6;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .header h1 { font-size: 18px; font-weight: 600; }
+    .header-sub { font-size: 13px; color: #94a3b8; margin-left: auto; }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+
+    /* ── Tabs ── */
+    .tabs { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 2px solid #e2e8f0; }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #64748b;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      transition: color 0.15s;
+    }
+    .tab:hover { color: #1e293b; }
+    .tab.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+
+    /* ── Form elements ── */
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 13px; font-weight: 500; color: #475569; margin-bottom: 6px; }
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #1e293b;
+      background: white;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input[type=text]:focus, select:focus, textarea:focus { border-color: #3b82f6; }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .row { display: flex; gap: 16px; }
+    .row .form-group { flex: 1; }
+
+    /* ── Buttons ── */
+    .btn {
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .btn-primary { background: #3b82f6; color: white; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-ghost { background: #f1f5f9; color: #475569; }
+    .btn-ghost:hover { background: #e2e8f0; }
+
+    /* ── Cards ── */
+    .card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+
+    /* ── Badges ── */
+    .badge {
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-decision   { background: #eff6ff; color: #1d4ed8; }
+    .badge-coalition  { background: #f0fdf4; color: #15803d; }
+    .badge-routing    { background: #fff7ed; color: #c2410c; }
+    .badge-recovery   { background: #fdf4ff; color: #7e22ce; }
+    .badge-heuristic  { background: #f1f5f9; color: #475569; }
+    .badge-ai         { background: #fefce8; color: #a16207; }
+
+    .card-meta { font-size: 12px; color: #94a3b8; }
+    .card-content { font-size: 13px; color: #374151; margin-top: 8px; line-height: 1.6; white-space: pre-wrap; }
+
+    /* ── Synthesis box ── */
+    .synthesis-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .synthesis-box h3 { font-size: 13px; font-weight: 600; color: #1d4ed8; margin-bottom: 10px; }
+    .synthesis-box p { font-size: 14px; color: #1e293b; line-height: 1.7; }
+
+    /* ── Empty / loading states ── */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #94a3b8;
+    }
+    .empty-icon { font-size: 36px; margin-bottom: 12px; }
+    .empty p { font-size: 14px; }
+
+    .spinner {
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2px solid #bfdbfe;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Error ── */
+    .error-box {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #dc2626;
+      margin-top: 16px;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    /* ── Summary stats ── */
+    .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    .stat-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 120px;
+    }
+    .stat-card .value { font-size: 24px; font-weight: 700; color: #1e293b; }
+    .stat-card .label { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+
+    /* ── Recommend ── */
+    .recommend-result {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .recommend-result h3 { font-size: 13px; font-weight: 600; color: #15803d; margin-bottom: 10px; }
+    .recommend-result p { font-size: 14px; color: #1e293b; line-height: 1.7; }
+    .cache-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .cache-hit  { background: #dcfce7; color: #15803d; }
+    .cache-miss { background: #fef9c3; color: #a16207; }
+
+    .topk-row { display: flex; align-items: center; gap: 12px; }
+    .topk-row input[type=range] { flex: 1; }
+    .topk-val { font-size: 13px; font-weight: 600; color: #3b82f6; width: 24px; text-align: center; }
+
+    /* ── Suggestion chips ── */
+    .suggestions { margin-bottom: 16px; }
+    .suggestions-label { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 6px 14px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 99px;
+      font-size: 12px;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .chip:hover { border-color: #3b82f6; color: #3b82f6; background: #eff6ff; }
+  </style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useCallback } = React;
+
+const EVENT_TYPES = ['decision', 'coalition', 'routing_adjustment', 'recovery'];
+const MACHINES    = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7'];
+const FAILURE_TYPES = ['breakdown', 'overload', 'sensor_fault', 'mechanical_wear', 'load_spike'];
+const DEMO_SCENARIO = 'scenario_demo_001';
+
+const SUGGESTED_QUERIES = [
+  'What caused routing adjustments during production?',
+  'How were coalitions formed between machines?',
+  'Which machines were bottlenecks and how were they handled?',
+  'How did the scheduler assign tasks across machines?',
+  'What recovery events happened in the simulation?',
+  'How was P_ALPHA production routed across machines?',
+  'What decisions did the negotiator make under load?',
+  'How did the warehouse release parts to meet demand?',
+];
+
+// ── Badge helpers ──────────────────────────────────────────────
+function EventBadge({ type }) {
+  const cls = {
+    decision:           'badge-decision',
+    coalition:          'badge-coalition',
+    routing_adjustment: 'badge-routing',
+    recovery:           'badge-recovery',
+  }[type] ?? 'badge-decision';
+  return <span className={`badge ${cls}`}>{type.replace('_', ' ')}</span>;
+}
+
+function ModeBadge({ mode }) {
+  return <span className={`badge ${mode === 'ai' ? 'badge-ai' : 'badge-heuristic'}`}>{mode}</span>;
+}
+
+// ── EventCard ──────────────────────────────────────────────────
+function EventCard({ event }) {
+  const [expanded, setExpanded] = useState(false);
+  const content = event.content ?? '';
+  const preview = content.length > 140 ? content.slice(0, 140) + '…' : content;
+
+  return (
+    <div className="card">
+      <div className="card-header">
+        <EventBadge type={event.eventType} />
+        <ModeBadge mode={event.mode} />
+        <span className="card-meta">
+          {event.nodeId} · cycle {event.cycle}
+        </span>
+      </div>
+      <div className="card-content">
+        {expanded ? content : preview}
+        {content.length > 140 && (
+          <button
+            onClick={() => setExpanded(e => !e)}
+            style={{ marginLeft: 8, fontSize: 12, color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            {expanded ? 'less' : 'more'}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── QueryTab ───────────────────────────────────────────────────
+function QueryTab() {
+  const [question, setQuestion]     = useState('');
+  const [topK, setTopK]             = useState(5);
+  const [scenario, setScenario]     = useState('');
+  const [typeFilter, setTypeFilter] = useState([]);
+  const [loading, setLoading]       = useState(false);
+  const [result, setResult]         = useState(null);
+  const [error, setError]           = useState(null);
+
+  const toggleType = (t) =>
+    setTypeFilter(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
+
+  const runQuery = useCallback(async (q) => {
+    if (!q.trim()) return;
+    setQuestion(q);
+    setLoading(true); setError(null); setResult(null);
+    try {
+      const body = { context: q.trim(), topK };
+      const res = await fetch('/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      setResult(await res.json());
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [topK]);
+
+  const submit = async () => {
+    if (!question.trim()) return;
+    setLoading(true); setError(null); setResult(null);
+    try {
+      const body = {
+        context: question.trim(),
+        topK,
+        ...(scenario.trim() ? { scenarioId: scenario.trim() } : {}),
+        ...(typeFilter.length  ? { eventTypeFilter: typeFilter } : {}),
+      };
+      const res = await fetch('/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      setResult(await res.json());
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="suggestions">
+        <div className="suggestions-label">Try asking…</div>
+        <div className="chips">
+          {SUGGESTED_QUERIES.map((q, i) => (
+            <button key={i} className="chip" onClick={() => runQuery(q)}>
+              {q}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="form-group">
+          <label>Question</label>
+          <textarea
+            placeholder="e.g. What caused routing adjustments in the simulation?"
+            value={question}
+            onChange={e => setQuestion(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter' && e.metaKey) submit(); }}
+          />
+        </div>
+
+        <div className="row">
+          <div className="form-group">
+            <label>Scenario ID (optional)</label>
+            <input
+              type="text"
+              placeholder={DEMO_SCENARIO}
+              value={scenario}
+              onChange={e => setScenario(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Top K results — {topK}</label>
+            <div className="topk-row">
+              <input type="range" min={1} max={15} value={topK} onChange={e => setTopK(Number(e.target.value))} />
+              <span className="topk-val">{topK}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label>Filter by event type (optional)</label>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 4 }}>
+            {EVENT_TYPES.map(t => (
+              <button
+                key={t}
+                onClick={() => toggleType(t)}
+                className="btn"
+                style={{
+                  padding: '5px 14px',
+                  fontSize: 12,
+                  background: typeFilter.includes(t) ? '#3b82f6' : '#f1f5f9',
+                  color: typeFilter.includes(t) ? 'white' : '#475569',
+                }}
+              >
+                {t.replace('_', ' ')}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <button className="btn btn-primary" onClick={submit} disabled={loading || !question.trim()}>
+          {loading && <span className="spinner" />}
+          {loading ? 'Searching…' : 'Search memory'}
+        </button>
+      </div>
+
+      {error && <div className="error-box">⚠ {error}</div>}
+
+      {result && (
+        <>
+          <div className="section-title" style={{ marginTop: 24 }}>
+            {result.events.length} event{result.events.length !== 1 ? 's' : ''} retrieved
+          </div>
+          {result.events.length === 0 && (
+            <div className="empty"><div className="empty-icon">🔍</div><p>No events matched.</p></div>
+          )}
+          {result.events.map((e, i) => <EventCard key={i} event={e} />)}
+
+          {result.summary && (
+            <div className="synthesis-box">
+              <h3>✦ Synthesis</h3>
+              <p>{result.summary}</p>
+            </div>
+          )}
+        </>
+      )}
+
+      {!result && !loading && (
+        <div className="empty">
+          <div className="empty-icon">🏭</div>
+          <p>Ask a question about the simulation to retrieve relevant events.</p>
+          <p style={{ marginTop: 10, fontSize: 12, color: '#cbd5e1' }}>
+            Each search calls the LLM. For instant cached results, try the <strong>Recommend</strong> tab ⚡
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── SummaryTab ─────────────────────────────────────────────────
+function SummaryTab() {
+  const [loading, setLoading]   = useState(false);
+  const [summary, setSummary]   = useState(null);
+  const [error, setError]       = useState(null);
+  const [nodeFilter, setNodeFilter] = useState('all');
+
+  const load = async () => {
+    setLoading(true); setError(null);
+    try {
+      const res = await fetch(`/scenarios/${DEMO_SCENARIO}/summary`);
+      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      setSummary(await res.json());
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const events = summary?.events ?? [];
+  const filtered = nodeFilter === 'all' ? events : events.filter(e => e.nodeId === nodeFilter);
+  const nodes = [...new Set(events.map(e => e.nodeId))].sort();
+
+  const countByType = (type) => events.filter(e => e.eventType === type).length;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: 12, marginBottom: 24, alignItems: 'center' }}>
+        <button className="btn btn-primary" onClick={load} disabled={loading}>
+          {loading && <span className="spinner" />}
+          {loading ? 'Loading…' : summary ? 'Refresh' : 'Load scenario summary'}
+        </button>
+        <span style={{ fontSize: 13, color: '#94a3b8' }}>Scenario: {DEMO_SCENARIO}</span>
+      </div>
+
+      {error && <div className="error-box">⚠ {error}</div>}
+
+      {summary && (
+        <>
+          <div className="stats">
+            <div className="stat-card"><div className="value">{events.length}</div><div className="label">Total events</div></div>
+            <div className="stat-card"><div className="value">{countByType('decision')}</div><div className="label">Decisions</div></div>
+            <div className="stat-card"><div className="value">{countByType('coalition')}</div><div className="label">Coalitions</div></div>
+            <div className="stat-card"><div className="value">{countByType('routing_adjustment')}</div><div className="label">Routing</div></div>
+            <div className="stat-card"><div className="value">{countByType('recovery')}</div><div className="label">Recovery</div></div>
+          </div>
+
+          <div className="form-group">
+            <label>Filter by node</label>
+            <select value={nodeFilter} onChange={e => setNodeFilter(e.target.value)}>
+              <option value="all">All nodes</option>
+              {nodes.map(n => <option key={n} value={n}>{n}</option>)}
+            </select>
+          </div>
+
+          <div className="section-title">{filtered.length} events</div>
+          {filtered.slice(0, 50).map((e, i) => <EventCard key={i} event={e} />)}
+          {filtered.length > 50 && (
+            <p style={{ textAlign: 'center', fontSize: 13, color: '#94a3b8', marginTop: 12 }}>
+              Showing first 50 of {filtered.length} events.
+            </p>
+          )}
+        </>
+      )}
+
+      {!summary && !loading && (
+        <div className="empty">
+          <div className="empty-icon">📊</div>
+          <p>Load the scenario to see all recorded events and node activity.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── RecommendTab ───────────────────────────────────────────────
+function RecommendTab() {
+  const [machineId, setMachineId]       = useState('M1');
+  const [failureType, setFailureType]   = useState('breakdown');
+  const [mode, setMode]                 = useState('heuristic');
+  const [skipCache, setSkipCache]       = useState(false);
+  const [loading, setLoading]           = useState(false);
+  const [result, setResult]             = useState(null);
+  const [error, setError]               = useState(null);
+
+  const submit = async () => {
+    setLoading(true); setError(null); setResult(null);
+    try {
+      const failure = {
+        scenarioId: DEMO_SCENARIO,
+        nodeId: machineId,
+        cycle: 50,
+        eventType: 'machine_failure',
+        mode,
+        content: `${machineId} experienced a ${failureType} failure.`,
+        metadata: {
+          machineId,
+          failureType,
+          affectedCapacity: 60,
+          affectedProducts: ['P_ALPHA'],
+        },
+      };
+      const res = await fetch('/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ failure, skipCache }),
+      });
+      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      setResult(await res.json());
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="card">
+        <div className="row">
+          <div className="form-group">
+            <label>Machine</label>
+            <select value={machineId} onChange={e => setMachineId(e.target.value)}>
+              {MACHINES.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Failure type</label>
+            <select value={failureType} onChange={e => setFailureType(e.target.value)}>
+              {FAILURE_TYPES.map(f => <option key={f} value={f}>{f}</option>)}
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Agent mode</label>
+            <select value={mode} onChange={e => setMode(e.target.value)}>
+              <option value="heuristic">Heuristic</option>
+              <option value="ai">AI</option>
+            </select>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+          <input
+            type="checkbox"
+            id="skipCache"
+            checked={skipCache}
+            onChange={e => setSkipCache(e.target.checked)}
+            style={{ width: 'auto' }}
+          />
+          <label htmlFor="skipCache" style={{ margin: 0, cursor: 'pointer' }}>
+            Skip cache (force fresh recommendation)
+          </label>
+        </div>
+
+        <button className="btn btn-primary" onClick={submit} disabled={loading}>
+          {loading && <span className="spinner" />}
+          {loading ? 'Generating…' : 'Get recommendation'}
+        </button>
+      </div>
+
+      {error && <div className="error-box">⚠ {error}</div>}
+
+      {result && (
+        <div className="recommend-result">
+          <h3>
+            ✦ Recommendation
+            <span className={`cache-badge ${result.fromCache ? 'cache-hit' : 'cache-miss'}`}>
+              {result.fromCache ? '⚡ cache hit' : '🔄 fresh'}
+            </span>
+          </h3>
+          <p>{result.recommendation}</p>
+        </div>
+      )}
+
+      {!result && !loading && (
+        <div className="empty">
+          <div className="empty-icon">⚙️</div>
+          <p>Select a machine and failure type to get a RAG-based recommendation.<br/>
+          The second request for the same combination will return instantly from cache.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── App ────────────────────────────────────────────────────────
+function App() {
+  const [tab, setTab] = useState('query');
+
+  return (
+    <>
+      <div className="header">
+        <div className="header-logo">🏭</div>
+        <h1>ForgeFlow Memory</h1>
+        <span className="header-sub">RAG memory layer · demo</span>
+      </div>
+      <div className="container">
+        <div className="tabs">
+          {[
+            { id: 'query',   label: '🔍  Query' },
+            { id: 'summary', label: '📊  Scenario Summary' },
+            { id: 'recommend', label: '⚙️  Recommend' },
+          ].map(t => (
+            <button
+              key={t.id}
+              className={`tab ${tab === t.id ? 'active' : ''}`}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {tab === 'query'     && <QueryTab />}
+        {tab === 'summary'   && <SummaryTab />}
+        {tab === 'recommend' && <RecommendTab />}
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

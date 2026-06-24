@@ -1,11 +1,13 @@
 import 'dotenv/config';
 import { serve } from '@hono/node-server';
+import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
 import ingestRoute from './routes/ingest.js';
 import queryRoute from './routes/query.js';
 import auditRoute from './routes/audit.js';
 import { ValidationError, UpstreamError } from './errors.js';
+import { rateLimit } from './rateLimit.js';
 
 const app = new Hono();
 
@@ -15,11 +17,22 @@ app.use('*', logger());
 // Health check — useful for Docker / Railway / Render probes
 app.get('/health', (c) => c.json({ status: 'ok' }));
 
+// Serve React demo UI from public/
+app.use('/*', serveStatic({ root: './public' }));
+app.get('/', serveStatic({ path: './public/index.html' }));
+
+// Rate limiting — applied only to LLM-hitting endpoints
+// 10 requests/IP/hour · 200 global requests/day
+const llmRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200 });
+
 // Routes
 app.route('/ingest', ingestRoute);
+app.use('/query',     llmRateLimit);
+app.use('/audit',     llmRateLimit);
+app.use('/recommend', llmRateLimit);
 app.route('/query', queryRoute);
 
-// Audit routes
+// Audit routes (includes /events, /audit, /recommend, /scenarios)
 app.route('/', auditRoute);
 
 // 404 fallback
