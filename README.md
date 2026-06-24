@@ -26,6 +26,8 @@ Both `scenario-audit` and `genetic-inheritance` modules depend on this layer.
 - **Embeddings:** Voyage AI `voyage-code-2` or OpenAI `text-embedding-3-small` (auto-detected from env)
 - **Synthesis / Audit:** Claude Haiku (Anthropic) or Ollama (local, free) — switchable via env var
 - **API:** Hono + `@hono/node-server`
+- **Rate limiting:** In-memory per-IP (10 req/hour) + global daily cap (200 req/day) on LLM endpoints
+- **Demo UI:** React (CDN, no build step) served at `GET /` — query, scenario summary, and recommend tabs
 
 ---
 
@@ -65,9 +67,12 @@ forgeflow-memory/
 │       ├── events.ts                   # MachineFailureEvent, RoutingAdjustmentEvent, RecoveryOutcomeEvent
 │       ├── audit.ts                    # Claude audit: did agent follow its mode? (0-1 score, retried)
 │       └── recommend.ts                # RAG-based failure recommendations + mode comparison (cached)
+├── public/
+│   └── index.html                      # React demo UI (served at GET /)
 ├── scripts/
 │   ├── export.ts                       # dump DB back to archive JSON (npm run export)
-│   └── explore-retrieval.ts            # inspect retrieved chunks + cosine distances (npm run explore)
+│   ├── explore-retrieval.ts            # inspect retrieved chunks + cosine distances (npm run explore)
+│   └── deploy-seed.ts                  # idempotent seed for Railway deploys (npm run deploy:seed)
 ├── docs/
 │   └── adr/                            # Architecture Decision Records (MADR format)
 │       ├── 001-pgvector-over-dedicated-vector-db.md
@@ -82,6 +87,10 @@ forgeflow-memory/
 │       ├── fixtures/golden-set.json    # golden query set for RAG recall + faithfulness eval
 │       ├── judge.ts                    # LLM-as-judge faithfulness evaluator
 │       └── memory.eval.ts              # end-to-end eval suite (requires DB + API keys)
+├── Dockerfile
+├── railway.toml
+├── DEPLOY.md                           # Step-by-step Railway deployment guide
+├── ARCHITECTURE.md                     # System overview + data flow diagram
 ├── .env.example
 ├── package.json
 └── tsconfig.json
@@ -288,6 +297,7 @@ npm run explore -- --question "..." --topK 5 --scenario scenario_eval_001
 npm test              # unit tests (no DB or API keys required)
 npm run test:watch    # watch mode
 npm run test:eval     # RAG eval suite (requires DB + VOYAGE_API_KEY + ANTHROPIC_API_KEY)
+npm run deploy:seed   # apply schema + seed demo data (idempotent, used by Railway on deploy)
 ```
 
 Unit tests always pass regardless of environment. Integration tests (`recommendationCache`) and evals skip gracefully (shown as yellow in the reporter) when prerequisites are unavailable — they never report as false green.
@@ -315,6 +325,50 @@ curl -X POST http://localhost:3001/ingest \
 | `decision` | Memory layer |
 | `coalition` | Memory layer, genetic-inheritance (planned) |
 | `recovery` | Scenario-audit |
+
+---
+
+## Demo UI
+
+A React demo UI is served at `GET /` on the same host as the API (no separate deployment needed). It has three tabs:
+
+- **Query** — natural language search with topK slider, scenario and event type filters, synthesis result, and suggested query chips
+- **Scenario Summary** — all recorded events grouped by node with stats breakdown
+- **Recommend** — RAG-based failure recommendation by machine + failure type + mode, with ⚡ cache hit indicator
+
+No build step — React is loaded from CDN. The UI is a single file at `public/index.html`.
+
+Live demo: [forgeflow-memory-production.up.railway.app](https://forgeflow-memory-production.up.railway.app)
+
+---
+
+## Rate Limiting
+
+LLM-hitting endpoints (`/query`, `/audit`, `/recommend`) are protected by two layers:
+
+| Layer | Limit |
+|---|---|
+| Per-IP | 10 requests / hour |
+| Global | 200 requests / day |
+
+`/ingest`, `/health`, `/scenarios`, and the UI are not rate limited. The `/recommend` cache means many repeat calls never reach the LLM at all — same (scenario, machine, failure type, mode) combination returns instantly on the second request.
+
+---
+
+## Deployment
+
+See [DEPLOY.md](DEPLOY.md) for the full step-by-step Railway guide. In short:
+
+```bash
+# 1. Push repo to GitHub
+# 2. Create Railway project → Deploy from GitHub
+# 3. Add PostgreSQL plugin → enable vector extension
+# 4. Set env vars (DATABASE_URL, VOYAGE_API_KEY, ANTHROPIC_API_KEY)
+# 5. Set deploy command:
+npm run deploy:seed && node dist/api/server.js
+```
+
+The deploy seed is idempotent — it skips ingestion if data already exists, so re-deploys are safe.
 
 ---
 

@@ -26,6 +26,7 @@ COPY src/store/schema.sql ./src/store/schema.sql
 COPY data ./data
 COPY tests/seed.ts ./tests/seed.ts
 COPY src ./src
+COPY public ./public
 
 # Install tsx for seed script (needed at runtime for seeding)
 RUN npm install -g tsx
