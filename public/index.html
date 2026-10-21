@@ -7,6 +7,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -190,6 +192,20 @@
     .stat-card .label { font-size: 12px; color: #94a3b8; margin-top: 2px; }
 
     /* ── Recommend ── */
+    /* ── Rendered markdown (LLM answers) ── */
+    .md { font-size: 14px; color: #1e293b; line-height: 1.7; }
+    .md > *:first-child { margin-top: 0; }
+    .md p, .md ul, .md ol { margin: 0 0 10px; }
+    .md ul, .md ol { padding-left: 22px; }
+    .md li { margin-bottom: 4px; }
+    .md li > ul, .md li > ol { margin: 4px 0 0; }
+    .synthesis-box .md h1, .synthesis-box .md h2, .synthesis-box .md h3,
+    .recommend-result .md h1, .recommend-result .md h2, .recommend-result .md h3 {
+      font-size: 15px; font-weight: 600; color: #0f172a; margin: 14px 0 6px;
+    }
+    .md strong { font-weight: 600; color: #0f172a; }
+    .md code { font-size: 12.5px; background: rgba(15, 23, 42, 0.06); padding: 1px 5px; border-radius: 4px; }
+
     .recommend-result {
       background: #f0fdf4;
       border: 1px solid #bbf7d0;
@@ -244,14 +260,20 @@ const MACHINES    = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7'];
 const FAILURE_TYPES = ['breakdown', 'overload', 'sensor_fault', 'mechanical_wear', 'load_spike'];
 const DEMO_SCENARIO = 'scenario_demo_001';
 
+// Each suggestion was checked against the demo data: it should retrieve
+// distinct, relevant events and produce a substantive answer.
 const SUGGESTED_QUERIES = [
   'How did the AI resolve conflicts when multiple products needed the same part?',
-  'How did heuristic and AI modes differ in routing decisions?',
-  'How did the system respond when a machine went offline?',
-  'How were production coalitions formed and when did they fail?',
   'What criteria did the AI use to pick the best machine for a task?',
-  'How did the AI handle capacity constraints during peak load?',
+  'How did the AI choose between two idle machines for the same operation?',
+  'Where was work rerouted after M6 went down?',
 ];
+
+// Render LLM markdown safely (marked → DOMPurify).
+function Markdown({ text }) {
+  const html = DOMPurify.sanitize(marked.parse(text ?? ''));
+  return <div className="md" dangerouslySetInnerHTML={{ __html: html }} />;
+}
 
 // ── Badge helpers ──────────────────────────────────────────────
 function EventBadge({ type }) {
@@ -442,7 +464,7 @@ function QueryTab() {
           {result.summary && (
             <div className="synthesis-box">
               <h3>✦ Synthesis</h3>
-              <p>{result.summary}</p>
+              <Markdown text={result.summary} />
             </div>
           )}
         </>
@@ -540,7 +562,7 @@ function SummaryTab() {
 
 // ── RecommendTab ───────────────────────────────────────────────
 function RecommendTab() {
-  const [machineId, setMachineId]       = useState('M1');
+  const [machineId, setMachineId]       = useState('M6');
   const [failureType, setFailureType]   = useState('breakdown');
   const [mode, setMode]                 = useState('heuristic');
   const [skipCache, setSkipCache]       = useState(false);
@@ -634,7 +656,7 @@ function RecommendTab() {
               {result.fromCache ? '⚡ cache hit' : '🔄 fresh'}
             </span>
           </h3>
-          <p>{result.recommendation}</p>
+          <Markdown text={result.recommendation} />
         </div>
       )}
 
