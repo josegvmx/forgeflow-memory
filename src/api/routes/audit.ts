@@ -12,11 +12,15 @@ const auditRoute = new Hono();
 // ── Zod schemas ───────────────────────────────────────────────
 const ModeEnum = z.enum(['heuristic', 'ai']);
 
+// Identifiers are short, plain tokens. They are interpolated into LLM prompts,
+// so free text is never accepted in these fields.
+const Identifier = z.string().regex(/^[A-Za-z0-9_.:-]{1,64}$/, 'must be 1-64 letters, digits, or _ . : -');
+
 const MachineFailureMetaSchema = z.object({
-  machineId:        z.string(),
+  machineId:        Identifier,
   failureType:      z.enum(['breakdown', 'maintenance', 'capacity_reduction']),
-  affectedCapacity: z.number(),
-  affectedProducts: z.array(z.string()),
+  affectedCapacity: z.number().min(0).max(100),
+  affectedProducts: z.array(Identifier).max(20),
   cycleOfRecovery:  z.number().int().optional(),
 });
 
@@ -39,11 +43,11 @@ const RecoveryOutcomeMetaSchema = z.object({
 });
 
 const AuditEventBaseSchema = z.object({
-  scenarioId: z.string(),
-  nodeId:     z.string(),
+  scenarioId: Identifier,
+  nodeId:     Identifier,
   cycle:      z.number().int().nonnegative(),
   mode:       ModeEnum,
-  content:    z.string().min(1),
+  content:    z.string().min(1).max(4000),
 });
 
 const AuditEventSchema = z.discriminatedUnion('eventType', [
@@ -152,8 +156,8 @@ auditRoute.post('/recommend', async (c) => {
     });
     return c.json(result);  // { recommendation, fromCache }
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    return c.json({ error: `Recommendation failed: ${message}` }, 500);
+    console.error('[recommend] failed:', err);
+    return c.json({ error: 'Recommendation failed. Please try again later.' }, 500);
   }
 });
 
@@ -163,6 +167,9 @@ auditRoute.post('/recommend', async (c) => {
 // ──────────────────────────────────────────────
 auditRoute.get('/scenarios/:scenarioId/summary', async (c) => {
   const scenarioId = c.req.param('scenarioId');
+  if (!Identifier.safeParse(scenarioId).success) {
+    return c.json({ error: 'Invalid scenarioId' }, 400);
+  }
 
   try {
     const [failures, adjustments, recoveries] = await Promise.all([
@@ -181,8 +188,8 @@ auditRoute.get('/scenarios/:scenarioId/summary', async (c) => {
       modeComparison,
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    return c.json({ error: `Summary failed: ${message}` }, 500);
+    console.error('[summary] failed:', err);
+    return c.json({ error: 'Summary failed. Please try again later.' }, 500);
   }
 });
 

@@ -22,9 +22,8 @@ export default defineConfig({
     testTimeout:  60_000,
     hookTimeout:  60_000,
     pool:         'forks',
-    poolOptions: {
-      forks: { singleFork: true },   // sequential — one test at a time
-    },
+    maxWorkers:   1,                 // sequential — one test file at a time (Vitest 4)
+    fileParallelism: false,
     env: {
       // Ensure dotenv is loaded; actual values come from .env file
       NODE_ENV: 'test',

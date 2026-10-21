@@ -26,3 +26,6 @@ coverage/
 ForgeFlowMemoryUtils
 MemoryLayers API
 Queryng-data-memory
+
+# Personal notes (not part of the project)
+/local-notes/

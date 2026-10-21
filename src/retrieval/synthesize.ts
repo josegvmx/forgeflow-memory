@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { ReasoningEvent } from '../types.js';
 import { withRetry } from '../lib/retry.js';
-import { SYSTEM_PROMPT, buildUserMessage } from '../prompts/synthesize.js';
+import { SYSTEM_PROMPT, buildUserMessage, guardOutput } from '../prompts/synthesize.js';
 
 // ============================================================
 // Synthesis — LLM summarises retrieved events into an
@@ -86,9 +86,9 @@ export async function synthesize(
   const context  = buildContext(events);
   const provider = process.env.SYNTHESIS_PROVIDER ?? 'anthropic';
 
-  if (provider === 'ollama') {
-    return synthesizeWithOllama(question, context);
-  }
+  const answer = provider === 'ollama'
+    ? await synthesizeWithOllama(question, context)
+    : await synthesizeWithAnthropic(question, context, client);
 
-  return synthesizeWithAnthropic(question, context, client);
+  return guardOutput(answer);
 }

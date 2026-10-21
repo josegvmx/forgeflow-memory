@@ -1,15 +1,13 @@
 /**
  * deploy-seed.ts
  *
- * Idempotent seed script for Railway deploys.
- * - Applies the schema (CREATE TABLE IF NOT EXISTS — safe to re-run)
- * - Skips ingestion if sample data is already present
- * - Exits 0 on success so the deploy doesn't fail if API keys are missing
- *
- * Called automatically via the Railway deploy hook:
- *   npm run db:migrate && tsx scripts/deploy-seed.ts
+ * Idempotent seed script for Railway deploys (runs after migrate on startup).
+ * - Ingests the three demo archives in data/ (1,875 events).
+ * - Ingest is de-duplicated by event hash, so events already in the DB are
+ *   skipped before embedding: re-running on every restart costs nothing and
+ *   never creates copies.
+ * - Exits 0 even on failure so a seed problem doesn't take down the deploy.
  */
-
 import 'dotenv/config';
 import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
@@ -20,33 +18,30 @@ import db from '../src/store/client.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const DEMO_ARCHIVES = [
+  'demo-archive.json',        // scenario_demo_001 — heuristic baseline
+  'demo-archive-errors.json', // scenario_demo_002 — machine failures
+  'demo-archive-ai.json',     // scenario_demo_003 — AI agents
+];
+
 async function run() {
-  // Check if sample data already exists
-  const rows = await db<{ count: string }[]>`
-    SELECT COUNT(*)::text AS count FROM reasoning_events
-    WHERE scenario_id LIKE 'scenario-%'
-  `;
+  let inserted = 0;
+  let skipped = 0;
 
-  const existing = parseInt(rows[0]?.count ?? '0', 10);
+  for (const file of DEMO_ARCHIVES) {
+    const raw = await readFile(join(__dirname, '../data', file), 'utf-8');
+    const parsed = JSON.parse(raw);
+    const archive: ReasoningEvent[] = Array.isArray(parsed) ? parsed : parsed.archive;
 
-  if (existing > 0) {
-    console.log(`[deploy-seed] ${existing} events already present — skipping ingest.`);
-    await db.end();
-    process.exit(0);
+    const stats = await ingestArchive(archive, (done, total) => {
+      process.stdout.write(`[deploy-seed] ${file}: embedding ${done}/${total}\r`);
+    });
+    inserted += stats.inserted;
+    skipped += stats.skipped;
+    console.log(`[deploy-seed] ${file}: ${stats.inserted} new, ${stats.skipped} already present or duplicate.`);
   }
 
-  console.log('[deploy-seed] No data found — ingesting sample archive...');
-
-  const archivePath = join(__dirname, '../data/demo-archive.json');
-  const raw = await readFile(archivePath, 'utf-8');
-  const parsed = JSON.parse(raw);
-  const archive: ReasoningEvent[] = Array.isArray(parsed) ? parsed : parsed.archive;
-
-  await ingestArchive(archive, (done, total) => {
-    process.stdout.write(`[deploy-seed] Progress: ${done}/${total}\r`);
-  });
-
-  console.log(`\n[deploy-seed] Ingested ${archive.length} events successfully.`);
+  console.log(`[deploy-seed] Done — ${inserted} inserted, ${skipped} skipped.`);
   await db.end();
   process.exit(0);
 }

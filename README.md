@@ -270,6 +270,8 @@ All external API calls are wrapped with `withRetry` (exponential backoff, 3 atte
 
 A single transient 429 or 502 from an upstream will retry automatically rather than failing the request.
 
+Ingest is **idempotent**. Each event is identified by a SHA-256 of `(scenario, node, cycle, event type, mode, content)` (`src/store/eventHash.ts`), stored in a unique `content_hash` column. Events already stored, or repeated within a batch, are skipped *before* embedding, so re-ingesting an archive costs nothing and never creates copies. The startup migration backfills hashes for existing rows and removes any duplicates.
+
 ---
 
 ## Utility Scripts
@@ -314,8 +316,11 @@ After running simulation cycles, click the **Memory (N)** button in the Configur
 ```bash
 curl -X POST http://localhost:3001/ingest \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
   -d @forgeflow-memory-archive-scenario_xxxx.json
 ```
+
+`/ingest` requires `ADMIN_TOKEN` (see [Security](#security)).
 
 ---
 
@@ -345,16 +350,33 @@ Live demo: [forgeflow-memory-production.up.railway.app](https://forgeflow-memory
 
 ---
 
-## Rate Limiting
+## Security
 
-LLM-hitting endpoints (`/query`, `/audit`, `/recommend`) are protected by two layers:
+The live demo is public, so the API treats every visitor as untrusted.
 
-| Layer | Limit |
-|---|---|
-| Per-IP | 10 requests / hour |
-| Global | 200 requests / day |
+**Write and pipeline endpoints are admin-only.** `POST /ingest`, `POST /events`, `POST /scenarios` and `POST /audit` require `Authorization: Bearer $ADMIN_TOKEN` (or `X-Admin-Token`). If `ADMIN_TOKEN` is not set (or is shorter than 16 characters) these endpoints return `403`, which is the default for the demo. The startup seed runs in-process and is unaffected.
 
-`/ingest`, `/health`, `/scenarios`, and the UI are not rate limited. The `/recommend` cache means many repeat calls never reach the LLM at all — same (scenario, machine, failure type, mode) combination returns instantly on the second request.
+**Abuse and cost limits** on the public endpoints:
+
+| Protection | Applies to | Limit |
+|---|---|---|
+| Per-IP rate limit | `/query`, `/recommend`, `GET /scenarios/:id/summary` (shared budget) | 10 requests / hour |
+| Global rate limit | same | 200 requests / day |
+| Concurrent LLM calls | same | 4 in flight (`MAX_CONCURRENT_LLM`), then `503` |
+| Request body size | public endpoints / admin endpoints | 16 KB / 5 MB |
+| Input validation | `/query`, `/recommend` | question ≤ 500 chars, `topK` ≤ 15, IDs `[A-Za-z0-9_.:-]{1,64}` |
+
+Cached `/recommend` answers don't count against the LLM budget. Requests blocked by the per-IP limit don't consume the global budget, so one client can't lock everyone out. Client IPs come from the proxy-appended (right-most) `X-Forwarded-For` entry, so rotating that header doesn't bypass the limit (`TRUST_PROXY_HOPS` if more proxies sit in front). Limiter memory is bounded. Error responses don't expose internal details.
+
+These limits protect the API budget and the single instance. They are not volumetric DDoS protection. For that, put the service behind a CDN/WAF such as Cloudflare.
+
+**Prompt injection** (`src/prompts/synthesize.ts`):
+
+- Visitor questions and retrieved events go to the model inside `<question>` / `<events>` delimiters. The system prompt marks them as untrusted data and tells the model never to follow instructions found in them, never to reveal its instructions, and to answer only questions about the simulation.
+- Input is normalised before prompting: control and zero-width characters are removed, attempts to forge the delimiter tags are neutralised, and length is capped.
+- Common jailbreak phrasings ("ignore previous instructions", "reveal your system prompt", persona switches) get a fixed refusal before any embedding or LLM spend.
+- Replies that leak the system prompt are replaced with the refusal, and the UI renders model output through DOMPurify under a strict Content-Security-Policy.
+- Only ID-shaped values (validated by regex) are interpolated into the `/recommend` prompt, and the model has no tools, so a successful injection can at worst produce an off-topic answer.
 
 ---
 
@@ -392,3 +414,9 @@ Key design choices are documented in [`docs/adr/`](docs/adr/):
 |---|---|
 | `scenario-audit` | `ingestAuditEvent`, `ReasoningEvent`, `/events`, `/audit`, `/recommend` |
 | `genetic-inheritance` *(planned)* | `queryMemory`, `synthesize`, `/query` |
+
+---
+
+## License
+
+[MIT](LICENSE) © 2026 José Juan Guerra Vásquez
