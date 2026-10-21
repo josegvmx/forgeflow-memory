@@ -1,12 +1,21 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
-import {
+import 'dotenv/config';
+import type { CacheKey } from '../src/store/recommendationCache.js';
+
+// src/store/client.ts throws on import when DATABASE_URL is unset (e.g. CI),
+// so the DB modules are only loaded when it's configured. Otherwise `db` is
+// null, the SELECT 1 probe below fails, and every test skips (ADR 004).
+type Db = typeof import('../src/store/client.js').default;
+type CacheModule = typeof import('../src/store/recommendationCache.js');
+
+const hasDbUrl = Boolean(process.env.DATABASE_URL);
+const db = (hasDbUrl ? (await import('../src/store/client.js')).default : null) as Db;
+const {
   getCachedRecommendation,
   setCachedRecommendation,
   invalidateScenarioCache,
   clearRecommendationCache,
-  type CacheKey,
-} from '../src/store/recommendationCache.js';
-import db from '../src/store/client.js';
+} = (hasDbUrl ? await import('../src/store/recommendationCache.js') : {}) as CacheModule;
 
 // ── Integration tests — require a running PostgreSQL + recommendations table ──
 // Skip gracefully if DATABASE_URL is not reachable (e.g. CI without Docker).
