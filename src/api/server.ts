@@ -67,17 +67,17 @@ async function isCachedRecommendation(c: Context): Promise<boolean> {
   }
 }
 
-// One shared LLM budget for /query and /recommend:
+// One shared LLM budget for /query, /recommend and the scenario summary:
 // 10 requests/IP/hour · 200 requests/day across everyone.
 const llmRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200, skip: isCachedRecommendation });
 const llmConcurrency = concurrencyLimit(Number(process.env.MAX_CONCURRENT_LLM ?? 4));
-// Cheap DB reads: 30 requests/IP/minute.
-const readRateLimit = rateLimit({ perIpLimit: 30, perIpWindowMs: 60_000, globalDailyLimit: 20_000 });
 const admin = requireAdminToken();
 
 app.use('/query',     smallBody, llmRateLimit, llmConcurrency);
 app.use('/recommend', smallBody, llmRateLimit, llmConcurrency);
-app.get('/scenarios/:scenarioId/summary', readRateLimit);
+// The summary runs 3 retrievals + a mode comparison (4 embeddings + 4 LLM
+// calls), so it shares the LLM budget rather than a cheap-read limit.
+app.get('/scenarios/:scenarioId/summary', llmRateLimit, llmConcurrency);
 
 app.use('/ingest',  admin, adminBody);
 app.use('/ingest/*', admin, adminBody);

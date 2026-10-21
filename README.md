@@ -358,10 +358,9 @@ The live demo is public, so the API treats every visitor as untrusted.
 
 | Protection | Applies to | Limit |
 |---|---|---|
-| Per-IP rate limit | `/query`, `/recommend` (shared budget) | 10 requests / hour |
-| Global rate limit | `/query`, `/recommend` | 200 requests / day |
-| Concurrent LLM calls | `/query`, `/recommend` | 4 in flight (`MAX_CONCURRENT_LLM`), then `503` |
-| Read rate limit | `GET /scenarios/:id/summary` | 30 requests / minute per IP |
+| Per-IP rate limit | `/query`, `/recommend`, `GET /scenarios/:id/summary` (shared budget) | 10 requests / hour |
+| Global rate limit | same | 200 requests / day |
+| Concurrent LLM calls | same | 4 in flight (`MAX_CONCURRENT_LLM`), then `503` |
 | Request body size | public endpoints / admin endpoints | 16 KB / 5 MB |
 | Input validation | `/query`, `/recommend` | question ≤ 500 chars, `topK` ≤ 15, IDs `[A-Za-z0-9_.:-]{1,64}` |
 
