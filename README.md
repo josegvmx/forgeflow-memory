@@ -414,3 +414,9 @@ Key design choices are documented in [`docs/adr/`](docs/adr/):
 |---|---|
 | `scenario-audit` | `ingestAuditEvent`, `ReasoningEvent`, `/events`, `/audit`, `/recommend` |
 | `genetic-inheritance` *(planned)* | `queryMemory`, `synthesize`, `/query` |
+
+---
+
+## License
+
+[MIT](LICENSE) © 2026 José Juan Guerra Vásquez

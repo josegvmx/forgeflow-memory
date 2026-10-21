@@ -2,6 +2,8 @@
   "name": "forgeflow-memory",
   "version": "0.1.0",
   "description": "Persistence and RAG retrieval layer for ForgeFlow",
+  "license": "MIT",
+  "author": "José Juan Guerra Vásquez",
   "type": "module",
   "scripts": {
     "build": "tsc",
