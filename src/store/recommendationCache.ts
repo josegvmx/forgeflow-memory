@@ -45,6 +45,26 @@ export async function getCachedRecommendation(key: CacheKey): Promise<string | n
 }
 
 /**
+ * Check whether a recommendation is cached, without touching hit_count.
+ * Used by the rate limiter so cache hits don't consume a visitor's LLM budget.
+ */
+export async function hasCachedRecommendation(key: CacheKey): Promise<boolean> {
+  try {
+    const rows = await db`
+      SELECT 1 FROM recommendations
+      WHERE scenario_id  = ${key.scenarioId}
+        AND machine_id   = ${key.machineId}
+        AND failure_type = ${key.failureType}
+        AND mode         = ${key.mode}
+      LIMIT 1
+    `;
+    return rows.length > 0;
+  } catch (err) {
+    wrapDbError(err);
+  }
+}
+
+/**
  * Store a recommendation in the cache.
  * Uses ON CONFLICT to upsert — safe to call even if the key already exists.
  */

@@ -9,6 +9,8 @@ import queryRoute from './routes/query.js';
 import auditRoute from './routes/audit.js';
 import { ValidationError, UpstreamError } from './errors.js';
 import { rateLimit } from './rateLimit.js';
+import { hasCachedRecommendation } from '../store/recommendationCache.js';
+import type { Context } from 'hono';
 
 const app = new Hono();
 
@@ -26,11 +28,30 @@ app.get('/', serveStatic({ path: './public/index.html' }));
 // 10 requests/IP/hour · 200 global requests/day
 const llmRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200 });
 
+// /recommend answers from cache when it can; those requests never reach the
+// LLM, so they don't count against the limit (counters are shared).
+async function isCachedRecommendation(c: Context): Promise<boolean> {
+  const body = await c.req.json().catch(() => null);
+  const f = body?.failure;
+  if (!f?.metadata || body.skipCache) return false;
+  try {
+    return await hasCachedRecommendation({
+      scenarioId:  f.scenarioId,
+      machineId:   f.metadata.machineId,
+      failureType: f.metadata.failureType,
+      mode:        f.mode,
+    });
+  } catch {
+    return false;
+  }
+}
+const recommendRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200, skip: isCachedRecommendation });
+
 // Routes
 app.route('/ingest', ingestRoute);
 app.use('/query',     llmRateLimit);
 app.use('/audit',     llmRateLimit);
-app.use('/recommend', llmRateLimit);
+app.use('/recommend', recommendRateLimit);
 app.route('/query', queryRoute);
 
 // Audit routes (includes /events, /audit, /recommend, /scenarios)

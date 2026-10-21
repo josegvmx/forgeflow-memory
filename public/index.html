@@ -243,7 +243,9 @@
       color: #475569;
       cursor: pointer;
       transition: all 0.15s;
-      white-space: nowrap;
+      white-space: normal;
+      text-align: left;
+      max-width: 100%;
     }
     .chip:hover { border-color: #3b82f6; color: #3b82f6; background: #eff6ff; }
   </style>
@@ -257,7 +259,8 @@ const { useState, useCallback } = React;
 
 const EVENT_TYPES = ['decision', 'coalition', 'routing_adjustment', 'recovery'];
 const MACHINES    = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7'];
-const FAILURE_TYPES = ['breakdown', 'overload', 'sensor_fault', 'mechanical_wear', 'load_spike'];
+// Must match the failureType enum accepted by POST /recommend.
+const FAILURE_TYPES = ['breakdown', 'maintenance', 'capacity_reduction'];
 const DEMO_SCENARIO = 'scenario_demo_001';
 
 // Each suggestion was checked against the demo data: it should retrieve
@@ -408,7 +411,7 @@ function QueryTab() {
             <label>Scenario ID (optional)</label>
             <input
               type="text"
-              placeholder={DEMO_SCENARIO}
+              placeholder="All scenarios (e.g. scenario_demo_003)"
               value={scenario}
               onChange={e => setScenario(e.target.value)}
             />
@@ -615,7 +618,7 @@ function RecommendTab() {
           <div className="form-group">
             <label>Failure type</label>
             <select value={failureType} onChange={e => setFailureType(e.target.value)}>
-              {FAILURE_TYPES.map(f => <option key={f} value={f}>{f}</option>)}
+              {FAILURE_TYPES.map(f => <option key={f} value={f}>{f.replace('_', ' ')}</option>)}
             </select>
           </div>
           <div className="form-group">

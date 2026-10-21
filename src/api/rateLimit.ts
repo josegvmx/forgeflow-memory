@@ -42,6 +42,11 @@ export interface RateLimitOptions {
   perIpWindowMs?: number;
   /** Global max requests per day. Default: 200 */
   globalDailyLimit?: number;
+  /**
+   * Return true to let a request through without counting it against either
+   * limit (e.g. it will be served from cache and never reaches the LLM).
+   */
+  skip?: (c: Context) => boolean | Promise<boolean>;
 }
 
 export function rateLimit(opts: RateLimitOptions = {}) {
@@ -49,9 +54,15 @@ export function rateLimit(opts: RateLimitOptions = {}) {
     perIpLimit      = 10,
     perIpWindowMs   = 3_600_000,   // 1 hour
     globalDailyLimit = 200,
+    skip,
   } = opts;
 
   return async (c: Context, next: Next) => {
+    if (skip && (await skip(c))) {
+      await next();
+      return;
+    }
+
     const ip = getIp(c);
 
     // ── Global daily cap ──────────────────────────────────────
