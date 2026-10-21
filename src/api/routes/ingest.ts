@@ -31,9 +31,10 @@ ingestRoute.post('/', async (c) => {
     return c.json({ error: result.error.flatten() }, 400);
   }
   const { archive } = result.data;
+  let stats: { inserted: number; skipped: number } | undefined;
 
   try {
-    await ingestArchive(archive, (done, total) => {
+    stats = await ingestArchive(archive, (done, total) => {
       process.stderr.write(`\rIngesting... ${done}/${total}`);
     });
     process.stderr.write('\n');
@@ -48,7 +49,7 @@ ingestRoute.post('/', async (c) => {
     process.stderr.write(`Cleared ${invalidated} cached recommendation(s) after ingest.\n`);
   }
 
-  return c.json({ ingested: archive.length });
+  return c.json({ ingested: stats?.inserted ?? archive.length, skipped: stats?.skipped ?? 0 });
 });
 
 export default ingestRoute;

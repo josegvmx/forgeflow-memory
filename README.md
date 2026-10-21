@@ -270,6 +270,8 @@ All external API calls are wrapped with `withRetry` (exponential backoff, 3 atte
 
 A single transient 429 or 502 from an upstream will retry automatically rather than failing the request.
 
+Ingest is **idempotent**. Each event is identified by a SHA-256 of `(scenario, node, cycle, event type, mode, content)` (`src/store/eventHash.ts`), stored in a unique `content_hash` column. Events already stored, or repeated within a batch, are skipped *before* embedding, so re-ingesting an archive costs nothing and never creates copies. The startup migration backfills hashes for existing rows and removes any duplicates.
+
 ---
 
 ## Utility Scripts

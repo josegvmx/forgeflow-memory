@@ -92,3 +92,34 @@ CREATE TABLE IF NOT EXISTS recommendations (
 
 CREATE INDEX IF NOT EXISTS recommendations_lookup_idx
   ON recommendations (scenario_id, machine_id, failure_type, mode);
+
+-- ============================================================
+-- De-duplication (idempotent — safe on every startup)
+--
+-- One row per (scenario, node, cycle, event type, mode, content).
+-- content_hash is computed in the app by src/store/eventHash.ts;
+-- the backfill below must use the exact same formula.
+-- Re-ingesting an archive is now a no-op instead of adding copies.
+-- ============================================================
+ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS content_hash TEXT;
+
+UPDATE reasoning_events
+SET content_hash = encode(sha256(convert_to(
+      scenario_id || '|' || node_id || '|' || cycle::text || '|' ||
+      event_type  || '|' || mode    || '|' || content, 'UTF8')), 'hex')
+WHERE content_hash IS NULL;
+
+-- Remove existing duplicates (keep one row per hash). If anything was
+-- removed, cached recommendations were built on duplicated retrieval,
+-- so clear them too.
+WITH removed AS (
+  DELETE FROM reasoning_events a
+  USING reasoning_events b
+  WHERE a.content_hash = b.content_hash
+    AND a.ctid > b.ctid
+  RETURNING 1
+)
+DELETE FROM recommendations WHERE EXISTS (SELECT 1 FROM removed);
+
+CREATE UNIQUE INDEX IF NOT EXISTS reasoning_events_content_hash_idx
+  ON reasoning_events (content_hash);
