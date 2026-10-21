@@ -39,7 +39,8 @@ async function run() {
 
   const archivePath = join(__dirname, '../data/demo-archive.json');
   const raw = await readFile(archivePath, 'utf-8');
-  const archive: ReasoningEvent[] = JSON.parse(raw);
+  const parsed = JSON.parse(raw);
+  const archive: ReasoningEvent[] = Array.isArray(parsed) ? parsed : parsed.archive;
 
   await ingestArchive(archive, (done, total) => {
     process.stdout.write(`[deploy-seed] Progress: ${done}/${total}\r`);

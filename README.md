@@ -2,7 +2,9 @@
 
 Persistence, retrieval, and audit layer for the ForgeFlow simulation system. Every simulation event — machine failures, routing adjustments, agent decisions, coalition handoffs — is stored here as a vector embedding and queried via semantic search. Claude or Ollama synthesises retrieved events into actionable recommendations.
 
-Both `scenario-audit` and `genetic-inheritance` modules depend on this layer.
+The `scenario-audit` module (implemented here) builds on this layer; the planned `genetic-inheritance` module will use it as its fitness signal source.
+
+> **Note:** forgeflow-memory currently works on exported ForgeFlow-sim runs (JSON archives). Live integration — agents reading memory during a running simulation — is the next step.
 
 ---
 
@@ -13,8 +15,9 @@ Both `scenario-audit` and `genetic-inheritance` modules depend on this layer.
 | Memory layer (store, ingest, retrieval, API) | ✅ Complete |
 | Scenario audit (events, audit, recommend) | ✅ Complete |
 | Recommendation cache | ✅ Complete |
-| ForgeFlow-sim export integration | ✅ Complete |
-| Genetic inheritance | 🔜 Next |
+| Export from ForgeFlow-sim (archived runs) | ✅ Complete |
+| Live integration with running ForgeFlow-sim | 🔜 Next |
+| Genetic inheritance | 🗓️ Planned |
 
 ---
 
@@ -388,4 +391,4 @@ Key design choices are documented in [`docs/adr/`](docs/adr/):
 | Module | Needs from here |
 |---|---|
 | `scenario-audit` | `ingestAuditEvent`, `ReasoningEvent`, `/events`, `/audit`, `/recommend` |
-| `genetic-inheritance` | `queryMemory`, `synthesize`, `/query` |
+| `genetic-inheritance` *(planned)* | `queryMemory`, `synthesize`, `/query` |
