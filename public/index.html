@@ -272,6 +272,14 @@ const SUGGESTED_QUERIES = [
   'Where was work rerouted after M6 went down?',
 ];
 
+// Turn an error response into a short, human-readable message.
+async function apiErrorMessage(res) {
+  const d = await res.json().catch(() => ({}));
+  if (typeof d.error === 'string') return d.error;
+  if (res.status === 400) return 'That input isn\'t valid — questions are limited to 500 characters.';
+  return `Something went wrong (HTTP ${res.status}). Please try again.`;
+}
+
 // Render LLM markdown safely (marked → DOMPurify).
 function Markdown({ text }) {
   const html = DOMPurify.sanitize(marked.parse(text ?? ''));
@@ -347,8 +355,7 @@ function QueryTab() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
-      if (!res.ok) throw new Error(`API error ${res.status}`);
+      if (!res.ok) throw new Error(await apiErrorMessage(res));
       setResult(await res.json());
     } catch (e) {
       setError(e.message);
@@ -372,8 +379,7 @@ function QueryTab() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
-      if (!res.ok) throw new Error(`API error ${res.status}`);
+      if (!res.ok) throw new Error(await apiErrorMessage(res));
       setResult(await res.json());
     } catch (e) {
       setError(e.message);
@@ -399,6 +405,7 @@ function QueryTab() {
         <div className="form-group">
           <label>Question</label>
           <textarea
+            maxLength={500}
             placeholder="e.g. What caused routing adjustments in the simulation?"
             value={question}
             onChange={e => setQuestion(e.target.value)}
@@ -497,8 +504,7 @@ function SummaryTab() {
     setLoading(true); setError(null);
     try {
       const res = await fetch(`/scenarios/${DEMO_SCENARIO}/summary`);
-      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
-      if (!res.ok) throw new Error(`API error ${res.status}`);
+      if (!res.ok) throw new Error(await apiErrorMessage(res));
       setSummary(await res.json());
     } catch (e) {
       setError(e.message);
@@ -595,8 +601,7 @@ function RecommendTab() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ failure, skipCache }),
       });
-      if (res.status === 429) { const d = await res.json(); throw new Error(d.error ?? 'Rate limit exceeded — try again later.'); }
-      if (!res.ok) throw new Error(`API error ${res.status}`);
+      if (!res.ok) throw new Error(await apiErrorMessage(res));
       setResult(await res.json());
     } catch (e) {
       setError(e.message);

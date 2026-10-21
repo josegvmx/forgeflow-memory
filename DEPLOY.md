@@ -47,6 +47,7 @@ In your Railway app service → **Variables** tab, add:
 | `ANTHROPIC_API_KEY` | your Anthropic key |
 | `SYNTHESIS_PROVIDER` | `anthropic` |
 | `PORT` | `3001` |
+| `ADMIN_TOKEN` | *(optional)* leave unset so `/ingest`, `/events`, `/scenarios` and `/audit` stay disabled; set a long random value (`openssl rand -hex 32`) only if you need to write to the live DB |
 
 > Use `${{Postgres.DATABASE_PRIVATE_URL}}` (Railway variable reference syntax) so it updates automatically if credentials rotate.
 

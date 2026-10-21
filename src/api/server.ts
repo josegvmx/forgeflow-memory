@@ -9,6 +9,9 @@ import queryRoute from './routes/query.js';
 import auditRoute from './routes/audit.js';
 import { ValidationError, UpstreamError } from './errors.js';
 import { rateLimit } from './rateLimit.js';
+import { requireAdminToken, concurrencyLimit } from './security.js';
+import { bodyLimit } from 'hono/body-limit';
+import { secureHeaders } from 'hono/secure-headers';
 import { hasCachedRecommendation } from '../store/recommendationCache.js';
 import type { Context } from 'hono';
 
@@ -17,6 +20,18 @@ const app = new Hono();
 // Request logging
 app.use('*', logger());
 
+// Baseline security headers (CSP allows only the CDNs the demo page uses)
+app.use('*', secureHeaders({
+  contentSecurityPolicy: {
+    defaultSrc: ["'self'"],
+    scriptSrc:  ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://cdnjs.cloudflare.com'],
+    styleSrc:   ["'self'", "'unsafe-inline'"],
+    imgSrc:     ["'self'", 'data:'],
+    connectSrc: ["'self'"],
+    frameAncestors: ["'none'"],
+  },
+}));
+
 // Health check — useful for Docker / Railway / Render probes
 app.get('/health', (c) => c.json({ status: 'ok' }));
 
@@ -24,34 +39,52 @@ app.get('/health', (c) => c.json({ status: 'ok' }));
 app.use('/*', serveStatic({ root: './public' }));
 app.get('/', serveStatic({ path: './public/index.html' }));
 
-// Rate limiting — applied only to LLM-hitting endpoints
-// 10 requests/IP/hour · 200 global requests/day
-const llmRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200 });
+// ── Abuse protection ─────────────────────────────────────────
+// Public read endpoints get small bodies, per-IP + global rate limits and a
+// cap on concurrent LLM calls. Write / pipeline endpoints require ADMIN_TOKEN
+// (disabled entirely when it isn't set). See README → Security.
+
+const tooLarge = (c: Context) => c.json({ error: 'Request body too large' }, 413);
+const smallBody = bodyLimit({ maxSize: 16 * 1024, onError: tooLarge });
+const adminBody = bodyLimit({ maxSize: 5 * 1024 * 1024, onError: tooLarge });
 
 // /recommend answers from cache when it can; those requests never reach the
-// LLM, so they don't count against the limit (counters are shared).
+// LLM, so they don't count against the LLM budget.
 async function isCachedRecommendation(c: Context): Promise<boolean> {
+  if (!c.req.path.startsWith('/recommend')) return false;
   const body = await c.req.json().catch(() => null);
   const f = body?.failure;
   if (!f?.metadata || body.skipCache) return false;
   try {
     return await hasCachedRecommendation({
-      scenarioId:  f.scenarioId,
-      machineId:   f.metadata.machineId,
-      failureType: f.metadata.failureType,
+      scenarioId:  String(f.scenarioId),
+      machineId:   String(f.metadata.machineId),
+      failureType: String(f.metadata.failureType),
       mode:        f.mode,
     });
   } catch {
     return false;
   }
 }
-const recommendRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200, skip: isCachedRecommendation });
+
+// One shared LLM budget for /query and /recommend:
+// 10 requests/IP/hour · 200 requests/day across everyone.
+const llmRateLimit = rateLimit({ perIpLimit: 10, globalDailyLimit: 200, skip: isCachedRecommendation });
+const llmConcurrency = concurrencyLimit(Number(process.env.MAX_CONCURRENT_LLM ?? 4));
+// Cheap DB reads: 30 requests/IP/minute.
+const readRateLimit = rateLimit({ perIpLimit: 30, perIpWindowMs: 60_000, globalDailyLimit: 20_000 });
+const admin = requireAdminToken();
+
+app.use('/query',     smallBody, llmRateLimit, llmConcurrency);
+app.use('/recommend', smallBody, llmRateLimit, llmConcurrency);
+app.get('/scenarios/:scenarioId/summary', readRateLimit);
+
+app.use('/ingest',  admin, adminBody);
+app.use('/ingest/*', admin, adminBody);
+app.on('POST', ['/events', '/scenarios', '/audit'], admin, adminBody);
 
 // Routes
 app.route('/ingest', ingestRoute);
-app.use('/query',     llmRateLimit);
-app.use('/audit',     llmRateLimit);
-app.use('/recommend', recommendRateLimit);
 app.route('/query', queryRoute);
 
 // Audit routes (includes /events, /audit, /recommend, /scenarios)
