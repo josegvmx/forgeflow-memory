@@ -46,7 +46,7 @@ forgeflow-memory/
 │   │   └── routes/
 │   │       ├── ingest.ts               # POST /ingest  — Zod-validated
 │   │       ├── query.ts                # POST /query   — Zod-validated
-│   │       └── audit.ts                # POST /scenarios, /events, /audit, /recommend, GET /scenarios/:id/summary
+│   │       └── audit.ts                # /events, /audit, /recommend, GET /scenarios/:id/summary
 │   ├── prompts/
 │   │   ├── synthesize.ts               # SYSTEM_PROMPT + buildUserMessage()
 │   │   ├── audit.ts                    # buildAuditPrompt()
@@ -210,7 +210,7 @@ All request bodies are validated by Zod at the route boundary. Validation failur
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/scenarios` | Generate a deterministic scenario ID from config |
+| `POST` | `/scenarios` | **Removed (410 Gone).** The `scenarioId` is computed by forgeflow-sim (`src/lib/scenario/scenarioId.ts`, 16 hex characters) and sent as given; legacy `scenario_…` ids are still accepted |
 | `POST` | `/events` | Ingest a typed audit event (failure, adjustment, recovery) |
 | `POST` | `/audit` | Evaluate mode consistency, returns 0–1 score |
 | `POST` | `/recommend` | RAG recommendation — cached by (scenarioId, machineId, failureType, mode) |
@@ -281,7 +281,7 @@ Ingest is **idempotent**. Each event is identified by a SHA-256 of `(scenario, n
 npm run export
 
 # Export one scenario
-npm run export -- --scenario scenario_a4c03c055c7d
+npm run export -- --scenario 6514fc6232151a5c
 
 # Custom output path
 npm run export -- --output ./backups/run-001.json
@@ -354,7 +354,7 @@ Live demo: [forgeflow-memory-production.up.railway.app](https://forgeflow-memory
 
 The live demo is public, so the API treats every visitor as untrusted.
 
-**Write and pipeline endpoints are admin-only.** `POST /ingest`, `POST /events`, `POST /scenarios` and `POST /audit` require `Authorization: Bearer $ADMIN_TOKEN` (or `X-Admin-Token`). If `ADMIN_TOKEN` is not set (or is shorter than 16 characters) these endpoints return `403`, which is the default for the demo. The startup seed runs in-process and is unaffected.
+**Write and pipeline endpoints are admin-only.** `POST /ingest`, `POST /events` and `POST /audit` require `Authorization: Bearer $ADMIN_TOKEN` (or `X-Admin-Token`). If `ADMIN_TOKEN` is not set (or is shorter than 16 characters) these endpoints return `403`, which is the default for the demo. The startup seed runs in-process and is unaffected.
 
 **Abuse and cost limits** on the public endpoints:
 

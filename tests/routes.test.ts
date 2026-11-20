@@ -109,14 +109,8 @@ const validOutcome = {
   },
 };
 
-const validConfig = {
-  machines:     [{ id: 'M1', capacity: 100, type: 'assembly' }],
-  transporters: [{ id: 'T1', speed: 10 }],
-  warehouses:   [{ id: 'W1', capacity: 500 }],
-  products:     [{ id: 'P1', processingTime: 5 }],
-  spareParts:   [{ id: 'SP1', quantity: 20 }],
-  mode:         'ai',
-};
+/** A scenarioId as forgeflow-sim computes it (apex): 16 lowercase hex. */
+const SIM_SCENARIO_ID = '6514fc6232151a5c';
 
 // ── POST /ingest ──────────────────────────────────────────────────────────────
 
@@ -231,25 +225,52 @@ describe('POST /query', () => {
 
 // ── POST /scenarios ───────────────────────────────────────────────────────────
 
-describe('POST /scenarios', () => {
-  it('returns 400 when config is missing', async () => {
-    const res = await post('/scenarios', {});
-    expect(res.status).toBe(400);
+describe('POST /scenarios (removed in R14)', () => {
+  it('answers 410 Gone and points to the sim, whatever the body', async () => {
+    for (const body of [{}, { config: { machines: [] } }]) {
+      const res = await post('/scenarios', body);
+      expect(res.status).toBe(410);
+      const json = await res.json() as { error: string };
+      expect(json.error).toContain('forgeflow-sim');
+    }
+  });
+});
+
+// ── scenarioId accepted as given (R14 §4.2) ───────────────────────────────────
+
+describe('scenarioId format on every route', () => {
+  beforeEach(() => {
+    mockIngestArchive.mockReset(); mockClearRecommendationCache.mockReset(); mockIngestAuditEvent.mockReset();
+    mockQueryMemory.mockReset(); mockCompareModesForScenario.mockReset();
+    mockIngestArchive.mockResolvedValue(undefined); mockClearRecommendationCache.mockResolvedValue(0);
+    mockIngestAuditEvent.mockResolvedValue(undefined);
+    mockQueryMemory.mockResolvedValue({ events: [], summary: 'ok' }); mockCompareModesForScenario.mockResolvedValue('');
   });
 
-  it('returns a scenarioId for a valid config', async () => {
-    const res = await post('/scenarios', { config: validConfig });
-    expect(res.status).toBe(200);
-    const body = await res.json() as { scenarioId: string };
-    expect(body.scenarioId).toMatch(/^scenario_[a-f0-9]{12}$/);
+  it.each(['6514fc6232151a5c', 'scenario_demo_001', 'scenario-beta-002'])('accepts %s', async (id) => {
+    expect((await post('/ingest', { archive: [{ ...validEvent, scenarioId: id }] })).status).toBe(200);
+    expect((await post('/events', { ...validFailure, scenarioId: id })).status).toBe(200);
+    expect((await get(`/scenarios/${id}/summary`)).status).toBe(200);
   });
 
-  it('is deterministic — same config produces same ID', async () => {
-    const res1 = await post('/scenarios', { config: validConfig });
-    const res2 = await post('/scenarios', { config: validConfig });
-    const b1 = await res1.json() as { scenarioId: string };
-    const b2 = await res2.json() as { scenarioId: string };
-    expect(b1.scenarioId).toBe(b2.scenarioId);
+  it.each([
+    ['uppercase hex', '6514FC6232151A5C'],
+    ['15 hex', '6514fc6232151a5'],
+    ['17 hex', '6514fc6232151a5cd'],
+    ['old service hash without prefix', 'a1b2c3d4e5f6'],
+    ['free text', 'apex run'],
+    ['injection', 'scenario_x; drop'],
+  ])('rejects %s', async (_l, id) => {
+    expect((await post('/ingest', { archive: [{ ...validEvent, scenarioId: id }] })).status).toBe(400);
+    expect((await post('/events', { ...validFailure, scenarioId: id })).status).toBe(400);
+    expect((await post('/query', { context: 'q', topK: 5, scenarioId: id })).status).toBe(400);
+    expect(mockIngestArchive).not.toHaveBeenCalled();
+    expect(mockIngestAuditEvent).not.toHaveBeenCalled();
+  });
+
+  it('stores the sim id unchanged', async () => {
+    await post('/ingest', { archive: [{ ...validEvent, scenarioId: SIM_SCENARIO_ID }] });
+    expect(mockIngestArchive.mock.calls[0][0][0].scenarioId).toBe(SIM_SCENARIO_ID);
   });
 });
 

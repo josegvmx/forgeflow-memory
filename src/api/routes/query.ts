@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
+import { ScenarioIdSchema } from '../../audit/scenarioId.js';
 import { looksLikePromptInjection, OFF_TOPIC_REPLY } from '../../prompts/synthesize.js';
 import { queryMemory } from '../../retrieval/query.js';
 
@@ -14,7 +15,7 @@ const Identifier = z.string().regex(/^[A-Za-z0-9_.:-]{1,64}$/, 'must be 1-64 let
 const QueryBody = z.object({
   context:         z.string().trim().min(1).max(500),
   topK:            z.number().int().min(1).max(15),
-  scenarioId:      Identifier.optional(),
+  scenarioId:      ScenarioIdSchema.optional(),
   nodeId:          Identifier.optional(),
   eventTypeFilter: z.array(EventTypeEnum).optional(),
   debug:           z.boolean().optional(),

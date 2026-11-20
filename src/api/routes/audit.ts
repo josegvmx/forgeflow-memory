@@ -1,11 +1,10 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
-import { generateScenarioId } from '../../audit/scenarioId.js';
+import { ScenarioIdSchema, SCENARIO_ID_SOURCE } from '../../audit/scenarioId.js';
 import { ingestAuditEvent } from '../../audit/events.js';
 import { auditFailureResponse } from '../../audit/audit.js';
 import { getFailureRecommendation, compareModesForScenario } from '../../audit/recommend.js';
 import { queryMemory } from '../../retrieval/query.js';
-import type { ScenarioConfig } from '../../audit/scenarioId.js';
 
 const auditRoute = new Hono();
 
@@ -43,7 +42,7 @@ const RecoveryOutcomeMetaSchema = z.object({
 });
 
 const AuditEventBaseSchema = z.object({
-  scenarioId: Identifier,
+  scenarioId: ScenarioIdSchema,
   nodeId:     Identifier,
   cycle:      z.number().int().nonnegative(),
   mode:       ModeEnum,
@@ -73,25 +72,12 @@ const RecommendBodySchema = z.object({
 });
 
 // ──────────────────────────────────────────────
-// POST /scenarios
-// Body: { config: ScenarioConfig }
-// Returns: { scenarioId }
+// POST /scenarios — removed in R14
+// The scenarioId is computed by forgeflow-sim and sent as given; this service no longer hashes
+// scenario configs. Kept as 410 so an old caller gets a reason instead of a 404.
 // ──────────────────────────────────────────────
-auditRoute.post('/scenarios', async (c) => {
-  let body: { config: ScenarioConfig };
-  try {
-    body = await c.req.json();
-  } catch {
-    return c.json({ error: 'Invalid JSON body' }, 400);
-  }
-
-  if (!body.config) {
-    return c.json({ error: '`config` is required' }, 400);
-  }
-
-  const scenarioId = generateScenarioId(body.config);
-  return c.json({ scenarioId });
-});
+auditRoute.post('/scenarios', (c) =>
+  c.json({ error: `Gone: scenarioId is computed by ${SCENARIO_ID_SOURCE} and sent as given.` }, 410));
 
 // ──────────────────────────────────────────────
 // POST /events
@@ -167,7 +153,7 @@ auditRoute.post('/recommend', async (c) => {
 // ──────────────────────────────────────────────
 auditRoute.get('/scenarios/:scenarioId/summary', async (c) => {
   const scenarioId = c.req.param('scenarioId');
-  if (!Identifier.safeParse(scenarioId).success) {
+  if (!ScenarioIdSchema.safeParse(scenarioId).success) {
     return c.json({ error: 'Invalid scenarioId' }, 400);
   }
 

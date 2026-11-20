@@ -1,12 +1,13 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
+import { ScenarioIdSchema } from '../../audit/scenarioId.js';
 import { ingestArchive } from '../../ingest/pipeline.js';
 import { clearRecommendationCache } from '../../store/recommendationCache.js';
 
 const ingestRoute = new Hono();
 
 const ReasoningEventSchema = z.object({
-  scenarioId: z.string(),
+  scenarioId: ScenarioIdSchema,
   nodeId:     z.string(),
   cycle:      z.number().int().nonnegative(),
   eventType:  z.enum(['machine_failure', 'routing_adjustment', 'decision', 'coalition', 'recovery']),
