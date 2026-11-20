@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Hono } from 'hono';
+import { readFileSync } from 'node:fs';
 
 // ── Mocks ─────────────────────────────────────────────────────────────────────
 
@@ -10,10 +11,11 @@ const mockIngestAuditEvent       = vi.fn();
 const mockAuditFailureResponse   = vi.fn();
 const mockGetFailureRecommendation = vi.fn();
 const mockCompareModesForScenario  = vi.fn();
+const mockIngestEvent            = vi.fn();
 
 vi.mock('../src/ingest/pipeline.js', () => ({
   ingestArchive: mockIngestArchive,
-  ingestEvent:   vi.fn(),
+  ingestEvent:   mockIngestEvent,
 }));
 
 vi.mock('../src/store/recommendationCache.js', () => ({
@@ -389,5 +391,76 @@ describe('GET /scenarios/:scenarioId/summary', () => {
     expect(res.status).toBe(500);
     const body = await res.json() as { error: string };
     expect(body.error).toContain('Summary failed');
+  });
+});
+
+// ── R14: sim episodes (runId, source, flat metadata, fault labels, disruption) ─
+
+describe('R14 sim episodes on /events and /ingest', () => {
+  const fixture: any[] = readFileSync(new URL('./fixtures/sim-episodes.jsonl', import.meta.url), 'utf8').trim().split('\n').map((l: string) => JSON.parse(l));
+  const labelled = () => structuredClone(fixture.find(e => e.eventType === 'routing_adjustment'));
+  const disruption = () => structuredClone(fixture.find(e => e.eventType === 'disruption'));
+
+  beforeEach(() => {
+    mockIngestEvent.mockReset().mockResolvedValue({ inserted: 1, skipped: 0 });
+    mockIngestAuditEvent.mockReset();
+    mockIngestArchive.mockReset().mockResolvedValue({ inserted: 1, skipped: 0 });
+    mockClearRecommendationCache.mockReset().mockResolvedValue(0);
+    mockQueryMemory.mockReset().mockResolvedValue({ events: [], summary: 'ok' });
+  });
+
+  it('POST /events stores every fixture episode via the pipeline, runId and source carried', async () => {
+    for (const e of fixture) {
+      const res = await post('/events', e);
+      expect(res.status, e.eventType).toBe(200);
+    }
+    expect(mockIngestEvent).toHaveBeenCalledTimes(fixture.length);
+    expect(mockIngestAuditEvent).not.toHaveBeenCalled();
+    const stored = mockIngestEvent.mock.calls[0][0];
+    expect(stored.runId).toBe(fixture[0].runId);
+    expect(stored.metadata.source).toBe('sim');
+  });
+
+  it('POST /events reports a duplicate as inserted: 0', async () => {
+    mockIngestEvent.mockResolvedValue({ inserted: 0, skipped: 1 });
+    const res = await post('/events', labelled());
+    expect(await res.json()).toEqual({ ok: true, inserted: 0 });
+  });
+
+  it('POST /events rejects a malformed sim episode without storing it', async () => {
+    const e = labelled(); e.metadata.nested = { a: 1 };
+    expect((await post('/events', e)).status).toBe(400);
+    const f = labelled(); f.runId = 'nope';
+    expect((await post('/events', f)).status).toBe(400);
+    expect(mockIngestEvent).not.toHaveBeenCalled();
+  });
+
+  it('POST /events still takes the older audit shape', async () => {
+    mockIngestAuditEvent.mockResolvedValue(undefined);
+    expect((await post('/events', validFailure)).status).toBe(200);
+    expect(mockIngestAuditEvent).toHaveBeenCalledTimes(1);
+    expect(mockIngestEvent).not.toHaveBeenCalled();
+  });
+
+  it('POST /ingest takes runId, source and disruption; source goes into metadata', async () => {
+    const d = disruption();
+    const res = await post('/ingest', { archive: [d, { ...validEvent }] });
+    expect(res.status).toBe(200);
+    const [a, b] = mockIngestArchive.mock.calls[0][0];
+    expect(a).toMatchObject({ runId: d.runId, eventType: 'disruption' });
+    expect(a.metadata.source).toBe('sim');
+    expect(a).not.toHaveProperty('source');
+    expect(b).not.toHaveProperty('runId');
+  });
+
+  it('POST /ingest rejects nested metadata and bad runIds', async () => {
+    expect((await post('/ingest', { archive: [{ ...validEvent, metadata: { a: { b: 1 } } }] })).status).toBe(400);
+    expect((await post('/ingest', { archive: [{ ...validEvent, runId: 'r1' }] })).status).toBe(400);
+    expect((await post('/ingest', { archive: [{ ...validEvent, source: 'user' }] })).status).toBe(400);
+    expect(mockIngestArchive).not.toHaveBeenCalled();
+  });
+
+  it('POST /query can filter on disruption', async () => {
+    expect((await post('/query', { context: 'stock outs', topK: 5, eventTypeFilter: ['disruption'] })).status).toBe(200);
   });
 });

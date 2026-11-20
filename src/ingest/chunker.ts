@@ -17,6 +17,9 @@ import type { ReasoningEvent } from '../types.js';
  * Keep labels short — embedding models handle structured text well
  * but token budget matters for long content fields.
  */
+/** Metadata keys stored with an event but left out of its embedding text. */
+export const isEmbedded = (key: string): boolean => !key.startsWith('fault.') && key !== 'source';
+
 export function formatEventForEmbedding(event: ReasoningEvent): string {
   const lines = [
     `Scenario: ${event.scenarioId}`,
@@ -29,8 +32,12 @@ export function formatEventForEmbedding(event: ReasoningEvent): string {
 
   // Append any metadata values as flat key: value pairs so they
   // contribute signal without bloating the embedding unnecessarily.
+  // Ground-truth fault labels (fault.*) and provenance (source) are stored but
+  // never embedded: retrieval must find a fault from what happened, not from
+  // its answer key (R14 §4.4 — the retrieval eval is built on those labels).
   if (event.metadata) {
     for (const [key, value] of Object.entries(event.metadata)) {
+      if (!isEmbedded(key)) continue;
       if (value !== null && value !== undefined) {
         lines.push(`${key}: ${String(value)}`);
       }

@@ -1,12 +1,13 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { ScenarioIdSchema } from '../../audit/scenarioId.js';
+import { EVENT_TYPES } from '../../types.js';
 import { looksLikePromptInjection, OFF_TOPIC_REPLY } from '../../prompts/synthesize.js';
 import { queryMemory } from '../../retrieval/query.js';
 
 const queryRoute = new Hono();
 
-const EventTypeEnum = z.enum(['machine_failure', 'routing_adjustment', 'decision', 'coalition', 'recovery']);
+const EventTypeEnum = z.enum(EVENT_TYPES);
 
 // Identifiers are short, plain tokens; free text is capped so a single request
 // can't inflate the embedding / LLM prompt.

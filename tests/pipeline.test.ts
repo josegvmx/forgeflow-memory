@@ -44,6 +44,20 @@ describe('eventHash', () => {
       expect(eventHash(ev(over))).not.toBe(base);
     }
   });
+
+  it('R14: without a runId the hash is the pre-R14 formula (stored rows keep their hash)', async () => {
+    const { createHash } = await import('node:crypto');
+    const e = ev();
+    const legacy = createHash('sha256').update([e.scenarioId, e.nodeId, String(e.cycle), e.eventType, e.mode, e.content].join('|'), 'utf8').digest('hex');
+    expect(eventHash(e)).toBe(legacy);
+  });
+
+  it('R14: the same event in two runs is two events', () => {
+    const a = eventHash(ev({ runId: '0ff8a7ab-5933-8e2c-8229-0ce22cbfa597' }));
+    const b = eventHash(ev({ runId: 'ae6b1428-02de-8853-80c3-6fb3306c2205' }));
+    expect(a).not.toBe(b);
+    expect(a).not.toBe(eventHash(ev()));
+  });
 });
 
 describe('ingestArchive de-duplication', () => {

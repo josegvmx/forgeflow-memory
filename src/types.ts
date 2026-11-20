@@ -2,11 +2,17 @@
 // Shared domain types for forgeflow-memory
 // ============================================================
 
+/** Every stored event type. Keep in sync with the CHECK on reasoning_events.event_type (schema.sql). */
+export const EVENT_TYPES = ['machine_failure', 'routing_adjustment', 'decision', 'coalition', 'recovery', 'disruption'] as const;
+export type EventType = (typeof EVENT_TYPES)[number];
+
 export interface ReasoningEvent {
   scenarioId: string;
   nodeId: string;
   cycle: number;
-  eventType: 'machine_failure' | 'routing_adjustment' | 'decision' | 'coalition' | 'recovery';
+  eventType: EventType;
+  /** Run the event came from (R14 §4.1, a UUID from forgeflow-sim). Absent on events stored before R14. */
+  runId?: string;
   mode: 'heuristic' | 'ai';
   /** Human-readable description — this is what gets embedded */
   content: string;

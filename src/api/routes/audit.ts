@@ -2,6 +2,8 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import { ScenarioIdSchema, SCENARIO_ID_SOURCE } from '../../audit/scenarioId.js';
 import { ingestAuditEvent } from '../../audit/events.js';
+import { SimEpisodeSchema, simEpisodeToReasoningEvent, looksLikeSimEpisode } from '../../audit/simEpisode.js';
+import { ingestEvent } from '../../ingest/pipeline.js';
 import { auditFailureResponse } from '../../audit/audit.js';
 import { getFailureRecommendation, compareModesForScenario } from '../../audit/recommend.js';
 import { queryMemory } from '../../retrieval/query.js';
@@ -82,10 +84,22 @@ auditRoute.post('/scenarios', (c) =>
 // ──────────────────────────────────────────────
 // POST /events
 // Body: MachineFailureEvent | RoutingAdjustmentEvent | RecoveryOutcomeEvent
-// Returns: { ok: true }
+//     | a forgeflow-sim episode (R14 §4.3: runId + source, flat metadata, fault.* labels)
+// Returns: { ok: true } — for a sim episode also { inserted } (0 when it was already stored)
 // ──────────────────────────────────────────────
 auditRoute.post('/events', async (c) => {
   const raw = await c.req.json().catch(() => null);
+  if (looksLikeSimEpisode(raw)) {
+    const episode = SimEpisodeSchema.safeParse(raw);
+    if (!episode.success) return c.json({ error: episode.error.flatten() }, 400);
+    try {
+      const stats = await ingestEvent(simEpisodeToReasoningEvent(episode.data));
+      return c.json({ ok: true, inserted: stats?.inserted ?? 1 });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      return c.json({ error: `Event ingest failed: ${message}` }, 500);
+    }
+  }
   const parsed = AuditEventSchema.safeParse(raw);
   if (!parsed.success) {
     return c.json({ error: parsed.error.flatten() }, 400);
