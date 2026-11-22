@@ -55,13 +55,15 @@ In your Railway app service → **Variables** tab, add:
 
 ## Step 4 — Deploy
 
-Click **Deploy** (or push to your GitHub branch). The `railway.toml` already sets the correct start command:
+Click **Deploy** (or push to your GitHub branch). The `railway.toml` sets the start command:
 
 ```
-npm run deploy:seed; node dist/api/server.js
+npm run db:migrate && node dist/api/server.js
 ```
 
-This runs the Node-based migration + idempotent seed, then starts the server. The `;` ensures the server starts even if the seed step fails. Re-deploys are safe — the seed skips ingestion if data already exists.
+Every start applies `src/store/schema.sql` (idempotent: `CREATE … IF NOT EXISTS`, `ADD COLUMN IF NOT EXISTS`, CHECK widening), then starts the server. The `&&` is deliberate: if the migration fails, the server doesn't start, the new deployment fails its health check and Railway keeps the previous deployment running — new code never runs on an unmigrated schema. A start command set in the Railway dashboard overrides `railway.toml`; leave it empty there.
+
+To load the demo data once (first deploy, or after wiping the database), run `npm run deploy:seed` (migration + idempotent seed — skips ingestion if data already exists) from a Railway shell or with the database's public URL as `DATABASE_URL`.
 
 ---
 

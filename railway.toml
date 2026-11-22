@@ -3,7 +3,9 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "node dist/api/server.js"
+# Migrate first (schema.sql is idempotent). If it fails the server never starts, the new
+# deployment fails its health check, and Railway keeps the previous one running.
+startCommand = "npm run db:migrate && node dist/api/server.js"
 healthcheckPath = "/health"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"
