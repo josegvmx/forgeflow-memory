@@ -7,6 +7,7 @@ dockerfilePath = "Dockerfile"
 # deployment fails its health check, and Railway keeps the previous one running.
 startCommand = "npm run db:migrate && node dist/api/server.js"
 healthcheckPath = "/health"
-healthcheckTimeout = 30
+# The migration may wait up to ~45 s for the database at container start (see src/store/migrate.ts).
+healthcheckTimeout = 120
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3

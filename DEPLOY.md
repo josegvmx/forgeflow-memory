@@ -63,6 +63,8 @@ npm run db:migrate && node dist/api/server.js
 
 Every start applies `src/store/schema.sql` (idempotent: `CREATE … IF NOT EXISTS`, `ADD COLUMN IF NOT EXISTS`, CHECK widening), then starts the server. The `&&` is deliberate: if the migration fails, the server doesn't start, the new deployment fails its health check and Railway keeps the previous deployment running — new code never runs on an unmigrated schema. A start command set in the Railway dashboard overrides `railway.toml`; leave it empty there.
 
+At container start Railway's private network can be unreachable for a few seconds, so the migration retries connection errors with backoff for up to ~45 s (logging `[migrate] attempt N: database not reachable yet …`), and sets `lock_timeout = '15s'` so it never hangs behind a busy table; SQL errors fail at once (`src/store/migrate.ts`). `healthcheckTimeout` is 120 s to leave room for that. A failed deployment's **Deploy Logs** show the `[migrate]` lines.
+
 To load the demo data once (first deploy, or after wiping the database), run `npm run deploy:seed` (migration + idempotent seed — skips ingestion if data already exists) from a Railway shell or with the database's public URL as `DATABASE_URL`.
 
 ---
