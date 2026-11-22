@@ -1,10 +1,10 @@
 /**
- * Apply schema.sql at startup (Railway start command: `npm run db:migrate && node dist/api/server.js`).
+ * Apply schema.sql at startup (the server runs scripts/migrate.ts in the background once listening).
  *
- * Until R14 nothing connected to the database at boot, so the private network (`*.railway.internal`)
- * being briefly unreachable when a container starts didn't matter. The migration connects first, so it
- * retries connection-level failures with backoff (up to `maxWaitMs`), and sets a lock timeout so an
- * ALTER TABLE waiting on a busy table fails instead of hanging. SQL errors fail at once. Pure apart
+ * It connects within moments of the container starting, when Railway's private network
+ * (`*.railway.internal`) may not be reachable yet, so it retries connection-level failures with
+ * backoff (up to `maxWaitMs`), and sets a lock timeout so an ALTER TABLE waiting on a busy table
+ * fails instead of hanging. SQL errors fail at once. Pure apart
  * from the injected `exec` / `sleep`, so it's unit-tested without a database.
  */
 
