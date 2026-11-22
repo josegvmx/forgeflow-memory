@@ -302,7 +302,7 @@ npm run explore -- --question "..." --topK 5 --scenario scenario_eval_001
 npm test              # unit tests (no DB or API keys required)
 npm run test:watch    # watch mode
 npm run test:eval     # RAG eval suite (requires DB + VOYAGE_API_KEY + ANTHROPIC_API_KEY)
-npm run deploy:seed   # apply schema + seed demo data (idempotent; run once on a fresh database)
+npm run deploy:seed   # apply schema + seed demo data (idempotent; the server also runs both at startup)
 ```
 
 Unit tests always pass regardless of environment. Integration tests (`recommendationCache`) and evals skip gracefully (shown as yellow in the reporter) when prerequisites are unavailable — they never report as false green.
@@ -390,12 +390,10 @@ See [DEPLOY.md](DEPLOY.md) for the full step-by-step Railway guide. In short:
 # 3. Add PostgreSQL plugin → enable vector extension
 # 4. Set env vars (DATABASE_URL, VOYAGE_API_KEY, ANTHROPIC_API_KEY)
 # 5. Start command (already in railway.toml — leave the dashboard field empty):
-npm run db:migrate && node dist/api/server.js
-# 6. First deploy only: load the demo data
-npm run deploy:seed
+node dist/api/server.js
 ```
 
-Every start applies the schema (idempotent); if the migration fails the server doesn't start and Railway keeps the previous deployment. The seed is idempotent too — it skips ingestion if data already exists. See DEPLOY.md.
+Once listening, the server applies the schema and the idempotent seed in the background (it skips ingestion if data already exists). See DEPLOY.md — and keep the start command a single command: Railway runs it without a shell, so `a && b` runs only `a`.
 
 ---
 

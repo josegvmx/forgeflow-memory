@@ -3,11 +3,12 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-# Migrate first (schema.sql is idempotent). If it fails the server never starts, the new
-# deployment fails its health check, and Railway keeps the previous one running.
-startCommand = "npm run db:migrate && node dist/api/server.js"
+# Plain command on purpose: Railway runs a Dockerfile service's start command without a shell, so
+# `a && b` would run only `a` (npm passed the rest as arguments, exited 0, the server never started).
+# The server applies schema.sql and the idempotent seed in the background once it is listening
+# (src/api/server.ts → scripts/migrate.ts, which retries while the database isn't reachable yet).
+startCommand = "node dist/api/server.js"
 healthcheckPath = "/health"
-# The migration may wait up to ~45 s for the database at container start (see src/store/migrate.ts).
-healthcheckTimeout = 120
+healthcheckTimeout = 30
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3

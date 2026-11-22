@@ -3,7 +3,8 @@
  * Applies src/store/schema.sql using the postgres.js client.
  * No psql binary required — works in Alpine Docker containers.
  * Retries while the database isn't reachable yet (Railway's private network at container start);
- * see src/store/migrate.ts. Exits 1 on failure so `&&` keeps the server from starting.
+ * see src/store/migrate.ts. Run by the server in the background once it is listening
+ * (src/api/server.ts), and by hand with `npm run db:migrate`. Exits 1 on failure.
  */
 
 import 'dotenv/config';
