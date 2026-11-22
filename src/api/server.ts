@@ -81,7 +81,7 @@ app.get('/scenarios/:scenarioId/summary', llmRateLimit, llmConcurrency);
 
 app.use('/ingest',  admin, adminBody);
 app.use('/ingest/*', admin, adminBody);
-app.on('POST', ['/events', '/scenarios', '/audit'], admin, adminBody);
+app.on('POST', ['/events', '/audit'], admin, adminBody); // POST /scenarios: 410 Gone (R14), no guard needed
 
 // Routes
 app.route('/ingest', ingestRoute);

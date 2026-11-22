@@ -23,7 +23,8 @@ export async function upsertEvent(event: StoredEvent): Promise<void> {
         content,
         metadata,
         embedding,
-        content_hash
+        content_hash,
+        run_id
       ) VALUES (
         ${event.scenarioId},
         ${event.nodeId},
@@ -33,7 +34,8 @@ export async function upsertEvent(event: StoredEvent): Promise<void> {
         ${event.content},
         ${event.metadata ? JSON.stringify(event.metadata) : null},
         ${JSON.stringify(event.embedding)},
-        ${eventHash(event)}
+        ${eventHash(event)},
+        ${event.runId ?? null}
       )
       ON CONFLICT (content_hash) DO NOTHING
     `;
@@ -59,7 +61,8 @@ export async function upsertEvents(events: StoredEvent[]): Promise<void> {
             content,
             metadata,
             embedding,
-            content_hash
+            content_hash,
+            run_id
           ) VALUES (
             ${event.scenarioId},
             ${event.nodeId},
@@ -69,7 +72,8 @@ export async function upsertEvents(events: StoredEvent[]): Promise<void> {
             ${event.content},
             ${event.metadata ? JSON.stringify(event.metadata) : null},
             ${JSON.stringify(event.embedding)},
-            ${eventHash(event)}
+            ${eventHash(event)},
+            ${event.runId ?? null}
           )
           ON CONFLICT (content_hash) DO NOTHING
         `;

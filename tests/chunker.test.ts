@@ -83,3 +83,19 @@ describe('chunkEvents', () => {
     expect(chunks[0].text).toBe(formatEventForEmbedding(baseEvent));
   });
 });
+
+describe('R14: ground-truth labels are stored but never embedded', () => {
+  it('leaves fault.* and source out of the embedding text, keeps the rest', () => {
+    const text = formatEventForEmbedding({
+      ...baseEvent,
+      metadata: {
+        machineId: 'M1_WELD', cyclesDown: 30, source: 'sim',
+        'fault.injected': true, 'fault.type': 'machine_down', 'fault.target': 'M1_WELD', 'fault.cycle': 5, 'fault.all': ['machine_down:M1_WELD@5'],
+      },
+    });
+    expect(text).toContain('machineId: M1_WELD');
+    expect(text).toContain('cyclesDown: 30');
+    expect(text).not.toMatch(/fault\.|source:|machine_down/);
+  });
+});
+

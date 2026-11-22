@@ -20,6 +20,7 @@ interface EventRow {
   mode: string;
   content: string;
   metadata: Record<string, unknown> | null;
+  run_id: string | null;
   created_at: Date;
   distance: number;
 }
@@ -33,6 +34,7 @@ function rowToEvent(row: EventRow): ReasoningEvent {
     mode: row.mode as ReasoningEvent['mode'],
     content: row.content,
     metadata: row.metadata ?? undefined,
+    ...(row.run_id ? { runId: row.run_id } : {}),
   };
 }
 
@@ -73,6 +75,7 @@ export async function queryMemory(query: MemoryQuery): Promise<MemoryResult> {
         mode,
         content,
         metadata,
+        run_id,
         created_at,
         embedding <=> ${JSON.stringify(queryEmbedding)}::vector AS distance
       FROM reasoning_events

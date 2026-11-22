@@ -17,14 +17,16 @@ CREATE TABLE IF NOT EXISTS reasoning_events (
   node_id     TEXT        NOT NULL,
   cycle       INTEGER     NOT NULL,
 
-  -- 'machine_failure' | 'routing_adjustment' | 'decision' | 'coalition'
+  -- 'machine_failure' | 'routing_adjustment' | 'decision' | 'coalition' | 'recovery' | 'disruption'
+  -- (keep in sync with EVENT_TYPES in src/types.ts and the R14 block below)
   event_type  TEXT        NOT NULL
                 CHECK (event_type IN (
                   'machine_failure',
                   'routing_adjustment',
                   'decision',
                   'coalition',
-                  'recovery'
+                  'recovery',
+                  'disruption'
                 )),
 
   -- 'heuristic' | 'ai'
@@ -42,6 +44,39 @@ CREATE TABLE IF NOT EXISTS reasoning_events (
 
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- ============================================================
+-- R14 (roadmap §4.1, §4.3) — idempotent, safe on every startup
+-- ============================================================
+
+-- The run an event came from (UUID from forgeflow-sim). Nullable: events stored
+-- before R14 have none, and keep their content_hash (see eventHash.ts).
+ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS run_id UUID;
+
+-- 'disruption' events (stock-outs, transporter loss). CREATE TABLE IF NOT EXISTS
+-- leaves an existing table's CHECK untouched, so widen it here: drop every CHECK
+-- on event_type that doesn't allow 'disruption' yet (whatever it is named), then
+-- add the current one. Does nothing once applied.
+DO $$
+DECLARE c record;
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'reasoning_events'::regclass AND contype = 'c'
+      AND pg_get_constraintdef(oid) LIKE '%event_type%'
+      AND pg_get_constraintdef(oid) LIKE '%disruption%'
+  ) THEN
+    FOR c IN
+      SELECT conname FROM pg_constraint
+      WHERE conrelid = 'reasoning_events'::regclass AND contype = 'c'
+        AND pg_get_constraintdef(oid) LIKE '%event_type%'
+    LOOP
+      EXECUTE format('ALTER TABLE reasoning_events DROP CONSTRAINT %I', c.conname);
+    END LOOP;
+    ALTER TABLE reasoning_events ADD CONSTRAINT reasoning_events_event_type_check
+      CHECK (event_type IN ('machine_failure', 'routing_adjustment', 'decision', 'coalition', 'recovery', 'disruption'));
+  END IF;
+END $$;
 
 -- ============================================================
 -- Indexes
@@ -68,6 +103,10 @@ CREATE INDEX IF NOT EXISTS reasoning_events_scenario_type_idx
 -- Fast filtering by node (useful for genetic-inheritance queries)
 CREATE INDEX IF NOT EXISTS reasoning_events_node_idx
   ON reasoning_events (node_id);
+
+-- Run lookups (replay, run rows, postmortems). Partial: pre-R14 rows have no run.
+CREATE INDEX IF NOT EXISTS reasoning_events_run_id_idx
+  ON reasoning_events (run_id) WHERE run_id IS NOT NULL;
 
 -- ============================================================
 -- Recommendation cache
@@ -96,7 +135,7 @@ CREATE INDEX IF NOT EXISTS recommendations_lookup_idx
 -- ============================================================
 -- De-duplication (idempotent — safe on every startup)
 --
--- One row per (scenario, node, cycle, event type, mode, content).
+-- One row per (scenario, node, cycle, event type, mode, content[, run]).
 -- content_hash is computed in the app by src/store/eventHash.ts;
 -- the backfill below must use the exact same formula.
 -- Re-ingesting an archive is now a no-op instead of adding copies.
@@ -106,7 +145,8 @@ ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS content_hash TEXT;
 UPDATE reasoning_events
 SET content_hash = encode(sha256(convert_to(
       scenario_id || '|' || node_id || '|' || cycle::text || '|' ||
-      event_type  || '|' || mode    || '|' || content, 'UTF8')), 'hex')
+      event_type  || '|' || mode    || '|' || content ||
+      COALESCE('|' || run_id::text, ''), 'UTF8')), 'hex')
 WHERE content_hash IS NULL;
 
 -- Remove existing duplicates (keep one row per hash). If anything was

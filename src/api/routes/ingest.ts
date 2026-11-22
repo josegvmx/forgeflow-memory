@@ -1,19 +1,25 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
+import { ScenarioIdSchema } from '../../audit/scenarioId.js';
+import { FlatMetadataSchema, RunIdSchema, SourceSchema } from '../../audit/simEpisode.js';
+import { EVENT_TYPES } from '../../types.js';
 import { ingestArchive } from '../../ingest/pipeline.js';
 import { clearRecommendationCache } from '../../store/recommendationCache.js';
 
 const ingestRoute = new Hono();
 
 const ReasoningEventSchema = z.object({
-  scenarioId: z.string(),
+  scenarioId: ScenarioIdSchema,
   nodeId:     z.string(),
   cycle:      z.number().int().nonnegative(),
-  eventType:  z.enum(['machine_failure', 'routing_adjustment', 'decision', 'coalition', 'recovery']),
+  eventType:  z.enum(EVENT_TYPES),
   mode:       z.enum(['heuristic', 'ai']),
   content:    z.string().min(1),
-  metadata:   z.record(z.unknown()).optional(),
-});
+  // R14: flat only (the chunker stringifies values); runId to its own column, source into metadata.
+  metadata:   FlatMetadataSchema.optional(),
+  runId:      RunIdSchema.optional(),
+  source:     SourceSchema.optional(),
+}).transform(({ source, ...e }) => (source ? { ...e, metadata: { ...(e.metadata ?? {}), source } } : e));
 
 const IngestBody = z.object({
   archive: z.array(ReasoningEventSchema).min(1),
