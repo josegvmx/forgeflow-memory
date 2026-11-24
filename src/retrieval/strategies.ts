@@ -79,7 +79,7 @@ export async function countRelevant(q: { scenarioId: string; relevant: { eventTy
       WHERE embedding IS NOT NULL
         AND scenario_id = ${q.scenarioId}
         AND event_type = ANY(${q.relevant.eventTypes})
-        AND metadata @> ${JSON.stringify(q.relevant.metadata)}::jsonb
+        AND metadata @> ${db.json(q.relevant.metadata as Parameters<typeof db.json>[0])}
         AND (run_id IS NULL OR NOT (run_id::text = ANY(${ignoreRunIds})))
     `;
     return r?.n ?? 0;

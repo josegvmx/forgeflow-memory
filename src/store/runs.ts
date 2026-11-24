@@ -4,8 +4,8 @@ import type { RunRow } from '../audit/runRow.js';
 /**
  * Insert or replace benchmark rows (one per run_id), in one transaction.
  * Eval run ids are deterministic, so re-exporting a run replaces its row (stored_at moves on).
- * JSONB columns are passed as JSON text and cast, never as JS arrays (postgres.js would send a
- * Postgres array).
+ * JSONB columns go through db.json(): postgres.js serializes jsonb parameters with JSON.stringify
+ * itself, so a pre-stringified value would be stored as a JSON string, not an object.
  */
 export async function upsertRuns(rows: RunRow[]): Promise<{ inserted: number; updated: number }> {
   let inserted = 0;
@@ -21,8 +21,8 @@ export async function upsertRuns(rows: RunRow[]): Promise<{ inserted: number; up
             rate_limited, empty_replies, timeouts, replay_url, created_at
           ) VALUES (
             ${r.run_id}, ${r.scenario_id}, ${r.scenario_name}, ${r.source}, ${r.provider}, ${r.model},
-            ${JSON.stringify(r.flags)}::jsonb, ${r.seed}, ${r.cycles}, ${r.breakdown_rate},
-            ${JSON.stringify(r.faults)}::jsonb, ${r.units}, ${r.plan_done_cycle}, ${r.avg_lead_time_s},
+            ${db.json(r.flags)}, ${r.seed}, ${r.cycles}, ${r.breakdown_rate},
+            ${db.json(r.faults)}, ${r.units}, ${r.plan_done_cycle}, ${r.avg_lead_time_s},
             ${r.cycles_to_recover_mean}, ${r.rescues}, ${r.double_awards}, ${r.llm_calls}, ${r.tokens_in},
             ${r.tokens_out}, ${r.cost_usd}, ${r.latency_p50_ms}, ${r.latency_p95_ms},
             ${r.llm_decision_share}, ${r.llm_priced_bid_share}, ${r.fallbacks}, ${r.truncated},
