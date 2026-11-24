@@ -46,6 +46,7 @@ ingestRoute.post('/', async (c) => {
     process.stderr.write('\n');
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    console.error(`[ingest] failed after ${archive.length} events received: ${message}`);
     return c.json({ error: `Ingest failed: ${message}` }, 500);
   }
 
