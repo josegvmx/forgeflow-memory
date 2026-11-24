@@ -15,8 +15,7 @@ vi.mock('../src/store/upsert.js', () => ({
   upsertEvents:       mockUpsertEvents,
   findExistingHashes: mockFindExistingHashes,
 }));
-vi.mock('../src/store/embeddingCache.js', async () => ({
-  textHash: (await vi.importActual<typeof import('../src/store/embeddingCache.js')>('../src/store/embeddingCache.js')).textHash,
+vi.mock('../src/store/embeddingCache.js', () => ({
   getCachedEmbeddings: vi.fn(async (_m: string, hashes: string[]) => new Map(hashes.filter(h => cache.has(h)).map(h => [h, cache.get(h)!]))),
   putCachedEmbeddings: mockPutCached,
 }));

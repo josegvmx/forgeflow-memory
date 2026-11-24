@@ -2,7 +2,8 @@ import { chunkEvents } from './chunker.js';
 import { embedMany, embeddingModel, EMBED_BATCH } from './embedder.js';
 import { upsertEvents, findExistingHashes, type StoredEvent } from '../store/upsert.js';
 import { eventHash } from '../store/eventHash.js';
-import { textHash, getCachedEmbeddings, putCachedEmbeddings } from '../store/embeddingCache.js';
+import { getCachedEmbeddings, putCachedEmbeddings } from '../store/embeddingCache.js';
+import { textHash } from './textHash.js';
 import type { ReasoningEvent } from '../types.js';
 
 // ============================================================

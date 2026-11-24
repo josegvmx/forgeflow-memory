@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { RunRowSchema, type RunRow } from '../audit/runRow.js';
 import { SimEpisodeSchema, simEpisodeToReasoningEvent, type SimEpisode } from '../audit/simEpisode.js';
 import { formatEventForEmbedding } from '../ingest/chunker.js';
-import { textHash } from '../store/embeddingCache.js';
+import { textHash } from '../ingest/textHash.js';
 
 // ============================================================
 // forgeflow-sim memory export (R14 phase 3): reading and checking

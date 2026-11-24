@@ -1,14 +1,12 @@
-import { createHash } from 'node:crypto';
 import db, { wrapDbError } from './client.js';
+
+export { textHash } from '../ingest/textHash.js';
 
 // ============================================================
 // Embedding cache (schema.sql: embedding_cache): one vector per
 // (model, exact embedding text). The ingest pipeline looks texts up
 // here before calling the embedding API and stores what it embedded.
 // ============================================================
-
-/** sha256 of the exact text sent to the embedding model. */
-export const textHash = (text: string): string => createHash('sha256').update(text, 'utf8').digest('hex');
 
 /** Cached vectors for the given text hashes (missing hashes are absent from the map). */
 export async function getCachedEmbeddings(model: string, hashes: string[]): Promise<Map<string, number[]>> {
