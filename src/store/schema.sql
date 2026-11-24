@@ -249,3 +249,16 @@ CREATE TABLE IF NOT EXISTS embedding_cache (
 );
 
 ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS embed_text_hash TEXT;
+
+-- ============================================================
+-- Repair (2026-11-24): jsonb written as a JSON string
+--
+-- postgres.js serializes jsonb parameters with JSON.stringify itself; the
+-- code passed JSON.stringify(obj), so values were stored double-encoded
+-- (a jsonb string holding the JSON text). Writes now use db.json(obj).
+-- Turn stored strings back into objects. Idempotent: no rows match once
+-- repaired.
+-- ============================================================
+UPDATE reasoning_events SET metadata = (metadata #>> '{}')::jsonb WHERE jsonb_typeof(metadata) = 'string';
+UPDATE runs SET flags  = (flags  #>> '{}')::jsonb WHERE jsonb_typeof(flags)  = 'string';
+UPDATE runs SET faults = (faults #>> '{}')::jsonb WHERE jsonb_typeof(faults) = 'string';
