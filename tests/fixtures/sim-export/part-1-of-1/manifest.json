@@ -1,0 +1,90 @@
+{
+  "format": "forgeflow-memory-export",
+  "version": 1,
+  "simCommit": "6b0017c",
+  "createdAt": "2026-11-24T11:58:32.379Z",
+  "matrix": {
+    "_doc": "Memory export matrix (R14 phase 3, roadmap \u00a75): AI off, virtual clock, seeded. npm run eval:export -- --list --shard 1/8 shows the job count (~730 jobs, ~1.1 s each; run 8 shards). Flag settings are full FORGEFLOW_* environments (anything else in your shell is cleared).",
+    "cycles": 100,
+    "seeds": 20,
+    "scenarios": [
+      {
+        "id": "factory",
+        "file": "factory-scenario.json"
+      },
+      {
+        "id": "simple",
+        "file": "forgeflow-scenario-simple.json"
+      },
+      {
+        "id": "apex",
+        "file": "forgeflow-scenario-apex.json"
+      }
+    ],
+    "breakdownRates": [
+      0,
+      0.03,
+      0.1
+    ],
+    "flagSettings": {
+      "defaults": {},
+      "ropes-off": {
+        "FORGEFLOW_DBR_ROPE_WIP": "false",
+        "FORGEFLOW_CONSTRAINT_ROPE": "false"
+      },
+      "rescue-off": {
+        "FORGEFLOW_RESCUE_STALLED": "false"
+      }
+    },
+    "faults": {
+      "seeds": 10,
+      "flagSettings": [
+        "defaults"
+      ]
+    }
+  },
+  "shard": {
+    "index": 1,
+    "count": 1
+  },
+  "jobs": 3,
+  "runs": 3,
+  "episodes": 12,
+  "labelledEpisodes": 4,
+  "faultRuns": [
+    {
+      "run_id": "820fa6e0-d4e9-8870-addb-eaf00fc8ce64",
+      "name": "simple/defaults/fault/redundant-down/seed1",
+      "case": "redundant-down",
+      "faults": [
+        "machine_down:M1_WELD@5+30"
+      ],
+      "effect": {
+        "dUnits": 2,
+        "dRecover": null,
+        "changed": true
+      },
+      "noFaultUnits": 27
+    },
+    {
+      "run_id": "3e32a9b9-14ea-8449-8335-8897f7899e01",
+      "name": "apex/defaults/fault/stock-out/seed6",
+      "case": "stock-out",
+      "faults": [
+        "stock_out:PART_ALUM@30"
+      ],
+      "effect": {
+        "dUnits": 0,
+        "dRecover": null,
+        "changed": false
+      },
+      "noFaultUnits": 18
+    }
+  ],
+  "noEffectRuns": [
+    "3e32a9b9-14ea-8449-8335-8897f7899e01"
+  ],
+  "skipped": [],
+  "seconds": 0,
+  "_doc": "Sample of a real forgeflow-sim eval:export (3 runs: base 3%, labelled fault with a reroute, no-effect fault)."
+}

@@ -75,6 +75,7 @@ forgeflow-memory/
 │   └── index.html                      # React demo UI (served at GET /)
 ├── scripts/
 │   ├── export.ts                       # dump DB back to archive JSON (npm run export)
+│   ├── import-sim-export.ts            # import a forgeflow-sim eval export (npm run import:sim)
 │   ├── explore-retrieval.ts            # inspect retrieved chunks + cosine distances (npm run explore)
 │   └── deploy-seed.ts                  # idempotent seed for Railway deploys (npm run deploy:seed)
 ├── docs/
@@ -190,8 +191,10 @@ All request bodies are validated by Zod at the route boundary. Validation failur
 **POST /ingest**
 ```json
 { "archive": [ReasoningEvent, ...] }
-→ { "ingested": 14 }
+→ { "ingested": 14, "skipped": 0, "embedded": 9, "cached": 3 }
 ```
+Events already stored are skipped before embedding. Each distinct embedding text is embedded once per
+model (`embedding_cache`) and requests carry 64 texts each, so `embedded` / `cached` count distinct texts.
 
 **POST /query**
 ```json
@@ -334,6 +337,21 @@ curl -X POST http://localhost:3001/ingest \
 ```
 
 `/ingest` requires `ADMIN_TOKEN` (see [Security](#security)).
+
+### Eval exports (R14 phase 3)
+
+forgeflow-sim's `npm run eval:export` writes seeded AI-off eval runs as benchmark rows and episodes
+(`eval/export/part-<i>-of-<n>/`). Import them with:
+
+```bash
+npm run import:sim -- --url https://forgeflow-memory-production.up.railway.app --dry-run   # counts only
+npm run import:sim -- --url https://forgeflow-memory-production.up.railway.app             # rows → /runs, episodes → /ingest
+```
+
+The export folder defaults to `../forgeflow-sim/eval/export`; `ADMIN_TOKEN` comes from `.env`. Everything is
+validated locally first (`src/import/simExport.ts`), so a bad file stops the import before anything is sent.
+Re-running is safe: rows are replaced by `run_id`, stored episodes are skipped, embedded texts are reused.
+Sample export used by the tests: `tests/fixtures/sim-export/`.
 
 ---
 

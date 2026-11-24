@@ -12,52 +12,49 @@ import { withRetry } from '../lib/retry.js';
 const VOYAGE_API_URL = 'https://api.voyageai.com/v1/embeddings';
 const OPENAI_API_URL = 'https://api.openai.com/v1/embeddings';
 
-async function embedVoyage(text: string): Promise<number[]> {
-  const res = await withRetry(() =>
-    fetch(VOYAGE_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.VOYAGE_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'voyage-code-2',
-        input: text,
-      }),
-    })
-  );
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Voyage AI embedding failed (${res.status}): ${err}`);
-  }
-
-  const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data[0].embedding;
+/** The model `embed` / `embedMany` use: Voyage when its key is set, else OpenAI (both 1536-dim). */
+export function embeddingModel(): string {
+  if (process.env.VOYAGE_API_KEY) return 'voyage-code-2';
+  if (process.env.OPENAI_API_KEY) return 'text-embedding-3-small';
+  throw new Error('No embedding API key found. Set VOYAGE_API_KEY or OPENAI_API_KEY in your .env file.');
 }
 
-async function embedOpenAI(text: string): Promise<number[]> {
+/** Texts per embedding request: well inside both providers' limits (Voyage 128 inputs, OpenAI 2048). */
+export const EMBED_BATCH = 64;
+const DIMS = 1536;
+
+async function callEmbeddings(inputs: string[]): Promise<number[][]> {
+  const voyage = !!process.env.VOYAGE_API_KEY;
+  const model = embeddingModel();
   const res = await withRetry(() =>
-    fetch(OPENAI_API_URL, {
+    fetch(voyage ? VOYAGE_API_URL : OPENAI_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${voyage ? process.env.VOYAGE_API_KEY : process.env.OPENAI_API_KEY}`,
       },
-      body: JSON.stringify({
-        model: 'text-embedding-3-small',
-        input: text,
-      }),
-    })
+      body: JSON.stringify({ model, input: inputs }),
+    }),
+    { timeoutMs: 30_000 },
   );
-
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`OpenAI embedding failed (${res.status}): ${err}`);
+    throw new Error(`${voyage ? 'Voyage AI' : 'OpenAI'} embedding failed (${res.status}): ${err.slice(0, 300)}`);
   }
+  const json = (await res.json()) as { data: { embedding: number[]; index?: number }[] };
+  // Both APIs return one item per input with its index; order by it rather than trusting array order.
+  const out = [...json.data].sort((a, b) => (a.index ?? 0) - (b.index ?? 0)).map(d => d.embedding);
+  if (out.length !== inputs.length || out.some(v => v?.length !== DIMS)) {
+    throw new Error(`embedding reply has ${out.length} vectors for ${inputs.length} inputs (expected ${DIMS} dims each)`);
+  }
+  return out;
+}
 
-  const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data[0].embedding;
+/** Embed many strings, EMBED_BATCH per request, in order. */
+export async function embedMany(texts: string[]): Promise<number[][]> {
+  const out: number[][] = [];
+  for (let i = 0; i < texts.length; i += EMBED_BATCH) out.push(...await callEmbeddings(texts.slice(i, i + EMBED_BATCH)));
+  return out;
 }
 
 /**
@@ -65,13 +62,5 @@ async function embedOpenAI(text: string): Promise<number[]> {
  * based on available API keys (Voyage preferred over OpenAI).
  */
 export async function embed(text: string): Promise<number[]> {
-  if (process.env.VOYAGE_API_KEY) {
-    return embedVoyage(text);
-  }
-  if (process.env.OPENAI_API_KEY) {
-    return embedOpenAI(text);
-  }
-  throw new Error(
-    'No embedding API key found. Set VOYAGE_API_KEY or OPENAI_API_KEY in your .env file.'
-  );
+  return (await embedMany([text]))[0];
 }

@@ -4,6 +4,8 @@ import { eventHash } from './eventHash.js';
 
 export interface StoredEvent extends ReasoningEvent {
   embedding: number[];
+  /** sha256 of the text the embedding was made from (embedding_cache.text_hash). */
+  embedTextHash?: string;
 }
 
 /**
@@ -24,7 +26,8 @@ export async function upsertEvent(event: StoredEvent): Promise<void> {
         metadata,
         embedding,
         content_hash,
-        run_id
+        run_id,
+        embed_text_hash
       ) VALUES (
         ${event.scenarioId},
         ${event.nodeId},
@@ -35,7 +38,8 @@ export async function upsertEvent(event: StoredEvent): Promise<void> {
         ${event.metadata ? JSON.stringify(event.metadata) : null},
         ${JSON.stringify(event.embedding)},
         ${eventHash(event)},
-        ${event.runId ?? null}
+        ${event.runId ?? null},
+        ${event.embedTextHash ?? null}
       )
       ON CONFLICT (content_hash) DO NOTHING
     `;
@@ -62,7 +66,8 @@ export async function upsertEvents(events: StoredEvent[]): Promise<void> {
             metadata,
             embedding,
             content_hash,
-            run_id
+            run_id,
+            embed_text_hash
           ) VALUES (
             ${event.scenarioId},
             ${event.nodeId},
@@ -73,7 +78,8 @@ export async function upsertEvents(events: StoredEvent[]): Promise<void> {
             ${event.metadata ? JSON.stringify(event.metadata) : null},
             ${JSON.stringify(event.embedding)},
             ${eventHash(event)},
-            ${event.runId ?? null}
+            ${event.runId ?? null},
+            ${event.embedTextHash ?? null}
           )
           ON CONFLICT (content_hash) DO NOTHING
         `;

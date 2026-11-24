@@ -229,3 +229,23 @@ ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS content_tsv tsvector
 
 CREATE INDEX IF NOT EXISTS reasoning_events_content_tsv_idx
   ON reasoning_events USING gin (content_tsv);
+
+-- ============================================================
+-- R14 phase 3 — embedding cache, one vector per (model, text)
+--
+-- Many events share their embedding text (templated sentences across
+-- seeds: ~8.7k distinct texts in 19k eval episodes), so the pipeline
+-- embeds each distinct text once per model and reuses it; re-imports
+-- and a second embedding model only pay for texts not seen before.
+-- text_hash = sha256 of the exact embedding text (src/ingest/chunker.ts);
+-- reasoning_events.embed_text_hash links an event to its cache entry.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS embedding_cache (
+  model      TEXT        NOT NULL,
+  text_hash  TEXT        NOT NULL,
+  embedding  vector(1536) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY (model, text_hash)
+);
+
+ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS embed_text_hash TEXT;

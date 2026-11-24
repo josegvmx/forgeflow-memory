@@ -28,7 +28,7 @@ const IngestBody = z.object({
 /**
  * POST /ingest
  * Body: { archive: ReasoningEvent[] }
- * Response: { ingested: number }
+ * Response: { ingested, skipped, embedded, cached } — embedded / cached count distinct embedding texts
  */
 ingestRoute.post('/', async (c) => {
   const raw = await c.req.json().catch(() => null);
@@ -37,7 +37,7 @@ ingestRoute.post('/', async (c) => {
     return c.json({ error: result.error.flatten() }, 400);
   }
   const { archive } = result.data;
-  let stats: { inserted: number; skipped: number } | undefined;
+  let stats: { inserted: number; skipped: number; embedded?: number; cached?: number } | undefined;
 
   try {
     stats = await ingestArchive(archive, (done, total) => {
@@ -55,7 +55,7 @@ ingestRoute.post('/', async (c) => {
     process.stderr.write(`Cleared ${invalidated} cached recommendation(s) after ingest.\n`);
   }
 
-  return c.json({ ingested: stats?.inserted ?? archive.length, skipped: stats?.skipped ?? 0 });
+  return c.json({ ingested: stats?.inserted ?? archive.length, skipped: stats?.skipped ?? 0, embedded: stats?.embedded ?? 0, cached: stats?.cached ?? 0 });
 });
 
 export default ingestRoute;
