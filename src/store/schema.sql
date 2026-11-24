@@ -163,3 +163,69 @@ DELETE FROM recommendations WHERE EXISTS (SELECT 1 FROM removed);
 
 CREATE UNIQUE INDEX IF NOT EXISTS reasoning_events_content_hash_idx
   ON reasoning_events (content_hash);
+
+-- ============================================================
+-- R14 phase 3 — benchmark rows (roadmap §4.5), one per run
+--
+-- Written by POST /runs (admin) from forgeflow-sim's replayToRows /
+-- eval export. Plain columns so a comparison is a GROUP BY
+-- (provider, model, flags…). The honesty columns
+-- (llm_decision_share, llm_priced_bid_share, fallbacks, truncated,
+-- rate_limited) say how much of an AI run was really the LLM.
+-- Upsert on run_id: eval runs have deterministic ids, so a re-export
+-- replaces the row instead of adding a copy.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS runs (
+  run_id                 UUID        PRIMARY KEY,
+  scenario_id            TEXT        NOT NULL,
+  scenario_name          TEXT        NOT NULL,
+  source                 TEXT        NOT NULL CHECK (source IN ('eval', 'app')),
+  provider               TEXT        NOT NULL,            -- 'heuristic' when AI was off
+  model                  TEXT,
+  flags                  JSONB       NOT NULL DEFAULT '{}'::jsonb,  -- flat
+  seed                   BIGINT,                          -- null for app runs
+  cycles                 INTEGER     NOT NULL,
+  breakdown_rate         DOUBLE PRECISION,
+  faults                 JSONB       NOT NULL DEFAULT '[]'::jsonb,  -- flat list of labels
+  units                  INTEGER     NOT NULL,
+  plan_done_cycle        INTEGER,
+  avg_lead_time_s        DOUBLE PRECISION,
+  cycles_to_recover_mean DOUBLE PRECISION,
+  rescues                INTEGER     NOT NULL DEFAULT 0,
+  double_awards          INTEGER     NOT NULL DEFAULT 0,
+  llm_calls              INTEGER     NOT NULL DEFAULT 0,
+  tokens_in              BIGINT      NOT NULL DEFAULT 0,
+  tokens_out             BIGINT      NOT NULL DEFAULT 0,
+  cost_usd               DOUBLE PRECISION NOT NULL DEFAULT 0,
+  latency_p50_ms         DOUBLE PRECISION,
+  latency_p95_ms         DOUBLE PRECISION,
+  llm_decision_share     DOUBLE PRECISION CHECK (llm_decision_share BETWEEN 0 AND 1),
+  llm_priced_bid_share   DOUBLE PRECISION CHECK (llm_priced_bid_share BETWEEN 0 AND 1),
+  fallbacks              INTEGER     NOT NULL DEFAULT 0,
+  truncated              INTEGER,                         -- null: not recorded separately (older rows)
+  rate_limited           INTEGER     NOT NULL DEFAULT 0,
+  empty_replies          INTEGER     NOT NULL DEFAULT 0,
+  timeouts               INTEGER     NOT NULL DEFAULT 0,
+  replay_url             TEXT,
+  created_at             TIMESTAMPTZ NOT NULL,            -- when the run was recorded
+  stored_at              TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS runs_scenario_idx ON runs (scenario_id);
+CREATE INDEX IF NOT EXISTS runs_provider_model_idx ON runs (provider, model);
+
+-- ============================================================
+-- R14 phase 3 — full-text search for hybrid retrieval
+--
+-- Generated from content, so every insert path fills it with no app
+-- code and no backfill. Hybrid retrieval fuses this ranking
+-- (ts_rank_cd over plainto/websearch_to_tsquery('english', …)) with
+-- the pgvector ranking by reciprocal rank fusion. Adding it rewrites
+-- the table once (small); afterwards both statements are no-ops.
+-- Every read names its columns, so it never reaches API responses.
+-- ============================================================
+ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS content_tsv tsvector
+  GENERATED ALWAYS AS (to_tsvector('english', content)) STORED;
+
+CREATE INDEX IF NOT EXISTS reasoning_events_content_tsv_idx
+  ON reasoning_events USING gin (content_tsv);

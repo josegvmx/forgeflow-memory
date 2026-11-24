@@ -7,6 +7,7 @@ import { logger } from 'hono/logger';
 import ingestRoute from './routes/ingest.js';
 import queryRoute from './routes/query.js';
 import auditRoute from './routes/audit.js';
+import runsRoute from './routes/runs.js';
 import { ValidationError, UpstreamError } from './errors.js';
 import { rateLimit } from './rateLimit.js';
 import { requireAdminToken, concurrencyLimit } from './security.js';
@@ -81,11 +82,14 @@ app.get('/scenarios/:scenarioId/summary', llmRateLimit, llmConcurrency);
 
 app.use('/ingest',  admin, adminBody);
 app.use('/ingest/*', admin, adminBody);
+app.use('/runs',    admin, adminBody);
+app.use('/runs/*',  admin, adminBody);
 app.on('POST', ['/events', '/audit'], admin, adminBody); // POST /scenarios: 410 Gone (R14), no guard needed
 
 // Routes
 app.route('/ingest', ingestRoute);
 app.route('/query', queryRoute);
+app.route('/runs', runsRoute);
 
 // Audit routes (includes /events, /audit, /recommend, /scenarios)
 app.route('/', auditRoute);

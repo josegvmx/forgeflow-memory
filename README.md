@@ -46,6 +46,7 @@ forgeflow-memory/
 │   │   └── routes/
 │   │       ├── ingest.ts               # POST /ingest  — Zod-validated
 │   │       ├── query.ts                # POST /query   — Zod-validated
+│   │       ├── runs.ts                 # POST /runs    — benchmark rows (R14 §4.5)
 │   │       └── audit.ts                # /events, /audit, /recommend, GET /scenarios/:id/summary
 │   ├── prompts/
 │   │   ├── synthesize.ts               # SYSTEM_PROMPT + buildUserMessage()
@@ -183,6 +184,7 @@ All request bodies are validated by Zod at the route boundary. Validation failur
 |---|---|---|
 | `POST` | `/ingest` | Ingest an array of `ReasoningEvent[]` — clears recommendation cache |
 | `POST` | `/query` | Semantic search + synthesis |
+| `POST` | `/runs` | Benchmark rows, one per run (admin) |
 | `GET` | `/health` | Health check |
 
 **POST /ingest**
@@ -202,6 +204,17 @@ All request bodies are validated by Zod at the route boundary. Validation failur
   "debug?": false
 }
 → { "events": [...], "summary": "synthesis", "_debugContext?": "..." }
+```
+
+**POST /runs** (admin) — one benchmark row per run, as forgeflow-sim's `replayToRows` / eval export
+writes it (roadmap R14 §4.5; contract fixture `tests/fixtures/sim-run-row.json`). Stored in the `runs`
+table with one plain column per field, so a comparison is a `GROUP BY provider, model`. The whole batch is
+validated before anything is stored; a `run_id` already stored is replaced (eval ids are deterministic).
+Honesty columns are required: `llm_decision_share`, `llm_priced_bid_share`, `fallbacks`, `rate_limited`
+(`truncated` is optional; null = not recorded separately). A `heuristic` row with LLM calls or a model is rejected.
+```json
+{ "runs": [RunRow, ...] }          // 1–1000 rows
+→ { "inserted": 539, "updated": 1 }
 ```
 
 `debug: true` includes `_debugContext` — the raw formatted string passed to the LLM. Used by the eval pipeline for faithfulness checks.
@@ -354,7 +367,7 @@ Live demo: [forgeflow-memory-production.up.railway.app](https://forgeflow-memory
 
 The live demo is public, so the API treats every visitor as untrusted.
 
-**Write and pipeline endpoints are admin-only.** `POST /ingest`, `POST /events` and `POST /audit` require `Authorization: Bearer $ADMIN_TOKEN` (or `X-Admin-Token`). If `ADMIN_TOKEN` is not set (or is shorter than 16 characters) these endpoints return `403`, which is the default for the demo. The startup seed runs in-process and is unaffected.
+**Write and pipeline endpoints are admin-only.** `POST /ingest`, `POST /events`, `POST /audit` and `POST /runs` require `Authorization: Bearer $ADMIN_TOKEN` (or `X-Admin-Token`). If `ADMIN_TOKEN` is not set (or is shorter than 16 characters) these endpoints return `403`, which is the default for the demo. The startup seed runs in-process and is unaffected.
 
 **Abuse and cost limits** on the public endpoints:
 
