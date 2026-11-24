@@ -14,6 +14,7 @@
     "deploy:seed": "tsx scripts/migrate.ts && tsx scripts/deploy-seed.ts",
     "export": "tsx scripts/export.ts",
     "import:sim": "tsx scripts/import-sim-export.ts",
+    "golden:build": "tsx scripts/build-golden-sim.ts",
     "explore": "tsx scripts/explore-retrieval.ts",
     "test": "vitest run",
     "test:watch": "vitest",
