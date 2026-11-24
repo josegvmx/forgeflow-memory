@@ -353,6 +353,19 @@ validated locally first (`src/import/simExport.ts`), so a bad file stops the imp
 Re-running is safe: rows are replaced by `run_id`, stored episodes are skipped, embedded texts are reused.
 Sample export used by the tests: `tests/fixtures/sim-export/`.
 
+### Retrieval eval on real data (R14 phase 3)
+
+```bash
+npm run golden:build        # golden set from the sim export → tests/evals/fixtures/golden-sim.json (committed)
+npm run eval:retrieval      # needs DATABASE_URL (store with the import) + the embedding key the events used
+```
+
+The golden set's 100 queries come from injected faults (ground truth from labels, never from an LLM) and from
+machine histories; relevance is a predicate on scenario, event type and metadata. `eval:retrieval` compares
+`vector`, `vector+scenario`, `fulltext` (any word, `content_tsv`), `hybrid` (vector + full text, reciprocal
+rank fusion) and `hybrid+scenario`, with recall@1/5/10 (÷ min(k, relevant)) and MRR@10, by query style
+and aspect. Results: [docs/retrieval-eval.md](docs/retrieval-eval.md).
+
 ---
 
 ## Event Types
