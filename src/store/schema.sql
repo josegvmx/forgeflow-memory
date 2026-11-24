@@ -213,3 +213,19 @@ CREATE TABLE IF NOT EXISTS runs (
 
 CREATE INDEX IF NOT EXISTS runs_scenario_idx ON runs (scenario_id);
 CREATE INDEX IF NOT EXISTS runs_provider_model_idx ON runs (provider, model);
+
+-- ============================================================
+-- R14 phase 3 — full-text search for hybrid retrieval
+--
+-- Generated from content, so every insert path fills it with no app
+-- code and no backfill. Hybrid retrieval fuses this ranking
+-- (ts_rank_cd over plainto/websearch_to_tsquery('english', …)) with
+-- the pgvector ranking by reciprocal rank fusion. Adding it rewrites
+-- the table once (small); afterwards both statements are no-ops.
+-- Every read names its columns, so it never reaches API responses.
+-- ============================================================
+ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS content_tsv tsvector
+  GENERATED ALWAYS AS (to_tsvector('english', content)) STORED;
+
+CREATE INDEX IF NOT EXISTS reasoning_events_content_tsv_idx
+  ON reasoning_events USING gin (content_tsv);
