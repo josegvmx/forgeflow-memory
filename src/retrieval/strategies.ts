@@ -1,5 +1,6 @@
 import db, { wrapDbError } from '../store/client.js';
 import { rrf, type RetrievedRow } from '../eval/retrievalMetrics.js';
+import { questionHints } from './questionHints.js';
 
 // ============================================================
 // Retrieval strategies compared by the retrieval eval (R14 phase 3, step 7).
@@ -9,13 +10,18 @@ import { rrf, type RetrievedRow } from '../eval/retrievalMetrics.js';
 //   fulltext          Postgres full text (content_tsv, GIN), any word matches, ts_rank_cd
 //   hybrid            vector + fulltext fused by reciprocal rank (k = 60)
 //   hybrid+scenario   same, only the query's scenario
+//   structured        the query's scenario + hints read from the question (questionHints.ts): named
+//                     machines / parts / transporters (or the machines of a named operation), the kind
+//                     of event asked about, then ordered by distance to the asked cycle and duration,
+//                     then by vector distance. Topped up from vector+scenario when the filters leave
+//                     fewer rows than asked.
 //
 // HNSW returns its ef_search best candidates and filters afterwards, so a WHERE clause can leave
 // fewer rows than asked; every query raises hnsw.ef_search (SET LOCAL, inside its own transaction).
 // No fault.* filter: those labels are the answer key.
 // ============================================================
 
-export const STRATEGIES = ['vector', 'vector+scenario', 'fulltext', 'hybrid', 'hybrid+scenario'] as const;
+export const STRATEGIES = ['vector', 'vector+scenario', 'fulltext', 'hybrid', 'hybrid+scenario', 'structured'] as const;
 export type Strategy = (typeof STRATEGIES)[number];
 
 export interface StrategyQuery { text: string; embedding: number[]; scenarioId: string }
@@ -51,6 +57,45 @@ async function fulltextSearch(q: StrategyQuery, scenario: boolean, limit: number
   `;
 }
 
+/**
+ * Order by distance to the asked cycle, measured from the cycle the incident started: breakdown cycle
+ * for failures (and a disruption's fault cycle), but a recovery or reroute is stored at the cycle work
+ * moved again, so step back by how long that took. Omitted (not "ORDER BY 0") when there is no hint.
+ */
+const byCycle = (tx: typeof db, c: number) => tx`abs((CASE event_type
+    WHEN 'recovery' THEN cycle - COALESCE((metadata->>'cyclesToRecover')::numeric, 0)
+    WHEN 'routing_adjustment' THEN cycle - COALESCE((metadata->>'decisionLatencyCycles')::numeric, 0)
+    ELSE cycle END) - ${c}::numeric),`;
+const byDuration = (tx: typeof db, d: number) =>
+  tx`(CASE WHEN event_type = 'machine_failure' THEN abs(COALESCE((metadata->>'cyclesDown')::numeric, 0) - ${d}::numeric) ELSE 0 END),`;
+
+async function structuredSearch(q: StrategyQuery, limit: number): Promise<RetrievedRow[]> {
+  const h = questionHints(q.text);
+  let nodes = h.ids;
+  if (!nodes.length && h.ops.length) {
+    // Machines that perform the named operation(s), from their failure events in this scenario.
+    nodes = (await db<{ node_id: string }[]>`
+      SELECT DISTINCT node_id FROM reasoning_events
+      WHERE scenario_id = ${q.scenarioId} AND event_type = 'machine_failure' AND metadata->'operations' ?| ${h.ops}
+    `).map(r => r.node_id);
+  }
+  const rows = await db.begin(async (tx) => tx<RetrievedRow[]>`
+    SELECT id::text, scenario_id, event_type, metadata, run_id::text
+    FROM reasoning_events
+    WHERE embedding IS NOT NULL AND scenario_id = ${q.scenarioId}
+      ${h.eventType ? tx`AND event_type = ${h.eventType}` : tx``}
+      ${nodes.length ? tx`AND node_id = ANY(${nodes})` : tx``}
+    ORDER BY
+      ${h.cycle !== null ? byCycle(tx as unknown as typeof db, h.cycle) : tx``}
+      ${h.duration !== null ? byDuration(tx as unknown as typeof db, h.duration) : tx``}
+      embedding <=> ${JSON.stringify(q.embedding)}::vector
+    LIMIT ${limit}
+  `) as RetrievedRow[];
+  if (rows.length >= limit) return rows;
+  const seen = new Set(rows.map(r => r.id));
+  return [...rows, ...(await vectorSearch(q, true, limit)).filter(r => !seen.has(r.id))].slice(0, limit);
+}
+
 /** Ranked rows for one query (CANDIDATES long at most). */
 export async function retrieve(strategy: Strategy, q: StrategyQuery, limit = CANDIDATES): Promise<RetrievedRow[]> {
   try {
@@ -58,6 +103,7 @@ export async function retrieve(strategy: Strategy, q: StrategyQuery, limit = CAN
       case 'vector': return await vectorSearch(q, false, limit);
       case 'vector+scenario': return await vectorSearch(q, true, limit);
       case 'fulltext': return await fulltextSearch(q, false, limit);
+      case 'structured': return await structuredSearch(q, limit);
       case 'hybrid':
       case 'hybrid+scenario': {
         const scenario = strategy === 'hybrid+scenario';

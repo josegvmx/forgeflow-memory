@@ -1,0 +1,3232 @@
+{
+  "model": "voyage-code-2",
+  "simCommit": "6b0017c",
+  "summary": {
+    "vector": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.25,
+          "5": 0.26,
+          "10": 0.254
+        },
+        "mrr": 0.276
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.033,
+            "5": 0.047,
+            "10": 0.053
+          },
+          "mrr": 0.061
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.426,
+            "5": 0.437,
+            "10": 0.422
+          },
+          "mrr": 0.459
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.063,
+            "5": 0.063,
+            "10": 0.063
+          },
+          "mrr": 0.063
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.2,
+            "5": 0.2,
+            "10": 0.2
+          },
+          "mrr": 0.2
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.423,
+            "5": 0.442,
+            "10": 0.431
+          },
+          "mrr": 0.474
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        }
+      }
+    },
+    "vector+scenario": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.52,
+          "5": 0.508,
+          "10": 0.504
+        },
+        "mrr": 0.534
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.3,
+            "5": 0.26,
+            "10": 0.257
+          },
+          "mrr": 0.311
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.704,
+            "5": 0.704,
+            "10": 0.698
+          },
+          "mrr": 0.723
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.313,
+            "10": 0.313
+          },
+          "mrr": 0.313
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.933,
+            "5": 0.933,
+            "10": 0.933
+          },
+          "mrr": 0.933
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0,
+            "5": 0.027,
+            "10": 0.047
+          },
+          "mrr": 0.017
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.731,
+            "5": 0.7,
+            "10": 0.687
+          },
+          "mrr": 0.753
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        }
+      }
+    },
+    "fulltext": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.1,
+          "5": 0.168,
+          "10": 0.188
+        },
+        "mrr": 0.204
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.067,
+            "5": 0.173,
+            "10": 0.183
+          },
+          "mrr": 0.226
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.13,
+            "5": 0.196,
+            "10": 0.228
+          },
+          "mrr": 0.225
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.063,
+            "5": 0.063,
+            "10": 0.063
+          },
+          "mrr": 0.094
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.333,
+            "5": 0.333,
+            "10": 0.333
+          },
+          "mrr": 0.533
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0,
+            "5": 0.107,
+            "10": 0.12
+          },
+          "mrr": 0.114
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.096,
+            "5": 0.177,
+            "10": 0.21
+          },
+          "mrr": 0.19
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0.167,
+            "10": 0.183
+          },
+          "mrr": 0.139
+        }
+      }
+    },
+    "hybrid": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.26,
+          "5": 0.232,
+          "10": 0.249
+        },
+        "mrr": 0.314
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.1,
+            "5": 0.073,
+            "10": 0.117
+          },
+          "mrr": 0.162
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.407,
+            "5": 0.37,
+            "10": 0.378
+          },
+          "mrr": 0.467
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.063,
+            "5": 0.063,
+            "10": 0.063
+          },
+          "mrr": 0.083
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.2,
+            "5": 0.227,
+            "10": 0.273
+          },
+          "mrr": 0.294
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0,
+            "5": 0.013,
+            "10": 0.073
+          },
+          "mrr": 0.043
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.442,
+            "5": 0.377,
+            "10": 0.371
+          },
+          "mrr": 0.5
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0.067
+          },
+          "mrr": 0.06
+        }
+      }
+    },
+    "hybrid+scenario": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.47,
+          "5": 0.482,
+          "10": 0.492
+        },
+        "mrr": 0.537
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.3,
+            "5": 0.4,
+            "10": 0.43
+          },
+          "mrr": 0.443
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.667,
+            "5": 0.63,
+            "10": 0.626
+          },
+          "mrr": 0.707
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.125,
+            "5": 0.138,
+            "10": 0.156
+          },
+          "mrr": 0.138
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.733,
+            "5": 0.787,
+            "10": 0.82
+          },
+          "mrr": 0.769
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.067,
+            "5": 0.107,
+            "10": 0.12
+          },
+          "mrr": 0.144
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.673,
+            "5": 0.662,
+            "10": 0.662
+          },
+          "mrr": 0.757
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0.017
+          },
+          "mrr": 0.01
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0.067,
+            "10": 0.083
+          },
+          "mrr": 0.083
+        }
+      }
+    },
+    "structured": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.82,
+          "5": 0.846,
+          "10": 0.865
+        },
+        "mrr": 0.84
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.833,
+            "5": 0.893,
+            "10": 0.927
+          },
+          "mrr": 0.878
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.963,
+            "5": 0.974,
+            "10": 0.978
+          },
+          "mrr": 0.969
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.325,
+            "10": 0.369
+          },
+          "mrr": 0.333
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.6,
+            "5": 0.6,
+            "10": 0.6
+          },
+          "mrr": 0.6
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0.25,
+            "5": 0.383,
+            "10": 0.475
+          },
+          "mrr": 0.348
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.5,
+            "5": 0.667,
+            "10": 0.8
+          },
+          "mrr": 0.638
+        }
+      }
+    }
+  },
+  "perQuery": {
+    "q001": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q002": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q003": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q004": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q005": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q006": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q007": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 3,
+        "recall5": 0.6
+      }
+    },
+    "q008": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 7,
+        "recall5": 0
+      }
+    },
+    "q009": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q010": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q011": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 2,
+        "recall5": 0.8
+      }
+    },
+    "q012": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 5,
+        "recall5": 0.2
+      }
+    },
+    "q013": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q014": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q015": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q016": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q017": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 5,
+        "recall5": 0.2
+      }
+    },
+    "q018": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q019": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q020": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q021": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q022": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q023": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q024": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q025": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q026": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 2,
+        "recall5": 0.8
+      }
+    },
+    "q027": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q028": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q029": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q030": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q031": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q032": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q033": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q034": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q035": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q036": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q037": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q038": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q039": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q040": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q041": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q042": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q043": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q044": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q045": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 8,
+        "recall5": 0
+      }
+    },
+    "q046": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q047": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q048": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid": {
+        "firstHit": 3,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q049": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q050": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q051": {
+      "vector": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q052": {
+      "vector": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q053": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q054": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q055": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q056": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q057": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q058": {
+      "vector": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q059": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q060": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q061": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q062": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q063": {
+      "vector": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q064": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q065": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q066": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q067": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q068": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q069": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q070": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q071": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q072": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 3,
+        "recall5": 0.2
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q073": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q074": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q075": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q076": {
+      "vector": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q077": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q078": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q079": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 2,
+        "recall5": 0.6
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q080": {
+      "vector": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q081": {
+      "vector": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q082": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q083": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "fulltext": {
+        "firstHit": 3,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q084": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q085": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q086": {
+      "vector": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q087": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "hybrid": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q088": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q089": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q090": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q091": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 3,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q092": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q093": {
+      "vector": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "fulltext": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q094": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q095": {
+      "vector": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q096": {
+      "vector": {
+        "firstHit": 2,
+        "recall5": 0.2
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q097": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "fulltext": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q098": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 2,
+        "recall5": 0.6
+      },
+      "hybrid": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q099": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q100": {
+      "vector": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "fulltext": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "hybrid": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    }
+  },
+  "relevant": {
+    "q001": 20,
+    "q002": 20,
+    "q003": 20,
+    "q004": 20,
+    "q005": 20,
+    "q006": 20,
+    "q007": 20,
+    "q008": 20,
+    "q009": 20,
+    "q010": 10,
+    "q011": 10,
+    "q012": 10,
+    "q013": 20,
+    "q014": 20,
+    "q015": 20,
+    "q016": 20,
+    "q017": 20,
+    "q018": 20,
+    "q019": 20,
+    "q020": 20,
+    "q021": 20,
+    "q022": 20,
+    "q023": 20,
+    "q024": 20,
+    "q025": 20,
+    "q026": 20,
+    "q027": 20,
+    "q028": 10,
+    "q029": 10,
+    "q030": 10,
+    "q031": 20,
+    "q032": 20,
+    "q033": 20,
+    "q034": 20,
+    "q035": 20,
+    "q036": 20,
+    "q037": 20,
+    "q038": 20,
+    "q039": 20,
+    "q040": 20,
+    "q041": 20,
+    "q042": 20,
+    "q043": 10,
+    "q044": 10,
+    "q045": 10,
+    "q046": 10,
+    "q047": 10,
+    "q048": 10,
+    "q049": 654,
+    "q050": 192,
+    "q051": 633,
+    "q052": 173,
+    "q053": 672,
+    "q054": 286,
+    "q055": 682,
+    "q056": 208,
+    "q057": 661,
+    "q058": 579,
+    "q059": 696,
+    "q060": 169,
+    "q061": 571,
+    "q062": 135,
+    "q063": 647,
+    "q064": 573,
+    "q065": 671,
+    "q066": 363,
+    "q067": 673,
+    "q068": 464,
+    "q069": 648,
+    "q070": 392,
+    "q071": 674,
+    "q072": 520,
+    "q073": 693,
+    "q074": 518,
+    "q075": 663,
+    "q076": 252,
+    "q077": 683,
+    "q078": 237,
+    "q079": 651,
+    "q080": 399,
+    "q081": 667,
+    "q082": 358,
+    "q083": 628,
+    "q084": 332,
+    "q085": 633,
+    "q086": 303,
+    "q087": 672,
+    "q088": 696,
+    "q089": 1253,
+    "q090": 661,
+    "q091": 571,
+    "q092": 1287,
+    "q093": 671,
+    "q094": 648,
+    "q095": 673,
+    "q096": 647,
+    "q097": 1346,
+    "q098": 1261,
+    "q099": 1318,
+    "q100": 1367
+  }
+}
