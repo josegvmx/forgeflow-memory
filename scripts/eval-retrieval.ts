@@ -69,8 +69,9 @@ for (const space of spaces) {
   if (space) {
     const cov = await spaceCoverage(space.model, space.variant);
     if (cov.covered < cov.events) {
-      console.error(`Space ${space.model}/${space.variant}: only ${cov.covered} of ${cov.events} events have a vector. Run: npm run embed:variant -- --model ${space.model} --variant ${space.variant}`);
-      process.exit(2);
+      // Skipped, not fatal: the other spaces are still scored and written.
+      console.warn(`⚠ skipped ${space.model}/${space.variant}: only ${cov.covered} of ${cov.events} events have a vector (npm run embed:variant -- --model ${space.model} --variant ${space.variant})`);
+      continue;
     }
   }
   const vecs = await questionVectors(model);
