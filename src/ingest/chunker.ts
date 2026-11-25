@@ -20,9 +20,20 @@ import type { ReasoningEvent } from '../types.js';
 /** Metadata keys stored with an event but left out of its embedding text. */
 export const isEmbedded = (key: string): boolean => !key.startsWith('fault.') && key !== 'source';
 
-export function formatEventForEmbedding(event: ReasoningEvent): string {
+/**
+ * Embedding-text variants compared by the retrieval eval (R14 phase 3):
+ *   default       what the store embeds (scenario, node, cycle, type, mode, sentence, metadata)
+ *   no-scenario   the same without the `Scenario: <hash>` line (a hash carries no meaning for the model;
+ *                 the scenario is a filter instead)
+ *   content-only  the sentence alone
+ */
+export const TEXT_VARIANTS = ['default', 'no-scenario', 'content-only'] as const;
+export type TextVariant = (typeof TEXT_VARIANTS)[number];
+
+export function formatEventForEmbedding(event: ReasoningEvent, variant: TextVariant = 'default'): string {
+  if (variant === 'content-only') return event.content;
   const lines = [
-    `Scenario: ${event.scenarioId}`,
+    ...(variant === 'no-scenario' ? [] : [`Scenario: ${event.scenarioId}`]),
     `Node: ${event.nodeId}`,
     `Cycle: ${event.cycle}`,
     `Type: ${event.eventType}`,

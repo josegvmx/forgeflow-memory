@@ -23,15 +23,20 @@ export function embeddingModel(): string {
 export const EMBED_BATCH = 64;
 const DIMS = 1536;
 
-async function callEmbeddings(inputs: string[]): Promise<number[][]> {
-  const voyage = !!process.env.VOYAGE_API_KEY;
-  const model = embeddingModel();
+/** Models the service can embed with (both 1536-dim, so they share embedding_cache). */
+export const EMBEDDING_MODELS = ['voyage-code-2', 'text-embedding-3-small'] as const;
+export type EmbeddingModel = (typeof EMBEDDING_MODELS)[number];
+
+async function callEmbeddings(inputs: string[], model: string = embeddingModel()): Promise<number[][]> {
+  const voyage = model.startsWith('voyage-');
+  const key = voyage ? process.env.VOYAGE_API_KEY : process.env.OPENAI_API_KEY;
+  if (!key) throw new Error(`${model} needs ${voyage ? 'VOYAGE_API_KEY' : 'OPENAI_API_KEY'}`);
   const res = await withRetry(() =>
     fetch(voyage ? VOYAGE_API_URL : OPENAI_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${voyage ? process.env.VOYAGE_API_KEY : process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${key}`,
       },
       body: JSON.stringify({ model, input: inputs }),
     }),
@@ -50,10 +55,15 @@ async function callEmbeddings(inputs: string[]): Promise<number[][]> {
   return out;
 }
 
-/** Embed many strings, EMBED_BATCH per request, in order. */
+/** Embed many strings, EMBED_BATCH per request, in order, with the service's model. */
 export async function embedMany(texts: string[]): Promise<number[][]> {
+  return embedManyWith(embeddingModel(), texts);
+}
+
+/** Embed many strings with a named model (eval / variant scripts compare models). */
+export async function embedManyWith(model: string, texts: string[]): Promise<number[][]> {
   const out: number[][] = [];
-  for (let i = 0; i < texts.length; i += EMBED_BATCH) out.push(...await callEmbeddings(texts.slice(i, i + EMBED_BATCH)));
+  for (let i = 0; i < texts.length; i += EMBED_BATCH) out.push(...await callEmbeddings(texts.slice(i, i + EMBED_BATCH), model));
   return out;
 }
 
