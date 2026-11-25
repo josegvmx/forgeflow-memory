@@ -364,7 +364,11 @@ The golden set's 100 queries come from injected faults (ground truth from labels
 machine histories; relevance is a predicate on scenario, event type and metadata. `eval:retrieval` compares
 `vector`, `vector+scenario`, `fulltext` (any word, `content_tsv`), `hybrid` (vector + full text, reciprocal
 rank fusion) and `hybrid+scenario`, with recall@1/5/10 (÷ min(k, relevant)) and MRR@10, by query style
-and aspect. Results: [docs/retrieval-eval.md](docs/retrieval-eval.md).
+and aspect, plus `structured` (machine / part ids, cycles and the kind of event read from the question).
+Results: [docs/retrieval-eval.md](docs/retrieval-eval.md); embedding models and text variants:
+`npm run embed:variant` + `eval:retrieval -- --spaces …` → [docs/retrieval-eval-spaces.md](docs/retrieval-eval-spaces.md).
+Findings and the gate: [docs/retrieval-findings.md](docs/retrieval-findings.md); `npm run eval:gate` checks
+`tests/evals/fixtures/retrieval-gates.json` against a store holding the import.
 
 ---
 

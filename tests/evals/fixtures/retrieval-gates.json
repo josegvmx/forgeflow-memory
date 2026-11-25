@@ -1,0 +1,12 @@
+{
+  "_comment": "Retrieval gates on the golden-sim set (R14 phase 3, step 8). Minimums = measured on Railway (voyage-code-2, live HNSW column, 2026-11-24) minus a margin. Vague questions are reported, not gated. Raise a gate when a change measurably improves it; lower one only with a written reason.",
+  "gates": [
+    { "strategy": "structured", "group": "all", "metric": "recall@5", "min": 0.80, "note": "measured 0.85" },
+    { "strategy": "structured", "group": "all", "metric": "mrr", "min": 0.78, "note": "measured 0.84" },
+    { "strategy": "structured", "group": "style:specific", "metric": "recall@5", "min": 0.90, "note": "measured 0.97" },
+    { "strategy": "structured", "group": "style:operator", "metric": "recall@5", "min": 0.80, "note": "measured 0.89" },
+    { "strategy": "structured", "group": "aspect:disruption", "metric": "recall@5", "min": 0.90, "note": "measured 1.00" },
+    { "strategy": "structured", "group": "aspect:machine-history", "metric": "recall@5", "min": 0.90, "note": "measured 1.00" },
+    { "strategy": "vector+scenario", "group": "all", "metric": "recall@5", "min": 0.45, "note": "measured 0.51; floor for plain semantic search" }
+  ]
+}

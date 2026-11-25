@@ -17,6 +17,7 @@
     "golden:build": "tsx scripts/build-golden-sim.ts",
     "eval:retrieval": "tsx scripts/eval-retrieval.ts",
     "embed:variant": "tsx scripts/embed-variant.ts",
+    "eval:gate": "vitest run --config vitest.eval.config.ts tests/evals/retrieval.eval.ts",
     "explore": "tsx scripts/explore-retrieval.ts",
     "test": "vitest run",
     "test:watch": "vitest",

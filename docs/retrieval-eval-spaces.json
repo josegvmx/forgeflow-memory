@@ -1,0 +1,4694 @@
+{
+  "spaces": "voyage-code-2:default,voyage-code-2:no-scenario,voyage-code-2:content-only",
+  "simCommit": "6b0017c",
+  "summary": {
+    "vector+scenario @ voyage-code-2/default": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.58,
+          "5": 0.58,
+          "10": 0.57
+        },
+        "mrr": 0.589
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.367,
+            "5": 0.36,
+            "10": 0.343
+          },
+          "mrr": 0.382
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.778,
+            "5": 0.781,
+            "10": 0.772
+          },
+          "mrr": 0.786
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.313,
+            "10": 0.313
+          },
+          "mrr": 0.313
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.933,
+            "5": 0.933,
+            "10": 0.933
+          },
+          "mrr": 0.933
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.067,
+            "5": 0.067,
+            "10": 0.067
+          },
+          "mrr": 0.067
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.827,
+            "5": 0.827,
+            "10": 0.808
+          },
+          "mrr": 0.844
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        }
+      }
+    },
+    "hybrid+scenario @ voyage-code-2/default": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.57,
+          "5": 0.552,
+          "10": 0.552
+        },
+        "mrr": 0.62
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.4,
+            "5": 0.453,
+            "10": 0.47
+          },
+          "mrr": 0.506
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.796,
+            "5": 0.726,
+            "10": 0.715
+          },
+          "mrr": 0.82
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.125,
+            "5": 0.15,
+            "10": 0.156
+          },
+          "mrr": 0.156
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.733,
+            "5": 0.813,
+            "10": 0.827
+          },
+          "mrr": 0.8
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.133,
+            "5": 0.173,
+            "10": 0.187
+          },
+          "mrr": 0.202
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.846,
+            "5": 0.765,
+            "10": 0.746
+          },
+          "mrr": 0.882
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0.033
+          },
+          "mrr": 0.026
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0.1,
+            "10": 0.133
+          },
+          "mrr": 0.125
+        }
+      }
+    },
+    "structured @ voyage-code-2/default": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.81,
+          "5": 0.848,
+          "10": 0.862
+        },
+        "mrr": 0.834
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.8,
+            "5": 0.893,
+            "10": 0.913
+          },
+          "mrr": 0.856
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.963,
+            "5": 0.974,
+            "10": 0.978
+          },
+          "mrr": 0.969
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.338,
+            "10": 0.375
+          },
+          "mrr": 0.336
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.467,
+            "5": 0.56,
+            "10": 0.58
+          },
+          "mrr": 0.522
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0.333,
+            "5": 0.433,
+            "10": 0.467
+          },
+          "mrr": 0.389
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.5,
+            "5": 0.7,
+            "10": 0.817
+          },
+          "mrr": 0.646
+        }
+      }
+    },
+    "vector+scenario @ voyage-code-2/no-scenario": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.55,
+          "5": 0.528,
+          "10": 0.523
+        },
+        "mrr": 0.56
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.333,
+            "5": 0.3,
+            "10": 0.29
+          },
+          "mrr": 0.333
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.741,
+            "5": 0.719,
+            "10": 0.715
+          },
+          "mrr": 0.759
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.313,
+            "10": 0.313
+          },
+          "mrr": 0.313
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.8,
+            "5": 0.8,
+            "10": 0.8
+          },
+          "mrr": 0.8
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0,
+            "5": 0.04,
+            "10": 0.053
+          },
+          "mrr": 0.022
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.827,
+            "5": 0.773,
+            "10": 0.76
+          },
+          "mrr": 0.839
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        }
+      }
+    },
+    "hybrid+scenario @ voyage-code-2/no-scenario": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.5,
+          "5": 0.506,
+          "10": 0.509
+        },
+        "mrr": 0.563
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.333,
+            "5": 0.373,
+            "10": 0.39
+          },
+          "mrr": 0.421
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.704,
+            "5": 0.689,
+            "10": 0.68
+          },
+          "mrr": 0.768
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.125,
+            "5": 0.138,
+            "10": 0.156
+          },
+          "mrr": 0.138
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 0.6,
+            "5": 0.627,
+            "10": 0.68
+          },
+          "mrr": 0.642
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.067,
+            "5": 0.16,
+            "10": 0.18
+          },
+          "mrr": 0.179
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.769,
+            "5": 0.727,
+            "10": 0.71
+          },
+          "mrr": 0.825
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0.017,
+            "10": 0.017
+          },
+          "mrr": 0.021
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0,
+            "5": 0.133,
+            "10": 0.15
+          },
+          "mrr": 0.139
+        }
+      }
+    },
+    "structured @ voyage-code-2/no-scenario": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.8,
+          "5": 0.83,
+          "10": 0.842
+        },
+        "mrr": 0.82
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.733,
+            "5": 0.813,
+            "10": 0.847
+          },
+          "mrr": 0.788
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.963,
+            "5": 0.963,
+            "10": 0.963
+          },
+          "mrr": 0.963
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.375,
+            "5": 0.413,
+            "10": 0.425
+          },
+          "mrr": 0.396
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.4,
+            "5": 0.493,
+            "10": 0.513
+          },
+          "mrr": 0.456
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0.25,
+            "5": 0.267,
+            "10": 0.317
+          },
+          "mrr": 0.276
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.667,
+            "5": 0.9,
+            "10": 0.95
+          },
+          "mrr": 0.806
+        }
+      }
+    },
+    "vector+scenario @ voyage-code-2/content-only": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.49,
+          "5": 0.488,
+          "10": 0.502
+        },
+        "mrr": 0.5
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.667,
+            "5": 0.633,
+            "10": 0.637
+          },
+          "mrr": 0.667
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.444,
+            "5": 0.459,
+            "10": 0.483
+          },
+          "mrr": 0.464
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.313,
+            "10": 0.313
+          },
+          "mrr": 0.313
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.067,
+            "5": 0.067,
+            "10": 0.067
+          },
+          "mrr": 0.067
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.577,
+            "5": 0.573,
+            "10": 0.594
+          },
+          "mrr": 0.594
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0,
+            "10": 0
+          },
+          "mrr": 0
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.5,
+            "5": 0.5,
+            "10": 0.55
+          },
+          "mrr": 0.521
+        }
+      }
+    },
+    "hybrid+scenario @ voyage-code-2/content-only": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.51,
+          "5": 0.502,
+          "10": 0.502
+        },
+        "mrr": 0.559
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.7,
+            "5": 0.653,
+            "10": 0.65
+          },
+          "mrr": 0.714
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.463,
+            "5": 0.489,
+            "10": 0.496
+          },
+          "mrr": 0.545
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.263,
+            "10": 0.244
+          },
+          "mrr": 0.313
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 0.947,
+            "10": 0.927
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.067,
+            "5": 0.067,
+            "10": 0.1
+          },
+          "mrr": 0.101
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 0.596,
+            "5": 0.588,
+            "10": 0.588
+          },
+          "mrr": 0.674
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0,
+            "5": 0.033,
+            "10": 0.05
+          },
+          "mrr": 0.028
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.667,
+            "5": 0.667,
+            "10": 0.6
+          },
+          "mrr": 0.667
+        }
+      }
+    },
+    "structured @ voyage-code-2/content-only": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.81,
+          "5": 0.834,
+          "10": 0.857
+        },
+        "mrr": 0.83
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.833,
+            "5": 0.86,
+            "10": 0.907
+          },
+          "mrr": 0.861
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.944,
+            "5": 0.948,
+            "10": 0.959
+          },
+          "mrr": 0.95
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.4,
+            "10": 0.419
+          },
+          "mrr": 0.365
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.467,
+            "5": 0.507,
+            "10": 0.547
+          },
+          "mrr": 0.498
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0.25,
+            "5": 0.283,
+            "10": 0.4
+          },
+          "mrr": 0.304
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.667,
+            "5": 0.9,
+            "10": 0.95
+          },
+          "mrr": 0.806
+        }
+      }
+    }
+  },
+  "perQuery": {
+    "q001": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q002": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q003": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q004": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q005": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.6
+      }
+    },
+    "q006": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q007": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 9,
+        "recall5": 0
+      }
+    },
+    "q008": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q009": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q010": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q011": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q012": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 2,
+        "recall5": 0.8
+      }
+    },
+    "q013": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q014": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 7,
+        "recall5": 0
+      }
+    },
+    "q015": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q016": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 5,
+        "recall5": 0.2
+      }
+    },
+    "q017": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 5,
+        "recall5": 0.2
+      }
+    },
+    "q018": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q019": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q020": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q021": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q022": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q023": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q024": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q025": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q026": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 7,
+        "recall5": 0
+      }
+    },
+    "q027": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q028": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q029": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q030": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q031": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q032": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q033": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q034": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q035": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q036": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q037": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q038": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q039": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q040": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q041": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q042": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      }
+    },
+    "q043": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q044": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q045": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.6
+      }
+    },
+    "q046": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q047": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q048": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q049": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q050": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q051": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q052": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q053": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q054": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q055": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 2,
+        "recall5": 0.8
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q056": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q057": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q058": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q059": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q060": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q061": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q062": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 4,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q063": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q064": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q065": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q066": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q067": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q068": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q069": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q070": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q071": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q072": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 5,
+        "recall5": 0.2
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q073": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q074": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q075": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q076": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q077": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q078": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q079": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 10,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q080": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q081": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 7,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 3,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q082": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q083": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 9,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q084": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q085": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q086": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q087": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q088": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q089": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q090": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q091": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q092": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q093": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q094": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 4,
+        "recall5": 0.2
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 6,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q095": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q096": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q097": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q098": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 2,
+        "recall5": 0.4
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.8
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q099": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 8,
+        "recall5": 0
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.2
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    },
+    "q100": {
+      "vector+scenario @ voyage-code-2/default": {
+        "firstHit": 3,
+        "recall5": 0.4
+      },
+      "hybrid+scenario @ voyage-code-2/default": {
+        "firstHit": 2,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/default": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 0.4
+      },
+      "hybrid+scenario @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured @ voyage-code-2/no-scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "vector+scenario @ voyage-code-2/content-only": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "hybrid+scenario @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 0.6
+      },
+      "structured @ voyage-code-2/content-only": {
+        "firstHit": 1,
+        "recall5": 1
+      }
+    }
+  },
+  "relevant": {
+    "q001": 20,
+    "q002": 20,
+    "q003": 20,
+    "q004": 20,
+    "q005": 20,
+    "q006": 20,
+    "q007": 20,
+    "q008": 20,
+    "q009": 20,
+    "q010": 10,
+    "q011": 10,
+    "q012": 10,
+    "q013": 20,
+    "q014": 20,
+    "q015": 20,
+    "q016": 20,
+    "q017": 20,
+    "q018": 20,
+    "q019": 20,
+    "q020": 20,
+    "q021": 20,
+    "q022": 20,
+    "q023": 20,
+    "q024": 20,
+    "q025": 20,
+    "q026": 20,
+    "q027": 20,
+    "q028": 10,
+    "q029": 10,
+    "q030": 10,
+    "q031": 20,
+    "q032": 20,
+    "q033": 20,
+    "q034": 20,
+    "q035": 20,
+    "q036": 20,
+    "q037": 20,
+    "q038": 20,
+    "q039": 20,
+    "q040": 20,
+    "q041": 20,
+    "q042": 20,
+    "q043": 10,
+    "q044": 10,
+    "q045": 10,
+    "q046": 10,
+    "q047": 10,
+    "q048": 10,
+    "q049": 654,
+    "q050": 192,
+    "q051": 633,
+    "q052": 173,
+    "q053": 672,
+    "q054": 286,
+    "q055": 682,
+    "q056": 208,
+    "q057": 661,
+    "q058": 579,
+    "q059": 696,
+    "q060": 169,
+    "q061": 571,
+    "q062": 135,
+    "q063": 647,
+    "q064": 573,
+    "q065": 671,
+    "q066": 363,
+    "q067": 673,
+    "q068": 464,
+    "q069": 648,
+    "q070": 392,
+    "q071": 674,
+    "q072": 520,
+    "q073": 693,
+    "q074": 518,
+    "q075": 663,
+    "q076": 252,
+    "q077": 683,
+    "q078": 237,
+    "q079": 651,
+    "q080": 399,
+    "q081": 667,
+    "q082": 358,
+    "q083": 628,
+    "q084": 332,
+    "q085": 633,
+    "q086": 303,
+    "q087": 672,
+    "q088": 696,
+    "q089": 1253,
+    "q090": 661,
+    "q091": 571,
+    "q092": 1287,
+    "q093": 671,
+    "q094": 648,
+    "q095": 673,
+    "q096": 647,
+    "q097": 1346,
+    "q098": 1261,
+    "q099": 1318,
+    "q100": 1367
+  },
+  "skipped": []
+}
