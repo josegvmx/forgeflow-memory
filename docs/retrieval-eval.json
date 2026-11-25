@@ -268,10 +268,10 @@
         "n": 100,
         "recall": {
           "1": 0.26,
-          "5": 0.23,
-          "10": 0.252
+          "5": 0.232,
+          "10": 0.249
         },
-        "mrr": 0.313
+        "mrr": 0.314
       },
       "style": {
         "operator": {
@@ -279,7 +279,7 @@
           "recall": {
             "1": 0.1,
             "5": 0.073,
-            "10": 0.12
+            "10": 0.117
           },
           "mrr": 0.162
         },
@@ -287,17 +287,17 @@
           "n": 54,
           "recall": {
             "1": 0.407,
-            "5": 0.367,
-            "10": 0.38
+            "5": 0.37,
+            "10": 0.378
           },
-          "mrr": 0.465
+          "mrr": 0.467
         },
         "vague": {
           "n": 16,
           "recall": {
             "1": 0.063,
             "5": 0.063,
-            "10": 0.069
+            "10": 0.063
           },
           "mrr": 0.083
         }
@@ -307,10 +307,10 @@
           "n": 15,
           "recall": {
             "1": 0.2,
-            "5": 0.213,
-            "10": 0.293
+            "5": 0.227,
+            "10": 0.273
           },
-          "mrr": 0.292
+          "mrr": 0.294
         },
         "failure": {
           "n": 15,
@@ -319,7 +319,7 @@
             "5": 0.013,
             "10": 0.073
           },
-          "mrr": 0.039
+          "mrr": 0.043
         },
         "machine-history": {
           "n": 52,
@@ -436,6 +436,93 @@
           "mrr": 0.083
         }
       }
+    },
+    "structured": {
+      "all": {
+        "n": 100,
+        "recall": {
+          "1": 0.82,
+          "5": 0.846,
+          "10": 0.865
+        },
+        "mrr": 0.84
+      },
+      "style": {
+        "operator": {
+          "n": 30,
+          "recall": {
+            "1": 0.833,
+            "5": 0.893,
+            "10": 0.927
+          },
+          "mrr": 0.878
+        },
+        "specific": {
+          "n": 54,
+          "recall": {
+            "1": 0.963,
+            "5": 0.974,
+            "10": 0.978
+          },
+          "mrr": 0.969
+        },
+        "vague": {
+          "n": 16,
+          "recall": {
+            "1": 0.313,
+            "5": 0.325,
+            "10": 0.369
+          },
+          "mrr": 0.333
+        }
+      },
+      "aspect": {
+        "disruption": {
+          "n": 15,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "failure": {
+          "n": 15,
+          "recall": {
+            "1": 0.6,
+            "5": 0.6,
+            "10": 0.6
+          },
+          "mrr": 0.6
+        },
+        "machine-history": {
+          "n": 52,
+          "recall": {
+            "1": 1,
+            "5": 1,
+            "10": 1
+          },
+          "mrr": 1
+        },
+        "recovery": {
+          "n": 12,
+          "recall": {
+            "1": 0.25,
+            "5": 0.383,
+            "10": 0.475
+          },
+          "mrr": 0.348
+        },
+        "reroute": {
+          "n": 6,
+          "recall": {
+            "1": 0.5,
+            "5": 0.667,
+            "10": 0.8
+          },
+          "mrr": 0.638
+        }
+      }
     }
   },
   "perQuery": {
@@ -457,6 +544,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -481,6 +572,10 @@
       "hybrid+scenario": {
         "firstHit": 3,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q003": {
@@ -503,6 +598,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q004": {
@@ -525,6 +624,10 @@
       "hybrid+scenario": {
         "firstHit": 9,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q005": {
@@ -547,6 +650,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q006": {
@@ -567,6 +674,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -591,6 +702,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 3,
+        "recall5": 0.6
       }
     },
     "q008": {
@@ -613,6 +728,10 @@
       "hybrid+scenario": {
         "firstHit": 8,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 7,
+        "recall5": 0
       }
     },
     "q009": {
@@ -633,6 +752,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -657,6 +780,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q011": {
@@ -679,6 +806,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 2,
+        "recall5": 0.8
       }
     },
     "q012": {
@@ -701,6 +832,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 5,
+        "recall5": 0.2
       }
     },
     "q013": {
@@ -717,10 +852,14 @@
         "recall5": 0.2
       },
       "hybrid": {
-        "firstHit": 5,
+        "firstHit": 4,
         "recall5": 0.2
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -745,6 +884,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q015": {
@@ -765,6 +908,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -789,6 +936,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q017": {
@@ -811,6 +962,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 5,
+        "recall5": 0.2
       }
     },
     "q018": {
@@ -833,6 +988,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
       }
     },
     "q019": {
@@ -849,10 +1008,14 @@
         "recall5": 0.4
       },
       "hybrid": {
-        "firstHit": 7,
-        "recall5": 0
+        "firstHit": 5,
+        "recall5": 0.2
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -877,6 +1040,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q021": {
@@ -899,6 +1066,10 @@
       "hybrid+scenario": {
         "firstHit": 5,
         "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q022": {
@@ -921,6 +1092,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q023": {
@@ -943,6 +1118,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q024": {
@@ -963,6 +1142,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -987,6 +1170,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
       }
     },
     "q026": {
@@ -1009,6 +1196,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 2,
+        "recall5": 0.8
       }
     },
     "q027": {
@@ -1031,6 +1222,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
       }
     },
     "q028": {
@@ -1047,10 +1242,14 @@
         "recall5": 0.4
       },
       "hybrid": {
-        "firstHit": 6,
+        "firstHit": 7,
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1075,6 +1274,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q030": {
@@ -1095,6 +1298,10 @@
         "recall5": 0.8
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1119,6 +1326,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q032": {
@@ -1139,6 +1350,10 @@
         "recall5": 0.4
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1163,6 +1378,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q034": {
@@ -1185,6 +1404,10 @@
       "hybrid+scenario": {
         "firstHit": 8,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q035": {
@@ -1205,6 +1428,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -1229,6 +1456,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": null,
+        "recall5": 0
       }
     },
     "q037": {
@@ -1251,6 +1482,10 @@
       "hybrid+scenario": {
         "firstHit": 4,
         "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q038": {
@@ -1273,6 +1508,10 @@
       "hybrid+scenario": {
         "firstHit": 6,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q039": {
@@ -1293,6 +1532,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -1317,6 +1560,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q041": {
@@ -1339,6 +1586,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q042": {
@@ -1359,6 +1610,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": null,
+        "recall5": 0
+      },
+      "structured": {
         "firstHit": null,
         "recall5": 0
       }
@@ -1383,6 +1638,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q044": {
@@ -1405,6 +1664,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q045": {
@@ -1427,6 +1690,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 8,
+        "recall5": 0
       }
     },
     "q046": {
@@ -1447,6 +1714,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1471,6 +1742,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q048": {
@@ -1491,6 +1766,10 @@
         "recall5": 0.2
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1515,6 +1794,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q050": {
@@ -1535,6 +1818,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1559,6 +1846,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q052": {
@@ -1579,6 +1870,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1603,6 +1898,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q054": {
@@ -1623,6 +1922,10 @@
         "recall5": 0.8
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1647,6 +1950,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q056": {
@@ -1667,6 +1974,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1691,6 +2002,10 @@
       "hybrid+scenario": {
         "firstHit": 6,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q058": {
@@ -1711,6 +2026,10 @@
         "recall5": 0.2
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1735,6 +2054,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q060": {
@@ -1755,6 +2078,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1779,6 +2106,10 @@
       "hybrid+scenario": {
         "firstHit": 5,
         "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q062": {
@@ -1799,6 +2130,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1823,6 +2158,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q064": {
@@ -1843,6 +2182,10 @@
         "recall5": 0.6
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1867,6 +2210,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q066": {
@@ -1887,6 +2234,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1911,6 +2262,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q068": {
@@ -1931,6 +2286,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1955,6 +2314,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q070": {
@@ -1975,6 +2338,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -1999,6 +2366,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q072": {
@@ -2021,6 +2392,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.8
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q073": {
@@ -2043,6 +2418,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q074": {
@@ -2063,6 +2442,10 @@
         "recall5": 0.8
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2087,6 +2470,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q076": {
@@ -2107,6 +2494,10 @@
         "recall5": 0.2
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2131,6 +2522,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q078": {
@@ -2151,6 +2546,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2175,6 +2574,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q080": {
@@ -2195,6 +2598,10 @@
         "recall5": 0.4
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2219,6 +2626,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q082": {
@@ -2239,6 +2650,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2263,6 +2678,10 @@
       "hybrid+scenario": {
         "firstHit": 6,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q084": {
@@ -2283,6 +2702,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2307,6 +2730,10 @@
       "hybrid+scenario": {
         "firstHit": 6,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q086": {
@@ -2327,6 +2754,10 @@
         "recall5": 1
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2351,6 +2782,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 1
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q088": {
@@ -2373,6 +2808,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.6
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q089": {
@@ -2395,6 +2834,10 @@
       "hybrid+scenario": {
         "firstHit": 4,
         "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q090": {
@@ -2417,6 +2860,10 @@
       "hybrid+scenario": {
         "firstHit": null,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q091": {
@@ -2439,6 +2886,10 @@
       "hybrid+scenario": {
         "firstHit": 4,
         "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q092": {
@@ -2461,6 +2912,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q093": {
@@ -2481,6 +2936,10 @@
         "recall5": 0.2
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2505,6 +2964,10 @@
       "hybrid+scenario": {
         "firstHit": 5,
         "recall5": 0.2
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q095": {
@@ -2527,6 +2990,10 @@
       "hybrid+scenario": {
         "firstHit": 3,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q096": {
@@ -2549,6 +3016,10 @@
       "hybrid+scenario": {
         "firstHit": 1,
         "recall5": 0.8
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q097": {
@@ -2569,6 +3040,10 @@
         "recall5": 0
       },
       "hybrid+scenario": {
+        "firstHit": 1,
+        "recall5": 1
+      },
+      "structured": {
         "firstHit": 1,
         "recall5": 1
       }
@@ -2593,6 +3068,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q099": {
@@ -2615,6 +3094,10 @@
       "hybrid+scenario": {
         "firstHit": 8,
         "recall5": 0
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     },
     "q100": {
@@ -2637,6 +3120,10 @@
       "hybrid+scenario": {
         "firstHit": 2,
         "recall5": 0.4
+      },
+      "structured": {
+        "firstHit": 1,
+        "recall5": 1
       }
     }
   },
