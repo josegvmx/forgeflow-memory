@@ -42,12 +42,8 @@ export interface GoldenSimSet {
   queries: GoldenSimQuery[];
 }
 
-/** OP_WELD → "welding"; unknown ops → the lowercase word. */
-const OP_WORDS: Record<string, string> = {
-  WELD: 'welding', CNC: 'CNC machining', COAT: 'coating', ELEC: 'electrical assembly', QA: 'quality inspection', PAINT: 'painting', MECH: 'mechanical assembly',
-  ASSEMBLY: 'assembly', ASSEMBLE: 'assembly', CUT: 'cutting', BEND: 'bending', INSPECT: 'inspection', TEST: 'testing', PACK: 'packing',
-};
-export const opWords = (op: string) => { const k = op.replace(/^OP_/, '').toUpperCase(); return OP_WORDS[k] ?? k.toLowerCase().replace(/_/g, ' '); };
+export { opWords } from '../retrieval/vocabulary.js';
+import { opWords } from '../retrieval/vocabulary.js';
 
 /** A short readable scenario name for questions ("Apex Cycle Works"); falls back to `fallback`. */
 export function shortScenarioName(name: string | undefined, fallback: string): string {
