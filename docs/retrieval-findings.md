@@ -47,7 +47,9 @@ Embedding spaces, searched exactly (same vectors and question set):
 3. **Full text and hybrid don't help here**: matching any word is too loose on templated sentences, and fusing
    it with vectors lowers recall (MRR rises slightly).
 4. **Keep the labelled metadata in the embedded text**: dropping the scenario line or keeping only the sentence
-   lowers vector recall (0.58 → 0.53 → 0.49). `structured` barely depends on it (0.83–0.85).
+   lowers vector recall (0.58 → 0.53 → 0.49). It is a trade, not a loss everywhere: the sentence alone serves
+   plain-language questions better (operator style 0.63 vs 0.36, reroutes 0.50 vs 0.00) and id questions worse
+   (specific 0.46 vs 0.78). `structured` barely depends on it (0.83–0.85).
 5. **The HNSW index costs recall under a filter**: the same vectors give 0.58 searched exactly but 0.51 through
    the index with the scenario filter (it takes its nearest candidates first, then filters). At ~21k events an
    exact or per-scenario search is affordable.
@@ -70,6 +72,8 @@ recall@5 ≥ 0.45. Run against a store holding the import:
 ```bash
 DATABASE_URL=<store with the sim export> npm run eval:gate
 ```
+
+Last run (Railway, 2026-11-24): passed — structured recall@5 0.85 / MRR 0.84, vector+scenario 0.51.
 
 ## Next (phase 4)
 `/query` still uses plain vector search (the weakest row above). Candidates: scenario filter by default,
