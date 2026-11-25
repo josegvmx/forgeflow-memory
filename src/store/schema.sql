@@ -262,3 +262,22 @@ ALTER TABLE reasoning_events ADD COLUMN IF NOT EXISTS embed_text_hash TEXT;
 UPDATE reasoning_events SET metadata = (metadata #>> '{}')::jsonb WHERE jsonb_typeof(metadata) = 'string';
 UPDATE runs SET flags  = (flags  #>> '{}')::jsonb WHERE jsonb_typeof(flags)  = 'string';
 UPDATE runs SET faults = (faults #>> '{}')::jsonb WHERE jsonb_typeof(faults) = 'string';
+
+-- ============================================================
+-- R14 phase 3 — embedding spaces for the retrieval eval
+--
+-- An event's embedding text under each variant (src/ingest/chunker.ts:
+-- default, no-scenario, content-only), by hash. With embedding_cache
+-- (model, text_hash) this gives every event a vector per (model, variant)
+-- without new vector columns; the eval searches a space exactly.
+-- Filled by `npm run embed:variant`; the live store only uses
+-- reasoning_events.embedding.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS event_text_variants (
+  event_id   UUID NOT NULL REFERENCES reasoning_events(id) ON DELETE CASCADE,
+  variant    TEXT NOT NULL,
+  text_hash  TEXT NOT NULL,
+  PRIMARY KEY (event_id, variant)
+);
+
+CREATE INDEX IF NOT EXISTS event_text_variants_hash_idx ON event_text_variants (variant, text_hash);

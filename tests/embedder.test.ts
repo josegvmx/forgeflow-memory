@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { embedMany, embed, embeddingModel, EMBED_BATCH } from '../src/ingest/embedder.js';
+import { embedMany, embedManyWith, embed, embeddingModel, EMBED_BATCH } from '../src/ingest/embedder.js';
 
 const vec = (x: number) => new Array(1536).fill(x);
 let bodies: any[] = [];
@@ -36,6 +36,22 @@ describe('embedder (R14 phase 3: batched)', () => {
   it('embed(text) is one request with one input', async () => {
     expect((await embed('7'))[0]).toBe(7);
     expect(bodies).toEqual([{ model: 'text-embedding-3-small', input: ['7'] }]);
+  });
+
+  it('embedManyWith uses the named model and its own key, whatever the default is', async () => {
+    vi.stubEnv('VOYAGE_API_KEY', 'v-key');
+    await embedManyWith('text-embedding-3-small', ['1']);
+    expect(bodies.at(-1).model).toBe('text-embedding-3-small');
+    const calls = (globalThis.fetch as unknown as { mock: { calls: [string, { headers: Record<string, string> }][] } }).mock.calls;
+    expect(calls.at(-1)![0]).toContain('openai.com');
+    expect(calls.at(-1)![1].headers.Authorization).toBe('Bearer test-key');
+    await embedManyWith('voyage-code-2', ['2']);
+    expect(calls.at(-1)![0]).toContain('voyageai.com');
+    expect(calls.at(-1)![1].headers.Authorization).toBe('Bearer v-key');
+  });
+
+  it('says which key a model needs when it is missing', async () => {
+    await expect(embedManyWith('voyage-code-2', ['1'])).rejects.toThrow('voyage-code-2 needs VOYAGE_API_KEY');
   });
 
   it('refuses a reply with the wrong number or size of vectors', async () => {
